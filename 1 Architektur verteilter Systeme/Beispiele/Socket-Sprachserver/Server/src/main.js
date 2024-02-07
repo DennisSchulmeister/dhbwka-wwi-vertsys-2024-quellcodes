@@ -50,7 +50,7 @@ let server = net.createServer(socket => {
                 log(socket, "Send greeting");
 
                 socket.write("HELLO\n");
-                socket.write("COMMANDS: SAY some words, GET_STATUS, GET_QUEUE, BYE\n");
+                socket.write("COMMANDS:  SAY: some words,  GET_STATUS,  GET_QUEUE,  BYE\n");
                 break;
 
             case "SAY:":
@@ -58,7 +58,7 @@ let server = net.createServer(socket => {
                 log(socket, `Say: ${val}`);
 
                 speach.say(val);
-                socket.write("CONFIRM");
+                socket.write("CONFIRM\n");
             
                 break;
 
