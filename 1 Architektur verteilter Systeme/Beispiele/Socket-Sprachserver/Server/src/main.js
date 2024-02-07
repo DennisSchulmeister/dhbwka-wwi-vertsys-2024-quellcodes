@@ -78,7 +78,7 @@ let server = net.createServer(socket => {
                     socket.write(`QUEUE: ${text}\n`);
                 }
 
-                socket.write("QUEUE_END");
+                socket.write("QUEUE_END\n");
                 break;
 
             case "BYE":
