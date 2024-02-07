@@ -12,15 +12,6 @@ import net         from "net";
 
 import {Speach}    from "./speach.js";
 
-// Serverkonfiguration aus Umgebungsvariablen oder .env-Datei lesen
-dotenv.config();
-
-const LISTEN_IP   = process.env.SAY_LISTEN_IP || "";
-const LISTEN_PORT = parseInt(process.env.SAY_LISTEN_PORT) || 7000;
-
-// Worker Thread für die Sprachausgabe starten
-let speach = new Speach();
-
 // Hilfsmethode für strukturierte Logausgaben
 function log(socket, ...args) {
     if (socket) {
@@ -31,14 +22,26 @@ function log(socket, ...args) {
     }
 }
 
+// Serverkonfiguration aus Umgebungsvariablen oder .env-Datei lesen
+dotenv.config();
+
+const LISTEN_IP   = process.env.SAY_LISTEN_IP || "";
+const LISTEN_PORT = parseInt(process.env.SAY_LISTEN_PORT) || 7000;
+
+// Worker Thread für die Sprachausgabe starten
+let speach = new Speach();
+
 // Socket-Server starten
 let server = net.createServer(socket => {
     // Verbindung mit neuem Client hergestellt
+    log(socket, "Client connected");
+
     socket.setEncoding("utf-8");
     socket.setNoDelay();
 
-    log(socket, "Client connected");
-
+    socket.on("error", err => log(socket, err));
+    socket.on("close", () => log(socket, "Client disconnected"));
+    
     socket.on("data", data => {
         data = data.replace(/\s+$/g, "");
         let cmd = data.split(" ")[0];
@@ -96,9 +99,6 @@ let server = net.createServer(socket => {
                 break;
         }
     });
-
-    socket.on("error", err => log(socket, err));
-    socket.on("close", () => log(socket, "Client disconnected"));
 });
 
 log(null, `Server listening on ${LISTEN_IP}:${LISTEN_PORT}`);

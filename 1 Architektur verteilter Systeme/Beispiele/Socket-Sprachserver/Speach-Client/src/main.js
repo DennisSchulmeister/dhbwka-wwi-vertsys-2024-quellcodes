@@ -54,7 +54,7 @@ let socket = net.createConnection({host: LISTEN_IP, port: LISTEN_PORT}, async ()
         return;
     }
 
-    const rl = readline.createInterface({ input, output });
+    const rl = readline.createInterface({input, output});
 
     while (connected) {
         // Menü anzeigen und Benutzereingabe abwarten
@@ -136,8 +136,13 @@ let socket = net.createConnection({host: LISTEN_IP, port: LISTEN_PORT}, async ()
         }
     }
 
+    // Verbindung trennen
+    socket.end();
+    socket.destroy();
+
     rl.close();
 });
+
 
 // Empfangene Daten an die Hauptschleife oben schicken
 socket.on("data", data => {
@@ -147,8 +152,8 @@ socket.on("data", data => {
 
 // Fehler protokollieren
 socket.on("error", err => {
-    console.error("\n", err)
     abortUserInput.abort();
+    console.error("\n", err)
 });
 
 // Bei Verbindungsende das Programm beenden
