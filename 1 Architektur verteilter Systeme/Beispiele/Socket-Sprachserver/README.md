@@ -77,21 +77,21 @@ von denen jede mit einem eindeutigen Kommando beginnt.
 Start der beiden Anwendungen
 ----------------------------
 
-Die beiden Verzeichnisse `Server` und `Client` beinhalten jeweils ein kleines
-Node.js-Konsolenprogramm. Auf dem eigenen Rechner muss daher Node.js (oder Docker,
-siehe unten) installiert sein, um die Programme ausführen zu können. Zunächst
-müssen hierfür die jeweiligen Abhängigkeiten installiert werden:
+Die beiden Verzeichnisse `Speach-Server` und `Speach-Client` beinhalten jeweils ein kleines
+Node.js-Konsolenprogramm. Auf dem eigenen Rechner muss daher Node.js (oder Docker, siehe unten)
+installiert sein, um die Programme ausführen zu können. Zunächst müssen hierfür die jeweiligen
+Abhängigkeiten installiert werden:
 
 ```sh
-cd Server
+cd Speach-Server
 npm install
 
-cd ../Client
+cd ../Speach-Client
 npm install
 ```
 
-Anschließend kann im jeweiligen Verzeichnis `npm start` ausgeführt werden, um
-das eigentliche Programm zu starten.
+Anschließend kann im jeweiligen Verzeichnis `npm start` ausgeführt werden, um das eigentliche
+Programm zu starten.
 
 Ausführen mit Docker
 --------------------
