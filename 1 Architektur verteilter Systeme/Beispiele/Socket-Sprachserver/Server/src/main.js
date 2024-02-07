@@ -86,6 +86,7 @@ let server = net.createServer(socket => {
                 log(socket, "Client says goodbye");
 
                 socket.end();
+                socket.destroy();
                 return;
 
             default:
