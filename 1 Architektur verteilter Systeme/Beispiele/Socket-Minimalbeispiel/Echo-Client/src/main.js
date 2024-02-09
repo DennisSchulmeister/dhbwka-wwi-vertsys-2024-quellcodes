@@ -100,7 +100,7 @@ socket.on("error", err => {
     abortUserInput.abort();
 
     // Fehler anzeigen
-    console.error("\n", err)
+    console.error("\n", err);
 
     // Programm beenden
     connected = false;
