@@ -25,7 +25,7 @@ dieses Ereignis.
 Große Sorgfalt ist geboten, die asynchronen Abläufe korrekt hinzubekommen. Zum Glück
 laufen die Event Handler im selben Thread, nur jeweils zu anderen Zeitpunkten. Das
 vereinfacht die Programmierung zumindest insofern, als dass man sich darauf verlassen
-kann, dass nach dem Auslösen eines Events zunächst die Eventempfänger ausgeführt werden,
+kann, dass nach dem Auslösen eines Events zunächst die Event-Empfänger ausgeführt werden,
 bevor neue Daten empfangen und neue Events hierzu ausgelöst werden können. Würden die
 Event Handler, wie zum Beispiel in älterem Java- oder Python-Code üblich, in separaten
 Threads laufen, wäre diese Garantie nicht gegeben und man müsste die Threads zusätzlich
