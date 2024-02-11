@@ -18,9 +18,14 @@ import {stdout as output} from 'node:process';
 import {EventEmitter}     from 'node:events';
 import {once}             from 'node:events';
 
+
+// Serverkonfiguration aus Umgebungsvariablen oder .env-Datei lesen
 dotenv.config();
-const LISTEN_IP   = process.env.SAY_LISTEN_IP || "";
-const LISTEN_PORT = parseInt(process.env.SAY_LISTEN_PORT) || 7001;
+
+const DEFAULT_PORT = 7001;
+
+const LISTEN_IP   =          process.env.ECHO_LISTEN_IP    || "";
+const LISTEN_PORT = parseInt(process.env.ECHO_LISTEN_PORT) || DEFAULT_PORT;
 
 // Hilfsobjekt, um die empfangenen Daten aus dem Event Handler ganz unten
 // an die Programmlogik in der Hauptschleife zu senden. Bei Empfang von
