@@ -1,5 +1,5 @@
 {
-  "name": "say-client",
+  "name": "echo-client",
   "version": "1.0.0",
   "description": "Socket-Minimalbeispiel: Echo-Client",
   "author": "Dennis Schulmeister-Zimolong",
