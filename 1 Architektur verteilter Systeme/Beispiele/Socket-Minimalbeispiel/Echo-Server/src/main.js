@@ -18,11 +18,17 @@ function log(socket, ...args) {
     }
 }
 
-// Serverkonfiguration aus Umgebungsvariablen oder .env-Datei lesen
+// Serverkonfiguration aus Umgebungsvariablen oder .env-Datei lesen.
+// Diese Datei muss bei Bedarf im Wurzelverzeichnis der Anwendung liegen 
+// (also das Verzeichnis, wo die package.json liegt), und die Konfigurationen
+// in Form von Key-Value-Paaren enthalten, z.B.:
+// ECHO_LISTEN_PORT=7010
 dotenv.config();
 
-const LISTEN_IP   = process.env.SAY_LISTEN_IP || "";
-const LISTEN_PORT = parseInt(process.env.SAY_LISTEN_PORT) || 7001;
+const DEFAULT_PORT = 7001;
+
+const LISTEN_IP   = process.env.ECHO_LISTEN_IP             || "";
+const LISTEN_PORT = parseInt(process.env.ECHO_LISTEN_PORT) || DEFAULT_PORT;
 
 // Socket-Server starten
 let server = net.createServer(socket => {
