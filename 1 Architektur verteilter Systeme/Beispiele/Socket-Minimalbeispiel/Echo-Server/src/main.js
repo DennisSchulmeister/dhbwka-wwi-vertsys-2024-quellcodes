@@ -1,7 +1,7 @@
 /**
  * Echo-Server
  * ===========
- * 
+ *
  * Schickt eine kleine Begrüßung an jeden Client und sendet sonst einfach nur die
  * Daten zurück, die vom Client empfangen werden.
  */
@@ -19,7 +19,7 @@ function log(socket, ...args) {
 }
 
 // Serverkonfiguration aus Umgebungsvariablen oder .env-Datei lesen.
-// Diese Datei muss bei Bedarf im Wurzelverzeichnis der Anwendung liegen 
+// Diese Datei muss bei Bedarf im Wurzelverzeichnis der Anwendung liegen
 // (also das Verzeichnis, wo die package.json liegt), und die Konfigurationen
 // in Form von Key-Value-Paaren enthalten, z.B.:
 // ECHO_LISTEN_PORT=7010
@@ -29,6 +29,7 @@ const DEFAULT_PORT = 7001;
 
 const LISTEN_IP   = process.env.ECHO_LISTEN_IP             || "";
 const LISTEN_PORT = parseInt(process.env.ECHO_LISTEN_PORT) || DEFAULT_PORT;
+
 
 // Socket-Server starten
 let server = net.createServer(socket => {
@@ -40,7 +41,7 @@ let server = net.createServer(socket => {
     socket.write("Hallo! Ich bin der Echo-Server. Schicke mir Daten und ich schicke sie dir zurück.\n");
 
     socket.on("error", err => log(socket, err));
-    socket.on("close", () => log(socket, "Client getrennt"));
+    socket.on("close", ()  => log(socket, "Client getrennt"));
 
     socket.on("data", data => {
         log(socket, "Empfangene Daten:", data);
