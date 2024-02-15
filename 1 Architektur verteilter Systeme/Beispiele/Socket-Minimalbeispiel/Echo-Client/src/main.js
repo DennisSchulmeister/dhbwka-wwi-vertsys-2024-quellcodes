@@ -24,8 +24,8 @@ dotenv.config();
 
 const DEFAULT_PORT = 7001;
 
-const LISTEN_IP   =          process.env.ECHO_LISTEN_IP    || "";
-const LISTEN_PORT = parseInt(process.env.ECHO_LISTEN_PORT) || DEFAULT_PORT;
+const TARGET_IP   =          process.env.TARGET_IP    || "";
+const TARGET_PORT = parseInt(process.env.TARGET_PORT) || DEFAULT_PORT;
 
 
 // Hilfsobjekt, um die empfangenen Daten aus dem Event Handler ganz unten
@@ -49,9 +49,9 @@ let nutzereingabeAbbrechen = new AbortController();
 let verbunden = false;
 
 // Verbindung mit Server herstellen und Protokoll abwickeln
-console.log(`Stelle Verbindung her zu ${LISTEN_IP}:${LISTEN_PORT}`);
+console.log(`Stelle Verbindung her zu ${TARGET_IP}:${TARGET_PORT}`);
 
-let echoSocket = net.createConnection({host: LISTEN_IP, port: LISTEN_PORT}, async () => {
+let echoSocket = net.createConnection({host: TARGET_IP, port: TARGET_PORT}, async () => {
 
     echoSocket.setNoDelay();
     verbunden = true;
