@@ -1,0 +1,10 @@
+{
+    "name": "@dschulmeis/naas",
+    "version": "1.0.0",
+    "description": "Notebook-as-a-Service",
+    "author": "Dennis Schulmeister-Zimolong <dhbw@windows3.de>",
+    "license": "CC-BY-4.0",
+    "type": "module",
+    "workspaces": ["common"]
+  }
+  

@@ -1,0 +1,20 @@
+{
+  "name": "@dschulmeis/naas-common",
+  "version": "1.0.0",
+  "description": "Notebook-as-a-Service: Geteilter Quellcode",
+  "author": "Dennis Schulmeister-Zimolong <dhbw@windows3.de>",
+  "license": "CC-BY-4.0",
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^16.4.4",
+    "express": "^4.18.2",
+    "express-actuator": "^1.8.4",
+    "gradient-string": "^2.0.2",
+    "http-terminator": "^3.2.0",
+    "logging": "^3.3.0",
+    "qs": "^6.11.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
+}

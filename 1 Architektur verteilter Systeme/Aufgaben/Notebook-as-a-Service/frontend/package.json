@@ -1,0 +1,15 @@
+{
+  "name": "@dschulmeis/naas-frontend",
+  "version": "1.0.0",
+  "description": "Notebook-as-a-Service: Frontend",
+  "author": "Dennis Schulmeister-Zimolong <dhbw@windows3.de>",
+  "license": "CC-BY-4.0",
+  "type": "module",
+  "scripts": {
+    "start": "node src/main.js",
+    "watch": "nodemon src/main.js"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
+}
