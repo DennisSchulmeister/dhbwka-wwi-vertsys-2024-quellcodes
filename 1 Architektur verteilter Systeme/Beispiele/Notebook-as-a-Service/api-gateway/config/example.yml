@@ -1,0 +1,98 @@
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Dies ist eine Beispielkonfiguration für unser selbst-gebautes API-Gateway. Hier werden
+# die HTTP-Endpunkte definiert, auf die das Gateway reagiert und die Zieladresse, an welche
+# die Anfragen weitergeleitet werden.
+#
+# In dieser Vorlage laufen alle Services auf dem lokalen Host. Probieren Sie zunächst,
+# die Anwendung auf diese Weise zum Laufen zu bekommen. Im nächsten Schritt sollen Sie
+# die Services dann auf unterschiedlichen Rechnern laufen lassen, wofür Sie diese
+# Konfiguration kopieren und anpassen müssen.
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+variables:
+  allowed_origins:
+    # Adresse des Frontend-Servers für die CORS-Prüfungen unten
+    - http://localhost:8000
+
+rules:
+  #-----------------------------------------------------------------------------------------------
+  # CORS: Cross-Origin Ressource Sharing
+  # ====================================
+  #
+  # Wann immer ein Skript im Browser versucht, eine HTTP-Anfragen an einen anderen Server zu
+  # schicken, als der, von dem das Skript geladen wurde, wägt der Browser ab, ob es sich um eine
+  # potentiell gefährliche Anfrage handeln könnte, die Daten auf dem Server verändert. Falls ja,
+  # wird zunächst eine OPTIONS-Anfrage an den Server geschickt (sog. OPTIONS Pre-Flight), um zu
+  # prüfen, ob der Server ...
+  #
+  #   a) das CORS-Sicherheitskonzept unterstützt und
+  #   b) die gewünschte Anfrage genehmigt.
+  #
+  # Kennt der Server kein CORS oder lehnt die Anfrage, wird dem Skript ein Fehler gemeldet. Nur,
+  # wenn der Server mit den untenstehenden Access-Control-Allow-... Header Fields antwortet, wird
+  # die Anfrage durchgelassen.
+  #
+  # Vgl. https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS für Details
+  #-----------------------------------------------------------------------------------------------
+  # CORS: Erlaubte Quellen
+  - if:
+      headers:
+        origin: ${config.variables.allowed_origins}
+    then:
+      headers:
+        vary: Origin
+        access-control-allow-origin: ${request.headers.origin}
+  
+  # CORS: Options Pre-Flight
+  - if:
+      method: [OPTIONS]
+      headers:
+        origin: ${config.variables.allowed_origins}
+    then:
+      headers:
+        access-control-allow-methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
+        access-control-allow-headers: "*"
+        access-control-allow-credentials: true
+
+  #-----------------------------------------------------------------------------------------------
+  # Weiterleitungsregeln43em;
+  # ====================
+  #
+  # Hier werden die Regeln definiert, wann welcher Request an welchen Backendservice weitergeleitet
+  # wird. Das API-Gateway ist dabei so programmiert, dass der URL-Prefix (z.B. "/api/catalogue/")
+  # bei der weitergeleiteten Anfrage entfernt wird. Eine Anfrage an "/api/catalogue/hello" wird
+  # daher in "/hello" umgeschrieben, da der entfernte Server nur diese URL kennt.
+  #-----------------------------------------------------------------------------------------------
+  - if:
+      url: /api/catalogue/*
+      method: [GET, POST, PUT, PATCH, DELETE]
+      headers:
+        origin: ${config.variables.allowed_origins}
+    then:
+      # Load Balancing: Liste der Zielserver
+      forward-to: [localhost:8020]
+      
+      # Nachfolgende Regeln ignorieren
+      finish: true
+
+  - if:
+      url: /api/order/*
+      methods: [GET, PUT, POST, PATCH, DELETE]
+      headers:
+        origin: ${config.variables.allowed_origins}
+    then:
+      forward-to: [localhost:8030]
+      finish: true
+
+  #-----------------------------------------------------------------------------------------------
+  # Fallback-Regel
+  # ==============
+  #
+  # Wenn keine der obigen Weiterleitungsregeln zutrifft, schicken wir "403 Forbidden".
+  #-----------------------------------------------------------------------------------------------
+  - then:
+      statusCode: 403
+      body:
+        error: Access Forbidden
+        message: Der Zugriff auf diese Resource ist nicht erlaubt.
+      finish: true

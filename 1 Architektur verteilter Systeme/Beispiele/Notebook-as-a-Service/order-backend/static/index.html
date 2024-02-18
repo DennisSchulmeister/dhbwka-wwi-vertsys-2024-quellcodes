@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Auftrags-Backend</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1>Notebook-as-a-Service: Auftrags-Backend</h1>
+
+        <table>
+            <tr>
+                <td class="heading1" colspan="3">Server-Checks</td>
+            </tr>
+            <tr>
+                <td style="width: 12em;">Informationen</td>
+                <td style="width: 03em;" class="tt">GET</td>
+                <td style="width: 36em;" class="tt"><a href="/info">/info</a></td>
+            </tr>
+            <tr>
+                <td>Metriken</td>
+                <td class="tt">GET</td>
+                <td class="tt"><a href="/metrics">/metrics</a></td>
+            </tr>
+            <tr>
+                <td>Health Check</td>
+                <td class="tt">GET</td>
+                <td class="tt"><a href="/health">/health</a></td>
+            </tr>
+        </table>
+
+        <table>
+            <tr>
+                <td class="heading" colspan="3">Aufträge</td>
+            </tr>
+            <tr>
+                <td style="width: 12em;">Alle Aufträge</td>
+                <td style="width: 03em;" class="tt">GET</td>
+                <td style="width: 36em;" class="tt"><a href="/order">/order</a></td>
+            </tr>
+            <tr>
+                <td>Auftrag suchen</td>
+                <td class="tt">GET</td>
+                <td class="tt"><a href="/order?q=smart">/order?q=smart</a></td>
+            </tr>
+            <tr>
+                <td>Einzelner Auftrag</td>
+                <td class="tt">GET</td>
+                <td class="tt"><a href="/order/1">/order/1</a></td>
+            </tr>
+            <tr>
+                <td>Auftrag anlegen</td>
+                <td class="tt">POST</td>
+                <td class="tt"><a href="/order">/order</a></td>
+            </tr>
+        </table>
+
+        <table>
+            <tr>
+                <td class="heading" colspan="3">Geräte</td>
+            </tr>
+            <tr>
+                <td style="width: 12em;">Existenz prüfen</td>
+                <td style="width: 03em;" class="tt">GET</td>
+                <td style="width: 36em;" class="tt"><a href="/device/exists/1">/device/exists/1</a></td>
+            </tr>
+            <tr>
+                <td>Verfügbarkeit prüfen</td>
+                <td class="tt">GET</td>
+                <td class="tt"><a href="/device/available/1?startTime=2024-02-10&endTime=2024-02-20">/device/available/1?startTime=2024-02-10&endTime=2024-02-20</a></td>
+            </tr>
+        </table>
+    </body>
+</html>

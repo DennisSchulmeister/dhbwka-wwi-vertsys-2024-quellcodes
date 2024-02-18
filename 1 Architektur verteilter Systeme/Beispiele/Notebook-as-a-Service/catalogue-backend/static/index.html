@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Katalog-Backend</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1>Notebook-as-a-Service: Katalog-Backend</h1>
+
+        <table>
+            <tr>
+                <td class="heading1" colspan="3">Server-Checks</td>
+            </tr>
+            <tr>
+                <td style="width: 12em;">Informationen</td>
+                <td style="width: 03em;" class="tt">GET</td>
+                <td style="width: 36em;" class="tt"><a href="/info">/info</a></td>
+            </tr>
+            <tr>
+                <td>Metriken</td>
+                <td class="tt">GET</td>
+                <td class="tt"><a href="/metrics">/metrics</a></td>
+            </tr>
+            <tr>
+                <td>Health Check</td>
+                <td class="tt">GET</td>
+                <td class="tt"><a href="/health">/health</a></td>
+            </tr>
+        </table>
+
+        <table>
+            <tr>
+                <td class="heading" colspan="3">Gerätetypen</td>
+            </tr>
+            <tr>
+                <td style="width: 12em;">Alle Gerätetypen</td>
+                <td style="width: 03em;" class="tt">GET</td>
+                <td style="width: 17em;" class="tt"><a href="/device-class">/device-class</a></td>
+            </tr>
+            <tr>
+                <td>Gerätetyp suchen</td>
+                <td class="tt">GET</td>
+                <td class="tt"><a href="/device-class?q=smart">/device-class?q=smart</a></td>
+            </tr>
+            <tr>
+                <td>Einzelner Gerätetyp</td>
+                <td class="tt">GET</td>
+                <td class="tt"><a href="/device-class/1">/device-class/1</a></td>
+            </tr>
+        </table>
+
+        <table>
+            <tr>
+                <td class="heading" colspan="3">Geräte</td>
+            </tr>
+            <tr>
+                <td style="width: 12em;">Alle Geräte</td>
+                <td style="width: 03em;" class="tt">GET</td>
+                <td style="width: 17em;" class="tt"><a href="/device">/device</a></td>
+            </tr>
+            <tr>
+                <td>Gerät suchen</td>
+                <td class="tt">GET</td>
+                <td class="tt"><a href="/device?q=lenovo">/device-class?q=lenovo</a></td>
+            </tr>
+            <tr>
+                <td>Einzelnes Gerät</td>
+                <td class="tt">GET</td>
+                <td class="tt"><a href="/device/1">/device/1</a></td>
+            </tr>
+        </table>
+    </body>
+</html>
