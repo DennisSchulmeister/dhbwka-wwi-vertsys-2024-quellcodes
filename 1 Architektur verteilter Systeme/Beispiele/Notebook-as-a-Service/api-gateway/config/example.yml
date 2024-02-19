@@ -34,6 +34,7 @@ rules:
   #
   # Vgl. https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS für Details
   #-----------------------------------------------------------------------------------------------
+  
   # CORS: Erlaubte Quellen
   - if:
       headers:
@@ -42,20 +43,28 @@ rules:
       headers:
         vary: Origin
         access-control-allow-origin: ${request.headers.origin}
+    # else:
+    #   status-code: 403
+    #   body:
+    #     error: Zugriff verboten
+    #     message: Der Zugriff auf diese Resource ist nicht erlaubt (falscher oder fehlender Origin Header)
+    #   finish: true
   
   # CORS: Options Pre-Flight
   - if:
       method: [OPTIONS]
-      headers:
-        origin: ${config.variables.allowed_origins}
     then:
+      status-code: 200
       headers:
         access-control-allow-methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
         access-control-allow-headers: "*"
         access-control-allow-credentials: true
+      body:
+        success: OK
+      finish: true
 
   #-----------------------------------------------------------------------------------------------
-  # Weiterleitungsregeln43em;
+  # Weiterleitungsregeln
   # ====================
   #
   # Hier werden die Regeln definiert, wann welcher Request an welchen Backendservice weitergeleitet
@@ -66,33 +75,29 @@ rules:
   - if:
       url: /api/catalogue/*
       method: [GET, POST, PUT, PATCH, DELETE]
-      headers:
-        origin: ${config.variables.allowed_origins}
     then:
       # Load Balancing: Liste der Zielserver
-      forward-to: [localhost:8020]
+      forward-to: [http://localhost:8020]
       
       # Nachfolgende Regeln ignorieren
       finish: true
 
   - if:
       url: /api/order/*
-      methods: [GET, PUT, POST, PATCH, DELETE]
-      headers:
-        origin: ${config.variables.allowed_origins}
+      method: [GET, POST, PUT, PATCH, DELETE]
     then:
-      forward-to: [localhost:8030]
+      forward-to: [http://localhost:8030]
       finish: true
 
   #-----------------------------------------------------------------------------------------------
   # Fallback-Regel
   # ==============
   #
-  # Wenn keine der obigen Weiterleitungsregeln zutrifft, schicken wir "403 Forbidden".
+  # Wenn keine der obigen Weiterleitungsregeln zutrifft, schicken wir "404 Not Found".
   #-----------------------------------------------------------------------------------------------
   - then:
-      statusCode: 403
+      status-code: 404
       body:
-        error: Access Forbidden
-        message: Der Zugriff auf diese Resource ist nicht erlaubt.
+        error: Nicht gefunden
+        message: Die Ressource wurde nicht gefunden.
       finish: true

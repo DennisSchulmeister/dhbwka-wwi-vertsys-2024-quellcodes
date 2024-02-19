@@ -7,7 +7,8 @@
   "type": "module",
   "scripts": {
     "start": "node src/main.js",
-    "watch": "nodemon src/main.js"
+    "watch": "nodemon src/main.js",
+    "debug": "node --inspect-brk src/main.js"
   },
   "devDependencies": {
     "nodemon": "^3.0.3"

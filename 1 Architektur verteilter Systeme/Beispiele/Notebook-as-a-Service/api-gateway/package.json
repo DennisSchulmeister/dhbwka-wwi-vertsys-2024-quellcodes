@@ -8,7 +8,8 @@
   "scripts": {
     "start": "node src/main.js",
     "start:exercise": "node src/main.js -c config/exercise.yml -s",
-    "watch": "nodemon src/main.js"
+    "watch": "nodemon -e js,yml,yaml src/main.js",
+    "debug": "node --inspect-brk src/main.js -s"
   },
   "devDependencies": {
     "nodemon": "^3.0.3"
