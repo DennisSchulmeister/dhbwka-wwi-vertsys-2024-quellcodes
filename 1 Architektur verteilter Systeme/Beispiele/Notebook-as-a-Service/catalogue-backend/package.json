@@ -7,10 +7,13 @@
   "type": "module",
   "scripts": {
     "start": "node src/main.js",
+    "start1": "cross-env LISTEN_PORT=8021 node src/main.js",
+    "start2": "cross-env LISTEN_PORT=8022 node src/main.js",
     "watch": "nodemon src/main.js",
     "debug": "node --inspect-brk src/main.js"
   },
   "dependencies": {
+    "cross-env": "^7.0.3",
     "lowdb": "^7.0.1"
   },
   "devDependencies": {

@@ -238,7 +238,8 @@ async function executeActions(actions, req, res) {
 async function forwardRequest(forwardTo, urlPrefix, req, res) {
     // Ziel-URL ermitteln (mit Load Balancing)
     let loadBalancerKey   = JSON.stringify(forwardTo);
-    let loadBalancerIndex = loadBalancer[loadBalancerKey] || -1;
+    let loadBalancerIndex = loadBalancer[loadBalancerKey];
+    if (loadBalancerIndex === undefined) loadBalancerIndex = -1;
 
     loadBalancerIndex = (loadBalancerIndex + 1) % forwardTo.length;
     loadBalancer[loadBalancerKey] = loadBalancerIndex;

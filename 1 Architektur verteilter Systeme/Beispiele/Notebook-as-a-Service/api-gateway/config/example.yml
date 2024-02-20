@@ -77,7 +77,10 @@ rules:
       method: [GET, POST, PUT, PATCH, DELETE]
     then:
       # Load Balancing: Liste der Zielserver
-      forward-to: [http://localhost:8020]
+      forward-to: 
+        - http://localhost:8020
+        #- http://localhost:8021
+        #- http://localhost:8022
       
       # Nachfolgende Regeln ignorieren
       finish: true
