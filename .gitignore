@@ -3,3 +3,6 @@
 **/lib/**
 **/yarn-error.log
 **/.~*
+
+# LowDB
+db.json
