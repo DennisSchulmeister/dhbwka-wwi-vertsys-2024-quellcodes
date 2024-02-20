@@ -71,9 +71,8 @@ Der Einfachheit halber sind alle Services in Node.js mit dem [Express-Framework]
 realisiert. Somit wird nur Node.js benötigt, um die Anwendung auszuführen.
 
 In dieser Aufgabe geht es nicht darum, den Quellcode zu verstehen, auch wenn Sie natürlich
-gerne reinschauen können, wenn Sie neugierig sind. Viel mehr sollen Sie die untenstehenden
-Versuche ausführen, um eine Microservice-Architektur mit API-Gateway und Load Balancing
-praktisch zu kennenzulernen.
+gerne reinschauen können. Viel mehr sollen Sie die untenstehenden Versuche ausführen, um eine
+Microservice-Architektur mit API-Gateway und Load Balancing praktisch zu kennenzulernen.
 
 Verzeichnisstruktur
 -------------------
