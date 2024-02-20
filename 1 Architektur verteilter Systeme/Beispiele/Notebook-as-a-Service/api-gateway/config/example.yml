@@ -43,12 +43,6 @@ rules:
       headers:
         vary: Origin
         access-control-allow-origin: ${request.headers.origin}
-    # else:
-    #   status-code: 403
-    #   body:
-    #     error: Zugriff verboten
-    #     message: Der Zugriff auf diese Resource ist nicht erlaubt (falscher oder fehlender Origin Header)
-    #   finish: true
   
   # CORS: Options Pre-Flight
   - if:
