@@ -1,0 +1,95 @@
+/*
+ * Allgemeines Layout
+ */
+html, body {
+    min-height: 100%;
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-content: stretch;
+}
+
+.jumbotron {
+    margin-bottom: 0;
+}
+
+main {
+    flex-grow: 1;
+    padding: 2rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.inactive {
+    cursor: default !important;
+}
+
+/*
+ * Karussell-Effekt im Hauptbereich
+ */
+main {
+    display: flex;
+    flex-direction: column;
+    align-content: stretch;
+}
+
+#main-carousel {
+    flex-grow: 1;
+}
+
+.carousel-indicators li {
+    background-color: lightslategray;
+    height: 0.2em;
+}
+
+.carousel-indicators {
+    position: inherit !important;
+}
+
+/*
+ * Fade-In-Effekt
+ */
+.fx-fade {
+    opacity: 0;
+    transition: opacity 2s;
+}
+
+/*
+ * Seite 1: Zeitraum und Gerätetyp auswählen
+ */
+#page-search form {
+    width: 30em;
+    max-width: calc(100% - 0.5rem);
+}
+
+/*
+ * Seite 2: Gerät auswählen
+ */
+#page-device .card {
+    width: 25em;
+    max-width: calc(100% - 0.5rem);
+}
+
+.device-img {
+    width: 100%;
+    height: 13em;
+    
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    margin-top: 1em;
+}
+
+/*
+ * Seite 3: Ausgewähltes Gerät ausleihen
+ */
+#page-order .container-fluid {
+    width: 50em;
+    max-width: 100%;
+}

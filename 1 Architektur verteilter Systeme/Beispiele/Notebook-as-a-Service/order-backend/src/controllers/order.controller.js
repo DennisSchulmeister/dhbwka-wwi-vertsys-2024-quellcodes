@@ -58,8 +58,7 @@ function find(req, res) {
  * @param {Express.Response} res HTTP-Antwort
  */
 async function createOrder(req, res) {
-    let order = JSON.parse(JSON.stringify(req.data));
+    let order = JSON.parse(JSON.stringify(req.body));
     let savedOrder = await validateAndSaveOrder(order, true);
-
     res.send(savedOrder);
 }

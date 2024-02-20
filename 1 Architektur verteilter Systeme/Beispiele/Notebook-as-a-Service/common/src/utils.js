@@ -44,11 +44,9 @@ export function throwNotFound() {
  * @returns {Function} Neue Express Handler-Funktion
  */
 export function wrapAsync(handler) {
-    return (req, res, next) => {
+    return function(req, res, next) {
         try {
-            return handler(req, res, next)?.catch((ex) => {
-                return next(ex);
-            });
+            handler(req, res, next)?.catch(next)?.then(next);
         } catch (ex) {
             return next(ex);
         }

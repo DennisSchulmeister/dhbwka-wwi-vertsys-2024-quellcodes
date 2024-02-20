@@ -51,6 +51,11 @@ export function checkAndConvertFields(order) {
  */
 export function checkTimeIsValid({startTime, endTime} = {}) {
     let today = new Date();
+    today.setHours(0, 0, 0);
+
+    startTime = new Date(startTime);
+    endTime   = new Date(endTime);
+
     return (startTime >= today) && (endTime >= today) && (endTime >= startTime);
 }
 
@@ -85,12 +90,18 @@ export async function validateAndSaveOrder(order, save) {
     }
 
     if (save) {
-        let id = db.data.Order.reduce((maxId, entry) => Math.max(maxId, entry.id)) || 0;
+        let lastId = 0;
 
-        order.id     = id + 1;
+        for (let order of db.data.Order) {
+            lastId = Math.max(lastId, order.id || 0);
+        }
+        
+        order.id     = lastId + 1;
         order.status = "LENDED";
 
         db.data.Order.push(order);
         await db.write();
     }
+
+    return order;
 }

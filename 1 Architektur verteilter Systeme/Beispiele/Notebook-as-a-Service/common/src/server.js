@@ -21,8 +21,9 @@ import {logger}                from "./utils.js";
  * @param {Function} preStart Optionale Callback-Funktion, die vor Serverstart aufgerufen wird
  * @param {string} staticDir Optionales Verzeichnis mit statischen Webinhalten
  * @param {Function[]} controllers Optionale Liste von Funktionen, die der Express App URL-Routen hinzufügen
+ * @param {boolean} keepBody Keine JSON-Middleware o.ä. hinzufügen, die den Request-Body vorab konsumiert
  */
-export async function startServer({asciiArt, staticDir, controllers, preStart} = {}) {
+export async function startServer({asciiArt, preStart, staticDir, controllers, keepBody} = {}) {
     // Programmname ausgeben
     if (asciiArt) {
         console.log(gradient.retro.multiline(asciiArt.join("\n")));
@@ -47,7 +48,7 @@ export async function startServer({asciiArt, staticDir, controllers, preStart} =
 
     app.use(logRequest(logger));
     app.use(serveStaticFiles(staticDir));
-    app.use(express.json());
+    if (!keepBody) app.use(express.json());
     app.use(actuator());
 
     for (let controller of controllers || []) {

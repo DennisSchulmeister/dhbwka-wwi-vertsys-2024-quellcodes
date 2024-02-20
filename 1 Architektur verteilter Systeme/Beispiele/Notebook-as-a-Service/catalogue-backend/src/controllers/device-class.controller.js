@@ -10,6 +10,7 @@ import {throwNotFound} from "@dschulmeis/naas-common/src/utils.js";
 export default function registerRoutes(app) {
     app.get("/device-class", search);
     app.get("/device-class/:id", find);
+    app.get("/device-class/:id/devices", getDevices);
 };
 
 /**
@@ -37,6 +38,19 @@ function search(req, res) {
  */
 function find(req, res) {
     let result = db.data.DeviceClass.find(entry => entry.id === parseInt(req.params.id));
+    if (!result) throwNotFound();
+
+    res.send(result);
+}
+
+/**
+ * Abruf aller Geräte einer Geräteklasse.
+ * 
+  * @param {Express.Request} req HTTP-Anfrage
+ * @param {Express.Response} res HTTP-Antwort
+ */
+function getDevices(req, res) {
+    let result = db.data.Device.filter(entry => entry.deviceClassId === parseInt(req.params.id));
     if (!result) throwNotFound();
 
     res.send(result);

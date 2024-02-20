@@ -83,4 +83,5 @@ await startServer({
     preStart:    preStart,
     staticDir:   staticDir,
     controllers: controllers,
+    keepBody:    true,
 });

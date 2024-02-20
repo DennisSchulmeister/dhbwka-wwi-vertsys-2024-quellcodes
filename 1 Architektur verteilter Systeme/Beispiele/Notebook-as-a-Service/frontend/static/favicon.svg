@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="650mm" height="410mm" version="1.1" viewBox="0 0 2303.1496 1452.7559" xmlns="http://www.w3.org/2000/svg">
+ <g transform="translate(0 400.39)">
+  <g transform="matrix(7.5439 0 0 7.5439 -52748 -19353)">
+   <rect x="7016.6" y="2519.4" width="256" height="169" fill="#22313f"/>
+   <rect x="7024.5" y="2538.5" width="240" height="135" fill="#59abe3"/>
+   <path transform="translate(-4.923e-6)" d="m7001 2686.4c-0.1165 18.295 13.974 13.264 15.25 14h256.62c9.2391-0.066 15.125-2.3955 15.125-14z" fill="#34495e"/>
+   <path transform="matrix(.91029 0 0 .91029 -118.78 238.67)" d="m7940.9 2693.8v3.1122c0 2.6266 2.103 2.7628 2.8439 2.7628h70.429c2.0158 0.1459 3.0713-0.8124 3.0713-2.2003v-3.6747z" fill="#67809f"/>
+   <path transform="translate(-4.923e-6)" d="m7024.5 2673.5h240v-135z" fill="#81cfe0" opacity=".36519"/>
+   <g transform="translate(-6.364 2.8284)">
+    <g transform="translate(-17)">
+     <g transform="translate(-9.5459 -5.6569)">
+      <path transform="translate(-4.923e-6)" d="m7071 2558.1v5.5557h164.5v-5.2566c0-1.8222-1.8033-2.0363-1.93-2.0363h-160.94c-1.7667 0-1.5982 1.6365-1.6252 1.7372z" fill="#ecf0f1"/>
+      <flowRoot transform="matrix(.092256 0 0 .092256 6572.7 2321.7)" fill="#6c7a89" font-family="Sans" font-size="40px" letter-spacing="0px" word-spacing="0px" style="line-height:125%" xml:space="preserve"><flowRegion><rect x="7123.4" y="2555.7" width="65.407" height="71.418" fill="#6c7a89"/></flowRegion><flowPara fill="#6c7a89" font-family="Flipbash">x</flowPara></flowRoot>
+     </g>
+     <path d="m7073 2551.8c0.5788 0 1.0313 0.4837 1.0313 1.0625v3.0312c0 0.5788-0.4525 1.0313-1.0313 1.0313h-4.5937v-5.125h4.5937z" fill="#d2d7d3" opacity=".416" stroke="#6c7a89" stroke-width=".1"/>
+     <rect x="7061.5" y="2557.4" width=".70711" height="94.001" fill="#ecf0f1"/>
+     <rect x="7225.2" y="2556.5" width=".70711" height="94.902" fill="#ecf0f1"/>
+     <rect transform="rotate(90)" x="2650.7" y="-7226" width=".70711" height="164.5" fill="#ecf0f1"/>
+     <path transform="translate(-4.923e-6)" d="m7063.8 2551.8c-0.5788 0-1.0313 0.4837-1.0313 1.0625v3.0312c0 0.5788 0.4525 1.0313 1.0313 1.0313h4.5937v-5.125h-4.5937z" fill="#d2d7d3" opacity=".416" stroke="#6c7a89" stroke-width=".1"/>
+     <flowRoot transform="matrix(.078277 0 0 .10885 6512.7 2273.6)" fill="#6c7a89" font-family="SkolaSans" font-size="40px" letter-spacing="0px" word-spacing="0px" style="line-height:125%" xml:space="preserve"><flowRegion><rect x="7123.4" y="2555.7" width="65.407" height="71.418" fill="#6c7a89"/></flowRegion><flowPara fill="#6c7a89" font-family="SkolaSans">&gt;</flowPara></flowRoot>
+     <flowRoot transform="matrix(-.073618 0 0 .10885 7590.8 2273.6)" fill="#6c7a89" font-family="SkolaSans" font-size="40px" letter-spacing="0px" word-spacing="0px" style="line-height:125%" xml:space="preserve"><flowRegion><rect x="7123.4" y="2555.7" width="65.407" height="71.418" fill="#6c7a89"/></flowRegion><flowPara fill="#6c7a89" font-family="SkolaSans">&gt;</flowPara></flowRoot>
+     <path d="m7076.2 2551.8c-0.5788 0-1.0312 0.4837-1.0313 1.0625v3.0312c0 0.5788 0.4525 1.0313 1.0313 1.0313h3.2187c0.5788 0 1.0313-0.4525 1.0313-1.0313v-3.0312c0-0.5788-0.4525-1.0625-1.0313-1.0625h-3.2187z" fill="#d2d7d3" opacity=".416" stroke="#6c7a89" stroke-width=".1"/>
+     <path d="m7077.4 2553.5c0.1225-0.06 0.289-0.1079 0.3682-0.1051 0.033 9e-4 0.066-0.01 0.075-0.014 0.01-0.01 0.015-0.093 0.014-0.1858v-0.1698l0.258 0.2505 0.2582 0.2505-0.2505 0.2581-0.2505 0.2581v-0.403l-0.09 0.01c-0.2289 0.023-0.4578 0.1895-0.5493 0.4004-0.068 0.1559-0.074 0.3873-0.015 0.5328 0.062 0.1538 0.2122 0.2994 0.3678 0.357 0.1472 0.055 0.3784 0.042 0.5322-0.031 0.092-0.043 0.1359-0.078 0.2138-0.1686 0.219-0.2559 0.2289-0.5629 0.028-0.8684-0.031-0.047-0.028-0.053 0.054-0.1375l0.086-0.089 0.048 0.062c0.074 0.095 0.1503 0.2434 0.1805 0.3501 0.041 0.1447 0.029 0.3928-0.027 0.558-0.048 0.1396-0.059 0.1574-0.2175 0.3203-0.1609 0.1658-0.1711 0.1764-0.32 0.2278-0.3463 0.1248-0.7112 0.051-0.9638-0.1938-0.2532-0.2457-0.3376-0.6095-0.222-0.9569 0.046-0.1379 0.066-0.17 0.1919-0.3084 0.1047-0.1222 0.1624-0.1673 0.2407-0.2035z" fill="#6c7a89"/>
+     <path d="m7082.4 2551.8c-0.5788 0-1.0312 0.4837-1.0313 1.0625v3.0312c0 0.5788 0.4525 1.0313 1.0313 1.0313h3.2187c0.5788 0 1.0313-0.4525 1.0313-1.0313v-3.0312c0-0.5788-0.4525-1.0625-1.0313-1.0625h-3.2187z" fill="#d2d7d3" opacity=".416" stroke="#6c7a89" stroke-width=".1"/>
+     <path d="m7082.8 2553.6v1.4881h-0.1718v0.1716h0.3434v-1.4881h1.8601v1.4881h0.3434v-0.1716h-0.1717v-1.4881h-2.2034z" fill="#6c7a89"/>
+     <path transform="translate(-4.923e-6)" d="m7083.8 2553.9v0.4687h-0.4375v0.1876h0.4375v0.4687h0.1875v-0.4687h0.4688v-0.1876h-0.4688v-0.4687h-0.1875z" fill="#6c7a89"/>
+     <path d="m7107.3 2551.8c-0.5788 0-1.0312 0.4837-1.0313 1.0625v3.0312c0 0.5788 0.4525 1.0313 1.0313 1.0313h73.575c0.5788 0 1.0313-0.4525 1.0313-1.0313v-3.0312c0-0.5788-0.4525-1.0625-1.0313-1.0625h-73.107z" fill="#d2d7d3" opacity=".416" stroke="#6c7a89" stroke-width=".1"/>
+     <rect transform="rotate(90)" x="2558" y="-7225.2" width="92.675" height="163.09" fill="#34495e"/>
+    </g>
+    <g transform="translate(-16.368 -.26963)">
+     <rect x="7092.2" y="2586.5" width="22" height="58.864" fill="#f9bf3b"/>
+     <rect transform="rotate(90)" x="2562.3" y="-7194.2" width="22" height="102.35" fill="#22a7f0"/>
+     <rect x="7116.6" y="2586.5" width="77.508" height="58.51" fill="#2ecc71"/>
+    </g>
+   </g>
+   <circle transform="matrix(.94949 0 0 .94949 363.32 126.57)" cx="7142" cy="2530.4" r="3.5" fill="#6c7a89"/>
+   <circle transform="matrix(.67625 0 0 .67625 2314.8 817.97)" cx="7142" cy="2530.4" r="3.5" fill="#bdc3c7"/>
+   <g transform="translate(7.0711 2.8284)">
+    <path d="m7126 2568.4c-1.7664 0-1.598 1.6493-1.625 1.75v69.239h121.37v-68.958c0-1.8222-1.7795-2.0313-1.9062-2.0312zm-0.9062 7.2812h119.96v62.989h-119.96z" fill="#ecf0f1"/>
+    <flowRoot transform="matrix(.092256 0 0 .092256 6582.9 2333.7)" fill="#6c7a89" font-family="Sans" font-size="40px" letter-spacing="0px" word-spacing="0px" style="line-height:125%" xml:space="preserve"><flowRegion><rect x="7123.4" y="2555.7" width="65.407" height="71.418" fill="#6c7a89"/></flowRegion><flowPara fill="#6c7a89" font-family="Flipbash">x</flowPara></flowRoot>
+    <rect transform="rotate(90)" x="2575.7" y="-7245" width="62.977" height="119.95" fill="#34495e"/>
+    <rect x="7130.6" y="2578.3" width="71.237" height="1.75" fill="#2ecc71"/>
+    <rect x="7130.6" y="2582" width="87.25" height="1.75" fill="#2ecc71"/>
+    <rect x="7130.6" y="2585.8" width="79.859" height="1.75" fill="#2ecc71"/>
+    <rect transform="scale(1,-1)" x="7130.6" y="-2599.5" width="71.237" height="1.75" fill="#2ecc71"/>
+    <rect transform="scale(1,-1)" x="7130.6" y="-2595.8" width="87.25" height="1.75" fill="#2ecc71"/>
+    <rect transform="scale(1,-1)" x="7130.6" y="-2592" width="79.859" height="1.75" fill="#2ecc71"/>
+    <rect transform="scale(1,-1)" x="7130.6" y="-2611" width="55.649" height="1.75" fill="#2ecc71"/>
+    <rect transform="scale(1,-1)" x="7130.6" y="-2607.3" width="68.158" height="1.75" fill="#2ecc71"/>
+    <rect transform="scale(1,-1)" x="7130.6" y="-2603.5" width="62.384" height="1.75" fill="#2ecc71"/>
+    <rect transform="rotate(90)" x="2575.7" y="-7128.1" width="62.623" height="3.0859" fill="#22313f"/>
+   </g>
+  </g>
+ </g>
+</svg>

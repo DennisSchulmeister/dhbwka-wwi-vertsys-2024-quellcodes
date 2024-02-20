@@ -5,6 +5,7 @@ import {wrapAsync}               from "@dschulmeis/naas-common/src/utils.js";
 import {logger}                  from "@dschulmeis/naas-common/src/utils.js";
 import YAML                      from "yaml";
 import http                      from "node:http";
+import {buffer}                  from "node:stream/consumers";
 
 // Zuletzt verwendeter Index beim Load Balancing
 let loadBalancer = {};
@@ -246,21 +247,27 @@ async function forwardRequest(forwardTo, urlPrefix, req, res) {
     while (urlSuffix.startsWith("/")) urlSuffix = urlSuffix.slice(1);
 
     let targetUrl = `${forwardTo[loadBalancerIndex]}/${urlSuffix}`;
-    logger.info(`Weiterleitung der Anfrage an: ${targetUrl}`);
+
+    let logPrefix = Math.floor(Math.random() * 9999);
+    logger.info(`[${logPrefix}] Weiterleitung der Anfrage an: ${targetUrl}`);
 
     // Anfrage weiterleiten
-    await new Promise((resolve, reject) => {
-        let forwardReq = http.request(targetUrl, {joinDuplicateHeaders: true}, forwardRes => {
+    let statusCode = await new Promise(async (resolve, reject) => {
+        let forwardReq = http.request(targetUrl, {method: req.method, joinDuplicateHeaders: true}, forwardRes => {
             res.writeHead(forwardRes.statusCode, forwardRes.headersDistinct);
             forwardRes.pipe(res);
-            resolve();
+            resolve(forwardRes.statusCode);
         });
     
         forwardReq.on("error", error => {
+            logger.error(`[${logPrefix}] Bei der Weiterleitung der Anfrage an ${targetUrl} ist ein Fehler aufgetreten.`);
             reject(error);
         });
 
         for (let headerName of Object.keys(req.headersDistinct)) {
+            if (headerName === "host") continue;
+            // if (headerName === "content-length") continue;
+
             forwardReq.setHeader(headerName, req.headersDistinct[headerName]);
         }
     
@@ -276,8 +283,9 @@ async function forwardRequest(forwardTo, urlPrefix, req, res) {
         while (forwardedHeaderValue.startsWith(";")) forwardedHeaderValue = forwardedHeaderValue.slice(1);
     
         forwardReq.appendHeader("forwarded", forwardedHeaderValue);
-    
-        req.pipe(forwardReq);
+        
+        req.pipe(forwardReq, {end: true});   
     });
     
+    logger.info(`[${logPrefix}] Antwort des fremden Servers: Status ${statusCode}`);
 }
