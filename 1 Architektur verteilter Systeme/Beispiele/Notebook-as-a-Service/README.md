@@ -215,6 +215,10 @@ Probieren Sie folgende Dinge aus, um die Microservice-Architektur zu erforschen:
    Im Gegensatz zu bisher sollten Sie auf dem zweiten Rechner nun drei Instanzen des
    Katalog-Services laufen haben, die auf den Ports 8020, 8021 und 8022 aufrufbar sind.
 
+   **HINWEIS:** Wenn Sie Katalog- und Auftrags-Service auf unterschiedlichen Rechnern
+   laufen lassen wollen, müssen Sie in der Datei `order-service/.env` die Zieladresse
+   des Katalog-Services anpassen.
+
 1. Rufen Sie die Adresse [http://localhost:8000](http://localhost:8000) im Browser auf, um
    die Anwendung erneut zu testen. Spielen Sie den Bestellvorgang einmal komplett durch.
    Es sollte zu keinen Fehlern kommen.
