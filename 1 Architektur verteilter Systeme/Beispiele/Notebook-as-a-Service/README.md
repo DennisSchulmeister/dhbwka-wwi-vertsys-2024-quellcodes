@@ -156,7 +156,7 @@ Probieren Sie folgende Dinge aus, um die Microservice-Architektur zu erforschen:
 1. Öffnen Sie die Datei `api-gateway/config/example.yml` in einem Editor und versuchen Sie,
    diese nachzuvollziehen.
    
-   > In wiefern bestätigen sich Ihr Antwort zur letzten Frage hierdurch?
+   > In wiefern bestätigt sich Ihre Antwort zur letzten Frage hierdurch?
 
 1. Schließen Sie sich in Zweiergruppen zusammen und versuchen Sie, die Services auf mehreren
    Rechnern auszuführen. Kopieren Sie hierfür die Datei `api-gateway/config/example.yml`
