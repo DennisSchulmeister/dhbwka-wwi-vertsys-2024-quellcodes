@@ -17,7 +17,7 @@ import {logger}                from "./utils.js";
  * Servers ausgelesen werden. Anschließend wird der Webserver konfiguriert, die
  * Routen aus den Controller-Modulen werden hinzugefügt und der Server gestartet.
  * 
- * @param {string[]} asciiArt ASCII Art Banner mit dem Programmname
+ * @param {string[]} asciiArt ASCII Art Banner mit dem Programmnamen
  * @param {Function} preStart Optionale Callback-Funktion, die vor Serverstart aufgerufen wird
  * @param {string} staticDir Optionales Verzeichnis mit statischen Webinhalten
  * @param {Function[]} controllers Optionale Liste von Funktionen, die der Express App URL-Routen hinzufügen

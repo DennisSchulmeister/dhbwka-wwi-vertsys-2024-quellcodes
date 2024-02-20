@@ -19,7 +19,7 @@ rules:
   # CORS: Cross-Origin Ressource Sharing
   # ====================================
   #
-  # Wann immer ein Skript im Browser versucht, eine HTTP-Anfragen an einen anderen Server zu
+  # Wann immer ein Skript im Browser versucht, eine HTTP-Anfrage an einen anderen Server zu
   # schicken, als der, von dem das Skript geladen wurde, wägt der Browser ab, ob es sich um eine
   # potentiell gefährliche Anfrage handeln könnte, die Daten auf dem Server verändert. Falls ja,
   # wird zunächst eine OPTIONS-Anfrage an den Server geschickt (sog. OPTIONS Pre-Flight), um zu
