@@ -1,3 +1,4 @@
+import controllers   from "./controllers/index.js";
 import {startServer} from "@dschulmeis/naas-common/src/server.js";
 
 import path          from "node:path";
@@ -16,4 +17,5 @@ await startServer({
         "┻ ┛ ┗┛┛┗┗┗ ┛┗┗┻",
     ],
     staticDir:   staticDir,
+    controllers: controllers,
 });
