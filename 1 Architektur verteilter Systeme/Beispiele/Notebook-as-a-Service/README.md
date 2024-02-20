@@ -4,7 +4,7 @@ Fallbeispiel: Notebook as a Service
 1. [Kurzbeschreibung](#kurzbeschreibung)
 1. [Verzeichnisstruktur](#verzeichnisstruktur)
 1. [Start der Services](#start-der-services)
-1. [Versuche](#versuche)
+1. [Aufgabenstellung](#aufgabenstellung)
 
 <table>
     <tr>
@@ -58,7 +58,7 @@ möglich wäre.
 nach außen hin verschattet. Die Backend-Server können dadurch über eine einheitliche
 URL aufgerufen werden, ohne die genaue Backendstruktur kennen zu müssen. Im Idealfall
 sorgt die Ausführumgebung durch ein virtuelles, privates Netzwerk sogar dafür, dass
-die Backendservices aus dem öffentlichen Internet gar nicht direkt aufrufbar sind.
+die Backendservices aus dem öffentlichen Internet gar nicht erreichbar sind.
 
 * __Katalog-Backend (Port 8020):__ Stellt eine einfache Datenbank für den Produktkatalog zur Verfügung.
 In der Beispielanwendung verwaltet dieser Service die ausleihbaren Geräte.
@@ -101,16 +101,6 @@ npm install
 
 # Installation der Node-Module der einzelnen Services
 npm run install
-
-# Oder statt "npm run install"
-cd frontend
-npm install
-cd ../api-gateway
-npm install
-cd ../catalogue-service
-npm install
-cd ../order-service
-npm install
 ```
 
 Danach können die Services in beliebiger Reihenfolge gestartet werden. Im ersten Wurf kann dies
@@ -131,8 +121,8 @@ cd api-gateway
 npm start
 ```
 
-Versuche
---------
+Aufgabenstellung
+----------------
 
 Probieren Sie folgende Dinge aus, um die Microservice-Architektur zu erforschen:
 
