@@ -162,7 +162,7 @@ function matchRule(rule, req) {
 }
 
 /**
- * Diese Funktion führt die zuvor mit `matchRule()` ermittelten Aktionen aus. Folge Aktionen
+ * Diese Funktion führt die zuvor mit `matchRule()` ermittelten Aktionen aus. Folgende Aktionen
  * sind dabei derzeit erlaubt:
  * 
  *   * `status-code` (numerisch):
