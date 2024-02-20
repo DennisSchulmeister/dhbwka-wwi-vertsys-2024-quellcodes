@@ -63,7 +63,7 @@ die Backendservices aus dem öffentlichen Internet gar nicht erreichbar sind.
 * __Katalog-Backend (Port 8020):__ Stellt eine einfache Datenbank für den Produktkatalog zur Verfügung.
 In der Beispielanwendung verwaltet dieser Service die ausleihbaren Geräte.
 
-* __Auftrags-Service (Port 8030):__ Wickelt den Bestellvorgang ab und verwaltet die Bestellungen
+* __Auftrags-Backend (Port 8030):__ Wickelt den Bestellvorgang ab und verwaltet die Bestellungen
 in seiner eigenen kleinen Datenbank. Kommuniziert hierfür mit dem Katalog-Backend,
 um zu prüfen, ob die bestellten Geräte tatsächlich vorhanden sind.
 
@@ -156,7 +156,7 @@ Probieren Sie folgende Dinge aus, um die Microservice-Architektur zu erforschen:
 1. Öffnen Sie die Datei `api-gateway/config/example.yml` in einem Editor und versuchen Sie,
    diese nachzuvollziehen.
    
-   > In wiefern bestätigt sich Ihre Antwort zur letzten Frage hierdurch?
+   > In wiefern bestätigen sich Ihren Antwort zum letzten Schritt hierdurch?
 
 1. Schließen Sie sich in Zweiergruppen zusammen und versuchen Sie, die Services auf mehreren
    Rechnern auszuführen. Kopieren Sie hierfür die Datei `api-gateway/config/example.yml`
