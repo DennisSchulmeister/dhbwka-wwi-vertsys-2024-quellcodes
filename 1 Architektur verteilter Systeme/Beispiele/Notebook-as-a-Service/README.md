@@ -72,7 +72,7 @@ realisiert. Somit wird nur Node.js benötigt, um die Anwendung auszuführen.
 
 In dieser Aufgabe geht es nicht darum, den Quellcode zu verstehen, auch wenn Sie natürlich
 gerne reinschauen können. Viel mehr sollen Sie die untenstehenden Versuche ausführen, um eine
-Microservice-Architektur mit API-Gateway und Load Balancing praktisch zu kennenzulernen.
+Microservice-Architektur mit API-Gateway und Load Balancing praktisch kennenzulernen.
 
 Verzeichnisstruktur
 -------------------
@@ -138,7 +138,7 @@ Probieren Sie folgende Dinge aus, um die Microservice-Architektur zu erforschen:
    > den Frontend-Server?
 
 1. Rufen Sie nun die Adressen [http://localhost:8020](http://localhost:8020) und
-   [http://localhost:8030](http://localhost:8030) im Browser auf, um die beiden Backendservices
+   [http://localhost:8030](http://localhost:8030) im Browser auf, um die beiden Backend-Services
    in Isolation zu testen. Klicken Sie auf die Links in der Übersichtsseite, um einfache
    GET-Anfragen an die Services zu schicken.
    
@@ -156,7 +156,7 @@ Probieren Sie folgende Dinge aus, um die Microservice-Architektur zu erforschen:
 1. Öffnen Sie die Datei `api-gateway/config/example.yml` in einem Editor und versuchen Sie,
    diese nachzuvollziehen.
    
-   > In wiefern bestätigen sich Ihre Antworten zu letzten Frage hierdurch?
+   > In wiefern bestätigen sich Ihr Antwort zur letzten Frage hierdurch?
 
 1. Schließen Sie sich in Zweiergruppen zusammen und versuchen Sie, die Services auf mehreren
    Rechnern auszuführen. Kopieren Sie hierfür die Datei `api-gateway/config/example.yml`
@@ -212,14 +212,14 @@ Probieren Sie folgende Dinge aus, um die Microservice-Architektur zu erforschen:
        </tr>
    </table>
 
-   Im Gegensatz zu davor sollten Sie auf dem zweiten Rechner nun drei Instanzen des
+   Im Gegensatz zu bisher sollten Sie auf dem zweiten Rechner nun drei Instanzen des
    Katalog-Services laufen haben, die auf den Ports 8020, 8021 und 8022 aufrufbar sind.
 
 1. Rufen Sie die Adresse [http://localhost:8000](http://localhost:8000) im Browser auf, um
    die Anwendung erneut zu testen. Spielen Sie den Bestellvorgang einmal komplett durch.
    Es sollte zu keinen Fehlern kommen.
    
-   > Welche Anfragen an den Katalogservice wurden von welcher Instanz verarbeitet?
+   > Welche Anfragen an den Katalogservice werden von welcher Instanz verarbeitet?
 
 1. Zum Schluss wollen wir noch die Ausfallsicherheit der Anwendung überprüfen. Denn zumindest
    der Katalog-Service ist dreifach redundant ausgelegt. Öffnen Sie daher die Adresse
@@ -230,4 +230,6 @@ Probieren Sie folgende Dinge aus, um die Microservice-Architektur zu erforschen:
    
    > Wie verhält sich das API-Gateway, wenn eine Instanz nicht erreicht werden kann?
 
-   > Wie verhält sich das API-Gateway, wenn keine Instanz erreicht werden kann?
+   > Wie verhält sich das API-Gateway, wenn gar keine Instanz erreicht werden kann?
+
+   > Was passiert, wenn eine Instanz später wieder verfügbar ist?
