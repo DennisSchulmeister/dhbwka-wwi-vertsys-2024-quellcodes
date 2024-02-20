@@ -211,7 +211,7 @@ export function syntaxCheck(config, syntaxDefinition) {
             if (!Array.isArray(config)) config = [config];
 
             if (config.length === 0) {
-                throw new Error("Fehler in break;der Konfigurationsdatei: Liste darf nicht leer sein.");
+                throw new Error("Fehler in der Konfigurationsdatei: Liste darf nicht leer sein.");
             }
 
             for (let index in config) {

@@ -28,11 +28,16 @@ rules:
   #   a) das CORS-Sicherheitskonzept unterstützt und
   #   b) die gewünschte Anfrage genehmigt.
   #
-  # Kennt der Server kein CORS oder lehnt die Anfrage, wird dem Skript ein Fehler gemeldet. Nur,
+  # Kennt der Server kein CORS oder lehnt die Anfrage ab, wird dem Skript ein Fehler gemeldet. Nur,
   # wenn der Server mit den untenstehenden Access-Control-Allow-... Header Fields antwortet, wird
   # die Anfrage durchgelassen.
   #
   # Vgl. https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS für Details
+  #
+  # HINWEIS: Dies ist eine clientseitige Sicherheitsmaßnahme, um XSS-Attacken (Cross-Site-Scripting)
+  # abzuwehren. Sie ersetzt keine serverseitigen Zugriffsbeschränkungen, da ein potentieller
+  # Angreifer einfach Anfragen außerhalb des Browsers abschicken und den Origin-Header dabei mit
+  # beliebigen Werten versorgen kann!
   #-----------------------------------------------------------------------------------------------
   
   # CORS: Erlaubte Quellen
@@ -71,6 +76,7 @@ rules:
       method: [GET, POST, PUT, PATCH, DELETE]
     then:
       # Load Balancing: Liste der Zielserver
+      # Hier später statt localhost die IP-Adresse eines anderen Rechners eintragen, auf dem der Service läuft
       forward-to: 
         - http://localhost:8020
         #- http://localhost:8021
@@ -83,6 +89,7 @@ rules:
       url: /api/order/*
       method: [GET, POST, PUT, PATCH, DELETE]
     then:
+      # Hier später statt localhost die IP-Adresse eines anderen Rechners eintragen, auf dem der Service läuft
       forward-to: [http://localhost:8030]
       finish: true
 
