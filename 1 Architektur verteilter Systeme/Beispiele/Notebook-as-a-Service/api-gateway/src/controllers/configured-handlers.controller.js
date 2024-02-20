@@ -237,56 +237,80 @@ async function executeActions(actions, req, res) {
  */
 async function forwardRequest(forwardTo, urlPrefix, req, res) {
     // Ziel-URL ermitteln (mit Load Balancing)
-    let loadBalancerKey   = JSON.stringify(forwardTo);
-    let loadBalancerIndex = loadBalancer[loadBalancerKey];
-    if (loadBalancerIndex === undefined) loadBalancerIndex = -1;
+    let tryNextServer;
+    let retryCount = 0;
 
-    loadBalancerIndex = (loadBalancerIndex + 1) % forwardTo.length;
-    loadBalancer[loadBalancerKey] = loadBalancerIndex;
+    do {
+        tryNextServer = false;
+        retryCount += 1;
 
-    let urlSuffix = req.originalUrl.slice(urlPrefix.length);
-    while (urlSuffix.startsWith("/")) urlSuffix = urlSuffix.slice(1);
-
-    let targetUrl = `${forwardTo[loadBalancerIndex]}/${urlSuffix}`;
-
-    let logPrefix = Math.floor(Math.random() * 9999);
-    logger.info(`[${logPrefix}] Weiterleitung der Anfrage an: ${targetUrl}`);
-
-    // Anfrage weiterleiten
-    let statusCode = await new Promise(async (resolve, reject) => {
-        let forwardReq = http.request(targetUrl, {method: req.method, joinDuplicateHeaders: true}, forwardRes => {
-            res.writeHead(forwardRes.statusCode, forwardRes.headersDistinct);
-            forwardRes.pipe(res);
-            resolve(forwardRes.statusCode);
-        });
+        let loadBalancerKey   = JSON.stringify(forwardTo);
+        let loadBalancerIndex = loadBalancer[loadBalancerKey];
+        if (loadBalancerIndex === undefined) loadBalancerIndex = -1;
     
-        forwardReq.on("error", error => {
-            logger.error(`[${logPrefix}] Bei der Weiterleitung der Anfrage an ${targetUrl} ist ein Fehler aufgetreten.`);
-            reject(error);
-        });
-
-        for (let headerName of Object.keys(req.headersDistinct)) {
-            if (headerName === "host") continue;
-            // if (headerName === "content-length") continue;
-
-            forwardReq.setHeader(headerName, req.headersDistinct[headerName]);
-        }
+        loadBalancerIndex = (loadBalancerIndex + 1) % forwardTo.length;
+        loadBalancer[loadBalancerKey] = loadBalancerIndex;
     
-        let forwardedHeaderValue = "";
+        let urlSuffix = req.originalUrl.slice(urlPrefix.length);
+        while (urlSuffix.startsWith("/")) urlSuffix = urlSuffix.slice(1);
     
-        if (req.socket.localAddress) {
-            forwardedHeaderValue += `;by=${req.socket.localAddress}:${req.socket.localPort}`;
-            forwardedHeaderValue += `;for=${req.socket.remoteAddress}:${req.socket.remotePort}`;
-        }
+        let targetUrl = `${forwardTo[loadBalancerIndex]}/${urlSuffix}`;
     
-        if (req.headers.host) forwardedHeaderValue += `;host=${req.headers.host}`;
-        if (req.protocol) forwardedHeaderValue += `;proto=${req.protocol}`;
-        while (forwardedHeaderValue.startsWith(";")) forwardedHeaderValue = forwardedHeaderValue.slice(1);
+        let logPrefix = Math.floor(Math.random() * 9999);
+        logger.info(`[${logPrefix}] Weiterleitung der Anfrage an: ${targetUrl}`);
     
-        forwardReq.appendHeader("forwarded", forwardedHeaderValue);
+        // Anfrage weiterleiten
+        try {
+            let statusCode = await new Promise(async (resolve, reject) => {
+                let forwardReq = http.request(targetUrl, {method: req.method, joinDuplicateHeaders: true}, forwardRes => {
+                    res.writeHead(forwardRes.statusCode, forwardRes.headersDistinct);
+                    forwardRes.pipe(res);
+                    resolve(forwardRes.statusCode);
+                });
+            
+                forwardReq.on("error", error => {
+                    if (error.code === "ECONNREFUSED") {
+                        // Zielserver ist nicht erreichbar: Nächsten versuchen, falls vorhanden
+                        logger.error("Der Zielserver ist nicht erreichbar. Probiere nächsten Server.");
+                        tryNextServer = true;
+                    } else {
+                        logger.error(`[${logPrefix}] Bei der Weiterleitung der Anfrage an ${targetUrl} ist ein Fehler aufgetreten.`);
+                    }
         
-        req.pipe(forwardReq, {end: true});   
-    });
-    
-    logger.info(`[${logPrefix}] Antwort des fremden Servers: Status ${statusCode}`);
+                    reject(error);
+                });
+        
+                for (let headerName of Object.keys(req.headersDistinct)) {
+                    if (headerName === "host") continue;    
+                    forwardReq.setHeader(headerName, req.headersDistinct[headerName]);
+                }
+            
+                let forwardedHeaderValue = "";
+            
+                if (req.socket.localAddress) {
+                    forwardedHeaderValue += `;by=${req.socket.localAddress}:${req.socket.localPort}`;
+                    forwardedHeaderValue += `;for=${req.socket.remoteAddress}:${req.socket.remotePort}`;
+                }
+            
+                if (req.headers.host) forwardedHeaderValue += `;host=${req.headers.host}`;
+                if (req.protocol) forwardedHeaderValue += `;proto=${req.protocol}`;
+                while (forwardedHeaderValue.startsWith(";")) forwardedHeaderValue = forwardedHeaderValue.slice(1);
+            
+                forwardReq.appendHeader("forwarded", forwardedHeaderValue);
+                
+                req.pipe(forwardReq, {end: true});   
+            });
+
+            logger.info(`[${logPrefix}] Antwort des fremden Servers: Status ${statusCode}`);
+        } catch (error) {
+            if (tryNextServer) {
+                if (retryCount >= forwardTo.length) {
+                    logger.error("Kein weiterer Server verfügbar. HTTP-Anfrage kann nicht weitergeleitet werden.");
+                    throw error;
+                }
+            } else {
+                throw error;
+            }
+        }
+    } while (tryNextServer);
 }
