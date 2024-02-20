@@ -5,7 +5,6 @@ import {wrapAsync}               from "@dschulmeis/naas-common/src/utils.js";
 import {logger}                  from "@dschulmeis/naas-common/src/utils.js";
 import YAML                      from "yaml";
 import http                      from "node:http";
-import {buffer}                  from "node:stream/consumers";
 
 // Zuletzt verwendeter Index beim Load Balancing
 let loadBalancer = {};

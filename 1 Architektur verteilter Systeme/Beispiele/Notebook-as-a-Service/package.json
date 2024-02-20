@@ -5,6 +5,14 @@
     "author": "Dennis Schulmeister-Zimolong <dhbw@windows3.de>",
     "license": "CC-BY-4.0",
     "type": "module",
-    "workspaces": ["common"]
-  }
-  
+    "workspaces": [
+        "common"
+    ],
+    "scripts": {
+        "install": "concurrently -n frontend,api-gateway,catalogue-backend,order-backend \"cd frontend && npm i\" \"cd api-gateway && npm i\" \"cd catalogue-backend && npm i\" \"cd order-backend && npm i\"",
+        "start": "concurrently -n frontend,api-gateway,catalogue-backend,order-backend \"cd frontend && npm start\" \"cd api-gateway && npm start\" \"cd catalogue-backend && npm start\" \"cd order-backend && npm start\""
+    },
+    "devDependencies": {
+        "concurrently": "^8.2.2"
+    }
+}
