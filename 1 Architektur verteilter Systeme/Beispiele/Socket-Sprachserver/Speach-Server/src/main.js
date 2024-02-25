@@ -41,11 +41,12 @@ let server = net.createServer(socket => {
 
     socket.on("error", err => log(socket, err));
     socket.on("close", () => log(socket, "Client disconnected"));
-    
-    socket.on("data", data => {
-        data = data.replace(/\s+$/g, "");
-        let cmd = data.split(" ")[0];
-        let val = data.split(" ").slice(1).join(" ");
+
+    let lineBuffer = "";
+
+    function handleLine(line) {
+        let cmd = line.split(" ")[0];
+        let val = line.split(" ").slice(1).join(" ");
 
         switch (cmd) {
             case "HELLO":
@@ -97,6 +98,22 @@ let server = net.createServer(socket => {
                 log(socket, "Unknown command", cmd);
                 socket.write("?!?\n");
                 break;
+        }
+    }
+    
+    socket.on("data", data => {
+        // ACHTUNG: Je nach Client kann es vorkommen, dass wir ganze Zeile geschickt bekommen oder
+        // nur einzelne Zeichen. Deshalb werden die empfangenen Daten hier so lange gepuffert, bis
+        // ein Zeilenende empfangen wurde. Denn insbesondere telnet und Windows sendet standardmäßig
+        // jeden Tastendruck einzeln und wartet nicht darauf, dass ENTER gedrückt wird.
+        lineBuffer += data;
+
+        if (lineBuffer.includes("\n")) {
+            for (let line of lineBuffer.split("\n")) {
+                if (line) handleLine(line);
+            }
+
+            lineBuffer = "";
         }
     });
 });
