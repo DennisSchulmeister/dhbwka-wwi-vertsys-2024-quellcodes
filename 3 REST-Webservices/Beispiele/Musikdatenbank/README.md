@@ -15,7 +15,7 @@ Kurzbeschreibung
 
 Dieses Beispiel zeigt, wie mit [Node.js](https://nodejs.org/) und dem
 [Express-Framework](http://expressjs.com/) ein einfacher REST-Webservice
-entwickelt werden kann. Es handelt sich dabei um eine einfache Musikdatenbank
+entwickelt werden kann. Es handelt sich dabei um eine kleine Musikdatenbank
 mit folgendem Datenmodell:
 
 ![Datenmodell des Webservices](datenmodell.png)
