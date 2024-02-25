@@ -67,7 +67,7 @@ Führen Sie folgende Aktionen aus:
      "name": "Circle of Life",
      "artist": "Elton John",
      "songwriters": "Tim Rice",
-     "releaseYear": 1994,
+     "releaseYear": 1994
    }
    ```
 
