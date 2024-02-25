@@ -6,7 +6,9 @@ Musikdatenbank
 1. [Aufgabenstellung](#aufgabenstellung)
 1. [Fragen zur Programmierung](#fragen-zur-programmierung)
 
-<img src="screenshot.png" alt="Screenshot" border="1">
+<kbd>
+    <img src="screenshot.png" alt="Screenshot">
+</kbd>
 
 Kurzbeschreibung
 ----------------
