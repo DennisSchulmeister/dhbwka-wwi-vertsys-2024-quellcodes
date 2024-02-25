@@ -6,7 +6,8 @@ Musikdatenbank
 1. [Aufgabenstellung](#aufgabenstellung)
 1. [Fragen zur Programmierung](#fragen-zur-programmierung)
 
-![Screenshot](screenshot.png)
+|![Screenshot](screenshot.png)|
+-
 
 Kurzbeschreibung
 ----------------
@@ -27,13 +28,13 @@ Entsprechend den REST-Prinzipien besitzt der Webservice folgende Endpunkte:
 | Playlist-Collection | `/playlist`     | X     | X      |       |         |          |
 | Playlist-Ressource  | `/playlist/:id` | X     |        | X     | X       | X        |
 
-* GET-Anfragen an eine Collection liefern eine Liste der gefundenen Datensätze. Über
+* `GET`-Anfragen an eine Collection liefern eine Liste der gefundenen Datensätze. Über
   den optionalen URL-Parameter `q` kann die Liste nach beliebigen Suchbegriffen
   eingegrenzt werden.
 
-* POST-Anfragen an eine Collection dienen der Anlag neuer Datensätze.
+* `POST`-Anfragen an eine Collection dienen der Anlage neuer Datensätze.
 
-* GET/PUT/PATCH/DELETE-Anfragen an eine Ressource dienen dem Lesen, Bearbeiten und
+* `GET`/`PUT`/`PATCH`/`DELETE`-Anfragen an eine Ressource dienen dem Lesen, Bearbeiten und
   Löschen einzelner Datensätze.
 
 Über die eingebaute Weboberfläche (OpenAPI Explorer) kann der Webservice vollständig
@@ -50,7 +51,30 @@ mit `npm start` gestartet werden kann. Der Server ist anschließend unter der UR
 Aufgabenstellung
 ----------------
 
-Klickanleitung
+Testen Sie den Webservice über die eingebaute Webanwendung oder mit einem Testwerkzeug
+wie [HTTPie](https://httpie.io/) oder dem [Talend API Tester](https://chromewebstore.google.com/detail/talend-api-tester-free-ed/aejoelaoggembcahagimdiliamlcdmfm).
+Führen Sie folgende Aktionen aus:
+
+1. Rufen Sie eine Liste aller Songs ab.
+
+1. Filtern Sie die Liste anschließend nach allen Songs von Elton John.
+
+1. Senden Sie eine POST-Anfrage zum Anlegen folgendes Songs:
+
+   ```json
+   {
+     "name": "Circle of Life",
+     "artist": "Elton John",
+     "songwriters": "Tim Rice",
+     "releaseYear": 1994,
+   }
+   ```
+
+1. Ändern Sie mit einer PATCH-Anfrage die Songwriter auf "Elton John and Tim Rice".
+
+1. Ändern Sie mit einer PUT-Anfrage den Titel zu "Circle of Life (from Lion King)".
+
+1. Rufen Sie erneut alle Songs von Elton John ab und prüfen Sie, ob der neue Song enthalten ist.
 
 Fragen zur Programmierung
 -------------------------
