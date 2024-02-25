@@ -25,7 +25,7 @@ const defaultData = {
         {
             id:    2,
             name:  "The very best of Dire Straits",
-            sings: [4, 5, 6],
+            songs: [4, 5, 6],
         }
     ],
 };

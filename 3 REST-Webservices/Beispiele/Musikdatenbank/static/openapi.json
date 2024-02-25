@@ -1,0 +1,584 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Musikdatenbank",
+        "version": "1.0",
+        "description": "Dieser Webservice dient dazu, die typischen HTTP-Aufrufe bei  Verwendung eines REST-Webservices mit einem Werkzeug wie HTTPie auszuprobieren. Hierfür wird eine simple API zur Verwaltung von Songs angeboten.",
+        "contact": {
+            "name": "Dennis Schulmeister-Zimolong",
+            "url": "https://www.wpvs.de",
+            "email": "dhbw@windows3.de"
+        },
+        "license": {
+            "name": "CC-BY-4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/deed.de"
+        }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:9000",
+            "description": ""
+        }
+    ],
+    "paths": {
+        "/song": {
+            "get": {
+                "tags": [
+                    "Song"
+                ],
+                "parameters": [
+                    {
+                        "name": "q",
+                        "description": "Suchbegriff",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Song"
+                                    },
+                                    "x-content-type": "application/json"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    }
+                },
+                "summary": "Songs suchen",
+                "description": "Eine Liste von Songs"
+            },
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Song"
+                            },
+                            "examples": {
+                                "Song anlegen": {
+                                    "value": {
+                                        "artist": "Bruce Springsteen",
+                                        "name": "If I Was the Priest",
+                                        "releaseYear": 2020,
+                                        "songwriters": "Bruce Springsteen"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "Song"
+                ],
+                "responses": {
+                    "201": {
+                        "headers": {
+                            "Location": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "examples": {
+                                    "URL für neuen Song": {
+                                        "value": "http://localhost:900/song/42"
+                                    }
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Song"
+                                },
+                                "examples": {
+                                    "Angelegter Song": {
+                                        "value": {
+                                            "id": 42,
+                                            "artist": "Bruce Springsteen",
+                                            "name": "If I Was the Priest",
+                                            "releaseYear": 2020,
+                                            "songwriters": "Bruce Springsteen"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Angelegter Song inklusive ID."
+                    }
+                },
+                "summary": "Song hinzufügen",
+                "description": "Legt einen neuen Song an."
+            }
+        },
+        "/song/{id}": {
+            "get": {
+                "tags": [
+                    "Song"
+                ],
+                "parameters": [
+                    {
+                        "style": "simple",
+                        "explode": false,
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Song"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "summary": "Song lesen",
+                "description": "Liest einen einzelnen Song vom Server."
+            },
+            "put": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Song"
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Song"
+                ],
+                "parameters": [
+                    {
+                        "style": "simple",
+                        "explode": false,
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Song"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "summary": "Song ändern",
+                "description": "Überschreibt einen vorhandenen Song auf dem Server. Bis auf die ID können alle Felder geändert werden. Der Versuch, die ID zu ändern, wird vom Server stillschweigend ignoriert."
+            },
+            "delete": {
+                "tags": [
+                    "Song"
+                ],
+                "parameters": [
+                    {
+                        "style": "simple",
+                        "explode": false,
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "summary": "Song löschen",
+                "description": "Löscht einen Song auf dem Server."
+            },
+            "patch": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Song"
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Song"
+                ],
+                "parameters": [
+                    {
+                        "style": "simple",
+                        "explode": false,
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "summary": "Song bearbeiten",
+                "description": "Ändert einzelne Felder eines vorhandenen Songs. Zulässig sind alle Felder bis auf die ID, da diese nachträglich nicht mehr verändert werden darf."
+            }
+        },
+        "/playlist": {
+            "get": {
+                "tags": [
+                    "Playlist"
+                ],
+                "parameters": [
+                    {
+                        "name": "q",
+                        "description": "Suchbegriff",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Playlist"
+                                    },
+                                    "x-content-type": "application/json"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    }
+                },
+                "summary": "Playlists suchen",
+                "description": "Eine Liste von Playlists"
+            },
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Playlist"
+                            },
+                            "examples": {
+                                "Playlist anlegen": {
+                                    "value": {
+                                        "name": "The very best of Dire Straits",
+                                        "songs": [
+                                            4,
+                                            5,
+                                            6
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "Playlist"
+                ],
+                "responses": {
+                    "201": {
+                        "headers": {
+                            "Location": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "examples": {
+                                    "URL für neuen Song": {
+                                        "value": "http://localhost:900/playlist/815"
+                                    }
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Playlist"
+                                },
+                                "examples": {
+                                    "Angelegte Playlist": {
+                                        "value": {
+                                            "id": "815,",
+                                            "name": "The very best of Dire Straits",
+                                            "songs": [
+                                                4,
+                                                5,
+                                                6
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Angelegte Playlist inklusive ID."
+                    }
+                },
+                "summary": "Playlist hinzufügen",
+                "description": "Legt eine neue Playlist an."
+            }
+        },
+        "/playlist/{id}": {
+            "get": {
+                "tags": [
+                    "Playlist"
+                ],
+                "parameters": [
+                    {
+                        "style": "simple",
+                        "explode": false,
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Playlist"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "summary": "Playlist lesen",
+                "description": "Liest eine einzelne Playlist vom Server."
+            },
+            "put": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Playlist"
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Playlist"
+                ],
+                "parameters": [
+                    {
+                        "style": "simple",
+                        "explode": false,
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Playlist"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "summary": "Playlist ändern",
+                "description": "Überschreibt eine vorhandene Playlist auf dem Server. Bis auf die ID können alle Felder geändert werden. Der Versuch, die ID zu ändern, wird vom Server stillschweigend ignoriert."
+            },
+            "delete": {
+                "tags": [
+                    "Playlist"
+                ],
+                "parameters": [
+                    {
+                        "style": "simple",
+                        "explode": false,
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "summary": "Playlist löschen",
+                "description": "Löscht eine Playlist auf dem Server."
+            },
+            "patch": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Playlist"
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Playlist"
+                ],
+                "parameters": [
+                    {
+                        "style": "simple",
+                        "explode": false,
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "summary": "Playlist bearbeiten",
+                "description": "Ändert einzelne Felder einer vorhandenen Playlist. Zulässig sind alle Felder bis auf die ID, da diese nachträglich nicht mehr verändert werden darf."
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Song": {
+                "title": "Song",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "ID",
+                        "type": "integer"
+                    },
+                    "artist": {
+                        "description": "Künstlername",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "Songname",
+                        "type": "string"
+                    },
+                    "songwriters": {
+                        "description": "Namen der Songschreiber",
+                        "type": "string"
+                    },
+                    "releaseYear": {
+                        "description": "Jahr der Veröffentlichung",
+                        "type": "integer"
+                    }
+                },
+                "example": {
+                    "id": 123,
+                    "artist": "Elton John",
+                    "name": "Circle of Life",
+                    "releaseYear": 1994,
+                    "songwriters": "Tim Rice"
+                }
+            },
+            "Playlist": {
+                "title": "Playlist",
+                "description": "Eine Playlist mit Songs",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "ID",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "description": "Name der Playlist",
+                        "type": "string"
+                    },
+                    "songs": {
+                        "description": "Enthaltene Songs (IDs)",
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        }
+                    }
+                },
+                "example": {
+                    "id": 1,
+                    "name": "The Golden 70s",
+                    "songs": [
+                        1,
+                        2,
+                        5,
+                        7
+                    ]
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Song"
+        },
+        {
+            "name": "Playlist"
+        }
+    ]
+}
