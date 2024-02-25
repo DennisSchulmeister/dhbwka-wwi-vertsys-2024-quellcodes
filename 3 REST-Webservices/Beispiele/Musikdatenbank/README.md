@@ -7,7 +7,7 @@ Musikdatenbank
 1. [Fragen zur Programmierung](#fragen-zur-programmierung)
 
 |![Screenshot](screenshot.png)|
--
+|---|
 
 Kurzbeschreibung
 ----------------
