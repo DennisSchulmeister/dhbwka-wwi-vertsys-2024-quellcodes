@@ -35,7 +35,7 @@ services:
       - 8010:8010
     volumes:
       - ../:/app
-      - gateway-config.yml:/app/api-gateway/config/gateway-config.yml
+      - ./gateway-config.yml:/app/api-gateway/config/gateway-config.yml
     working_dir: /app
     command: sh -c "npm i; cd api-gateway; node src/main.js -c config/gateway-config.yml"
   
