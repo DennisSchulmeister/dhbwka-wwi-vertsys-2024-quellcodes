@@ -91,6 +91,7 @@ services:
     environment:
       LISTEN_HOST:
       LISTEN_PORT: 8030
+      CATALOGUE_URL: http://api-gateway:8010/api/catalogue/
     ports:
       # Host:Container
       - 8030:8030
