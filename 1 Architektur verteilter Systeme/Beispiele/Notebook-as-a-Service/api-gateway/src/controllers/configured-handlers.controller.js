@@ -268,7 +268,7 @@ async function forwardRequest(forwardTo, urlPrefix, req, res) {
                 });
             
                 forwardReq.on("error", error => {
-                    if (error.code === "ECONNREFUSED") {
+                    if (error.code === "ECONNREFUSED" || error.code === "ECONNRESET") {
                         // Zielserver ist nicht erreichbar: Nächsten versuchen, falls vorhanden
                         logger.error("Der Zielserver ist nicht erreichbar. Probiere nächsten Server.");
                         tryNextServer = true;
