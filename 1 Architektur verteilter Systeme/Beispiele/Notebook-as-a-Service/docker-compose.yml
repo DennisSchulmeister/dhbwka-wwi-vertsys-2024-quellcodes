@@ -19,8 +19,8 @@ services:
       # Host:Container
       - 8000:8000
     volumes:
-      - ./frontend:/app
-    working_dir: /app
+      - ./:/app
+    working_dir: /app/frontend
     command: sh -c "npm i; npm start"
 
   # API-Gateway
@@ -34,8 +34,8 @@ services:
       # Host:Container
       - 8010:8010
     volumes:
-      - ./api-gateway:/app
-    working_dir: /app
+      - ./:/app
+    working_dir: /app/api-gateway
     command: sh -c "npm i; npm start"
   
   # Katalog-Backend
@@ -49,8 +49,8 @@ services:
       # Host:Container
       - 8020:8020
     volumes:
-      - ./catalogue-backend:/app
-    working_dir: /app
+      - ./:/app
+    working_dir: /app/catalogue-backend
     command: sh -c "npm i; npm start"
   
   # Auftrags-Backend
@@ -64,6 +64,6 @@ services:
       # Host:Container
       - 8030:8030
     volumes:
-      - ./order-backend:/app
-    working_dir: /app
+      - ./:/app
+    working_dir: /app/order-backend
     command: sh -c "npm i; npm start"
