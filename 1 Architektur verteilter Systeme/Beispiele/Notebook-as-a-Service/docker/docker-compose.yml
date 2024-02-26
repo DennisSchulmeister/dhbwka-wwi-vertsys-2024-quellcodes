@@ -19,9 +19,9 @@ services:
       # Host:Container
       - 8000:8000
     volumes:
-      - ./:/app
-    working_dir: /app/frontend
-    command: sh -c "npm i; npm start"
+      - ../:/app
+    working_dir: /app
+    command: sh -c "npm i; cd frontend; npm start"
 
   # API-Gateway
   api-gateway:
@@ -34,12 +34,13 @@ services:
       # Host:Container
       - 8010:8010
     volumes:
-      - ./:/app
-    working_dir: /app/api-gateway
-    command: sh -c "npm i; npm start"
+      - ../:/app
+      - gateway-config.yml:/app/api-gateway/config/gateway-config.yml
+    working_dir: /app
+    command: sh -c "npm i; cd api-gateway; node src/main.js -c config/gateway-config.yml"
   
-  # Katalog-Backend
-  catalogue-backend:
+  # Katalog-Backend 1
+  catalogue-backend1:
     image: node:20-alpine
     restart: always
     environment:
@@ -49,9 +50,39 @@ services:
       # Host:Container
       - 8020:8020
     volumes:
-      - ./:/app
-    working_dir: /app/catalogue-backend
-    command: sh -c "npm i; npm start"
+      - ../:/app
+    working_dir: /app
+    command: sh -c "npm i; cd catalogue-backend; npm start"
+  
+  # Katalog-Backend 2
+  catalogue-backend2:
+    image: node:20-alpine
+    restart: always
+    environment:
+      LISTEN_HOST:
+      LISTEN_PORT: 8021
+    ports:
+      # Host:Container
+      - 8021:8021
+    volumes:
+      - ../:/app
+    working_dir: /app
+    command: sh -c "npm i; cd catalogue-backend; npm start1"
+
+  # Katalog-Backend 3
+  catalogue-backend3:
+    image: node:20-alpine
+    restart: always
+    environment:
+      LISTEN_HOST:
+      LISTEN_PORT: 8022
+    ports:
+      # Host:Container
+      - 8022:8022
+    volumes:
+      - ../:/app
+    working_dir: /app
+    command: sh -c "npm i; cd catalogue-backend; npm start2"
   
   # Auftrags-Backend
   order-backend:
@@ -64,6 +95,6 @@ services:
       # Host:Container
       - 8030:8030
     volumes:
-      - ./:/app
-    working_dir: /app/order-backend
-    command: sh -c "npm i; npm start"
+      - ../:/app
+    working_dir: /app
+    command: sh -c "npm i; cd order-backend; npm start"
