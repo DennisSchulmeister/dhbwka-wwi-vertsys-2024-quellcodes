@@ -46,7 +46,7 @@ rules:
       url: /api/order/*
       method: [GET, POST, PUT, PATCH, DELETE]
     then:
-      forward-to: [http://localhost:8030]
+      forward-to: [http://order-backend:8030]
       finish: true
 
   # Fallback-Regel
