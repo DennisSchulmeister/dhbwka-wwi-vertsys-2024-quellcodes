@@ -1,0 +1,69 @@
+#=========================================================================
+# Docker Compose File für das Beispieldeployment auf zimolong.eu.
+#
+# Dadurch können die Studierenden die online bereitgestellten Service
+# ntuzen, wenn eine Ausführung auf zwei Computern nicht möglich ist.
+#=========================================================================
+version: "3.9"
+
+services:
+  # Frontend Server
+  frontend:
+    image: node:20-alpine
+    restart: always
+    environment:
+      LISTEN_HOST:
+      LISTEN_PORT: 8000
+      GATEWAY_URL: http://zimolong.eu:8010/
+    ports:
+      # Host:Container
+      - 8000:8000
+    volumes:
+      - ./frontend:/app
+    working_dir: /app
+    command: sh -c "npm i; npm start"
+
+  # API-Gateway
+  api-gateway:
+    image: node:20-alpine
+    restart: always
+    environment:
+      LISTEN_HOST:
+      LISTEN_PORT: 8010
+    ports:
+      # Host:Container
+      - 8010:8010
+    volumes:
+      - ./api-gateway:/app
+    working_dir: /app
+    command: sh -c "npm i; npm start"
+  
+  # Katalog-Backend
+  catalogue-backend:
+    image: node:20-alpine
+    restart: always
+    environment:
+      LISTEN_HOST:
+      LISTEN_PORT: 8020
+    ports:
+      # Host:Container
+      - 8020:8020
+    volumes:
+      - ./catalogue-backend:/app
+    working_dir: /app
+    command: sh -c "npm i; npm start"
+  
+  # Auftrags-Backend
+  order-backend:
+    image: node:20-alpine
+    restart: always
+    environment:
+      LISTEN_HOST:
+      LISTEN_PORT: 8030
+    ports:
+      # Host:Container
+      - 8030:8030
+    volumes:
+      - ./order-backend:/app
+    working_dir: /app
+    command: sh -c "npm i; npm start"
