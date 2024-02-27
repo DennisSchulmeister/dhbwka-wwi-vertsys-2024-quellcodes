@@ -1,0 +1,21 @@
+{
+  "name": "@dschulmeis/guestbook",
+  "version": "1.0.0",
+  "description": "Minimalbeispiel für Express: Gästebuch",
+  "author": "Dennis Schulmeister-Zimolong <dhbw@windows3.de>",
+  "license": "CC-BY-4.0",
+  "type": "module",
+  "scripts": {
+    "start": "node src/main.js",
+    "watch": "nodemon src/main.js",
+    "debug": "node --inspect-brk src/main.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.4",
+    "express": "^4.18.2",
+    "logging": "^3.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
+}
