@@ -100,11 +100,9 @@ Die Liste der gefundenen Schnipsel hat folgenden Aufbau:
 
 ```json
 [
-    [
-        {"id": 1, "language": "go",  "name":"Hallo Welt in Go"},
-        {"id": 2, "language": "css", "name":"Test für Copy & Paste"},
-        ...
-    ]
+    {"id": 1, "language": "go",  "name":"Hallo Welt in Go"},
+    {"id": 2, "language": "css", "name":"Test für Copy & Paste"},
+    ...
 ]
 ```
 
