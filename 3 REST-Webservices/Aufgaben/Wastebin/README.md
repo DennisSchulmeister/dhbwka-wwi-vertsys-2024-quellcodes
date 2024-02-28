@@ -34,8 +34,8 @@ Oder [GitHub Gist](https://gist.github.com/)? Oder …? Sie bieten alle dieselbe
 Codeschnipsel online zu speichern und über eine Kurz-URL zu teilen. Das klingt einfach gung,
 damit wir es als Übung nachprogrammieren wollen. Auch wenn uns hierbei vor allem auf den
 REST-Webservice konzentrieren und die Sharing-Funktion zunächst ignorieren. Und da es sich
-ja meistens, um Wegwerfschnipsel handelt, nennen wir diese Anwendung in Anlehnung an das
-Original stolz **Wastebin**.
+ja meistens um Wegwerfschnipsel handelt, nennen wir diese Anwendung in Anlehnung an das
+Original **Wastebin**.
 
 Diese Übung dient als Fallbeispiel für die Programmierung eines einfachen REST-Webservices
 mit Datenpersistenz. In den kommenden Vorlesungen werden wir alle Schritte von der Anlage
