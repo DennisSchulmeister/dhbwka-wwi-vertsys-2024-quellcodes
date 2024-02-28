@@ -107,7 +107,7 @@ Die Liste der gefundenen Schnipsel hat folgenden Aufbau:
 ```
 
 Ein einzelner Schnipsel ist ähnlich aufgebaut, enthält darüber hinaus aber noch
-die Sprache und den Textinhalt:
+den Textinhalt:
 
 ```json
 {

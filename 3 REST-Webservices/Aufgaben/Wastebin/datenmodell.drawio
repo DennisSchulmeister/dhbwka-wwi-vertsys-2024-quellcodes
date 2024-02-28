@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2024-02-28T05:18:59.764Z" agent="Mozilla/5.0 (X11; Linux x86_64; rv:120.0) Gecko/20100101 Firefox/120.0" etag="5_exZ3Ir0i-hsNyqkTRo" version="23.1.6" type="device">
+<mxfile host="app.diagrams.net" modified="2024-02-28T14:19:56.294Z" agent="Mozilla/5.0 (X11; Linux x86_64; rv:120.0) Gecko/20100101 Firefox/120.0" etag="2nY7i1GdCYjVFRWK1GSW" version="23.1.7" type="device">
   <diagram name="Seite-1" id="olzVaGis4nsVIcLEO0Mk">
-    <mxGraphModel dx="1432" dy="764" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1434" dy="742" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -13,7 +13,7 @@
         <mxCell id="o4fX9G1XR78Njr48sm4R-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" parent="1" source="o4fX9G1XR78Njr48sm4R-3" target="o4fX9G1XR78Njr48sm4R-5" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="o4fX9G1XR78Njr48sm4R-3" value="Codeschnippsel" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#000000;" parent="1" vertex="1">
+        <mxCell id="o4fX9G1XR78Njr48sm4R-3" value="Codeschnipsel" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#000000;" parent="1" vertex="1">
           <mxGeometry x="160" y="240" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="o4fX9G1XR78Njr48sm4R-4" value="&lt;div&gt;&lt;b&gt;Schnippsel ID&lt;/b&gt;&lt;/div&gt;&lt;div&gt;Name&lt;/div&gt;&lt;div&gt;(Sprache)&lt;/div&gt;&lt;div&gt;Textinhalt&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=right;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
