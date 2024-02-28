@@ -31,7 +31,7 @@ Fallbeispiel: Notebook as a Service
     </tr>
 </table>
 
-Bilder zum Vergößern bitte anklicken.
+Bilder zum Vergrößern bitte anklicken.
 
 
 Kurzbeschreibung

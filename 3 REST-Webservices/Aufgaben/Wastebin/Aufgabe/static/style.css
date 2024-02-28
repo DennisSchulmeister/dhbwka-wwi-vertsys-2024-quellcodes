@@ -1,0 +1,113 @@
+/**
+ * ALLGEMEINES
+ */
+html, body {
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+    min-height: 100vh;
+}
+
+html {
+    /* OpenAI DALL-E: Programmer's desk with a monitor showing source code and several programming language books */
+    background-image: url(bg.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+
+    font-family: monospace;
+    font-size: 12pt;
+}
+
+body {
+    background: rgba(0,0,0,0.7);
+    color: rgb(230,230,230);
+    backdrop-filter: blur(10px);
+
+    padding: 1em;
+
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+main {
+    flex: 1;
+    overflow: scroll;
+}
+
+a, a:visited {
+    color: rgb(230,230,230);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.margin-bottom {
+    margin-bottom: 1em;
+}
+
+.padding-bottom {
+    padding-bottom: 1em;
+}
+
+.hidden {
+    display: none;
+}
+
+/**
+ * Toolbar
+ */
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2em;
+}
+
+.bold, .selected {
+    font-weight: bold;
+}
+
+/**
+ * Liste der Codeschnipsel
+ */
+.snippets td {
+    padding-right: 1em;
+    vertical-align: top;
+}
+
+.linenumber {
+    color: rgb(150,150,150);
+    text-align: right;
+}
+
+[contenteditable] {
+    outline: 0px solid transparent;
+}
+
+/**
+ * Codeschnippsel selbst
+ */
+pre {
+    background: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    padding-left: 2.5em !important;
+}
+
+pre.snippet-content {
+    padding: 0 !important;
+}
+
+.line-numbers .line-numbers-rows {
+    border: 0 !important;
+}
+
+.placeholder {
+    font-style: italic;
+    color: rgb(150,150,150);
+}

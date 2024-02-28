@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Wastebin</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="favicon.png">
+
+        <!-- Syntaxhighlighting: http://prismjs.com/ -->
+        <link rel="stylesheet" href="prism/prism.css" />
+        <script src="prism/prism.js"></script>
+
+        <!-- Eigene Sachen -->
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js"></script>
+    </head>
+    <body>
+        <div class="toolbar bold margin-bottom">
+            <a href="#" class="command hidden" id="cmd-new">Neuer Schnipsel</a>
+            <a href="#" class="command hidden" id="cmd-edit">Bearbeiten</a>
+            <a href="#" class="command hidden" id="cmd-delete">Löschen</a>
+            <a href="#" class="command hidden" id="cmd-save">Speichern</a>
+            <a href="#" class="command hidden" id="cmd-cancel">Abbrechen</a>
+            <a href="#" class="command hidden" id="cmd-back">Zurück</a>
+        </div>
+
+        <main>
+            <table class="snippets hidden" id="snippet-list">
+                <!--
+                <tr>
+                    <td class="linenumber">1</td>
+                    <td><a href="#">Hallo Welt in Go</a></td>
+                </tr> 
+                -->
+            </table>
+
+            <table class="snippets hidden" id="snippet-editor">
+                <tr>
+                    <td class="linenumber">?</td>
+                    <td class="toolbar">
+                        <!--
+                        <a href="#" class="selected">Nur Text</a>
+                        <a href="#">HTML</a>
+                        <a href="#">CSS</a>
+                        <a href="#">JavaScript</a>
+                        -->
+                    </td>
+                </tr>
+                <tr>
+                    <td class="linenumber padding-bottom">?</td>
+                    <td contenteditable="true" class="snippet-name empty"><span class="placeholder">Name</span></td>
+                </tr>
+                <tr>
+                    <td class="linenumber">&gt;</td>
+                    <td>
+                        <pre contenteditable="true" class="snippet-content empty"><span class="placeholder">Inhalt</span></pre>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="hidden" id="snippet-display">
+                <div class="snippet-name margin-bottom"></div>
+                <pre>
+                    <!--
+                    <code class="language-go line-numbers match-braces">...</code>
+                    -->
+                </pre>
+            </div>
+        </main>
+    </body>
+</html>
