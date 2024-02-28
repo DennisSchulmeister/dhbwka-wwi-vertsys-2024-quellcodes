@@ -3,9 +3,9 @@ import {wrapAsync}        from "@dschulmeis/naas-common/src/utils.js";
 import {throwError}       from "@dschulmeis/naas-common/src/utils.js";
 
 /**
- * Diese Funktion registriert die unten ausprogrammierten Route Handler der
+ * Diese Funktion fügt die unten ausprogrammierten Route Handler der
  * Express Application hinzu.
- * 
+ *
  * @param {Express.Application} app Express Application
  */
 export default function registerRoutes(app) {
@@ -15,7 +15,7 @@ export default function registerRoutes(app) {
 
 /**
  * Prüfen, ob das gewünschte Gerät überhaupt existiert.
- * 
+ *
  * @param {Express.Request} req HTTP-Anfrage
  * @param {Express.Response} res HTTP-Antwort
  */
@@ -29,7 +29,7 @@ async function checkExists(req, res) {
 
 /**
  * Prüfen, ob das gewünschte Gerät im gegebenen Zeitraum verfügbar ist.
- * 
+ *
  * @param {Express.Request} req HTTP-Anfrage
  * @param {Express.Response} res HTTP-Antwort
  */

@@ -1,7 +1,7 @@
 /**
- * Diese Funktion registriert die unten ausprogrammierten Route Handler der
+ * Diese Funktion fügt die unten ausprogrammierten Route Handler der
  * Express Application hinzu.
- * 
+ *
  * @param {Express.Application} app Express Application
  */
 export default function registerRoutes(app) {
@@ -10,7 +10,7 @@ export default function registerRoutes(app) {
 
 /**
  * URL des API-Gateways abrufen.
- * 
+ *
  * @param {Express.Request} req HTTP-Anfrage
  * @param {Express.Response} res HTTP-Antwort
  */

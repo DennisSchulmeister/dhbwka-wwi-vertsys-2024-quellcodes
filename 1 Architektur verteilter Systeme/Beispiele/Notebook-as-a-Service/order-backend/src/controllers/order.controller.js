@@ -4,9 +4,9 @@ import {throwNotFound}        from "@dschulmeis/naas-common/src/utils.js";
 import {wrapAsync}            from "@dschulmeis/naas-common/src/utils.js";
 
 /**
- * Diese Funktion registriert die unten ausprogrammierten Route Handler der
+ * Diese Funktion fügt die unten ausprogrammierten Route Handler der
  * Express Application hinzu.
- * 
+ *
  * @param {Express.Application} app Express Application
  */
 export default function registerRoutes(app) {
@@ -17,7 +17,7 @@ export default function registerRoutes(app) {
 
 /**
  * Abruf einer Liste von Aufträgen.
- * 
+ *
  * @param {Express.Request} req HTTP-Anfrage
  * @param {Express.Response} res HTTP-Antwort
  */
@@ -40,7 +40,7 @@ function search(req, res) {
 
 /**
  * Abruf eines einzelnen Auftrags.
- * 
+ *
  * @param {Express.Request} req HTTP-Anfrage
  * @param {Express.Response} res HTTP-Antwort
  */
@@ -53,7 +53,7 @@ function find(req, res) {
 
 /**
  * Gerät ausleihen, sofern es existiert und im gewünschten Zeitraum verfügbar ist.
- * 
+ *
  * @param {Express.Request} req HTTP-Anfrage
  * @param {Express.Response} res HTTP-Antwort
  */

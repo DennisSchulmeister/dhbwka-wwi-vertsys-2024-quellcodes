@@ -5,9 +5,9 @@ import {wrapAsync}     from "../utils.js";
 const prefix = "/playlist";
 
 /**
- * Diese Funktion registriert die unten ausprogrammierten Route Handler der
+ * Diese Funktion fügt die unten ausprogrammierten Route Handler der
  * Express Application hinzu.
- * 
+ *
  * @param {Express.Application} app Express Application
  */
 export default function registerRoutes(app) {
@@ -24,7 +24,7 @@ export default function registerRoutes(app) {
 
 /**
  * Abruf einer Liste von Playlists, optional mit Stichwortsuche.
- * 
+ *
  * @param {Express.Request} req HTTP-Anfrage
  * @param {Express.Response} res HTTP-Antwort
  */
@@ -37,7 +37,7 @@ async function search(req, res) {
 
 /**
  * Anlegen einer neuen Playlist.
- * 
+ *
  * @param {Express.Request} req HTTP-Anfrage
  * @param {Express.Response} res HTTP-Antwort
  */
@@ -51,7 +51,7 @@ async function create(req, res) {
 
 /**
  * Abruf einer einzelnen Playlist anhand ihrer ID.
- * 
+ *
  * @param {Express.Request} req HTTP-Anfrage
  * @param {Express.Response} res HTTP-Antwort
  */
@@ -69,7 +69,7 @@ async function read(req, res) {
 /**
  * Aktualisieren einzelner Felder einer Playlist oder Überschreiben der
  * gesamten Playlist.
- * 
+ *
  * @param {Express.Request} req HTTP-Anfrage
  * @param {Express.Response} res HTTP-Antwort
  */
@@ -86,7 +86,7 @@ async function update(req, res) {
 
 /**
  * Löschen einer Playlist anhand ihrer ID.
- * 
+ *
  * @param {Express.Request} req HTTP-Anfrage
  * @param {Express.Response} res HTTP-Antwort
  */

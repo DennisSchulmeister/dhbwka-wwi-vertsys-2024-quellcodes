@@ -5,9 +5,9 @@ import {wrapAsync}     from "../utils.js";
 const prefix = "/song";
 
 /**
- * Diese Funktion registriert die unten ausprogrammierten Route Handler der
+ * Diese Funktion fügt die unten ausprogrammierten Route Handler der
  * Express Application hinzu.
- * 
+ *
  * @param {Express.Application} app Express Application
  */
 export default function registerRoutes(app) {
@@ -24,7 +24,7 @@ export default function registerRoutes(app) {
 
 /**
  * Abruf einer Liste von Songs, optional mit Stichwortsuche.
- * 
+ *
  * @param {Express.Request} req HTTP-Anfrage
  * @param {Express.Response} res HTTP-Antwort
  */
@@ -37,7 +37,7 @@ async function search(req, res) {
 
 /**
  * Anlegen eines neuen Songs.
- * 
+ *
  * @param {Express.Request} req HTTP-Anfrage
  * @param {Express.Response} res HTTP-Antwort
  */
@@ -51,7 +51,7 @@ async function create(req, res) {
 
 /**
  * Abruf eines einzelnen Songs anhand seiner ID.
- * 
+ *
  * @param {Express.Request} req HTTP-Anfrage
  * @param {Express.Response} res HTTP-Antwort
  */
@@ -68,7 +68,7 @@ async function read(req, res) {
 
 /**
  * Aktualisieren einzelner Felder eines Songs oder Überschreiben des gesamten Songs.
- * 
+ *
  * @param {Express.Request} req HTTP-Anfrage
  * @param {Express.Response} res HTTP-Antwort
  */
@@ -85,7 +85,7 @@ async function update(req, res) {
 
 /**
  * Löschen eines Songs anhand seiner ID.
- * 
+ *
  * @param {Express.Request} req HTTP-Anfrage
  * @param {Express.Response} res HTTP-Antwort
  */

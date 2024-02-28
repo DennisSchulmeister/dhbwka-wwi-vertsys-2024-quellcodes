@@ -10,9 +10,9 @@ import http                      from "node:http";
 let loadBalancer = {};
 
 /**
- * Diese Funktion registriert die unten ausprogrammierten Route Handler der
+ * Diese Funktion fügt die unten ausprogrammierten Route Handler der
  * Express Application hinzu.
- * 
+ *
  * @param {Express.Application} app Express Application
  */
 export default function registerRoutes(app) {
@@ -22,7 +22,7 @@ export default function registerRoutes(app) {
 /**
  * Generische HTTP-Handler-Funktion zur Ausführung der konfigurierten Regeln
  * des API-Gateways.
- * 
+ *
  * @param {Express.Request} req HTTP-Anfrage
  * @param {Express.Response} res HTTP-Antwort
  * @param {Function} next `next()`-Funktion von Express
@@ -58,7 +58,7 @@ async function handleRequest(req, res, next) {
  * Diese Funktion wertet eine einzelne Konfigurationsregel aus und gibt die aufgrund
  * der Regel auszuführenden Aktionen zurück. Die Konfigurierte Regel muss hierfür
  * folgenden Aufbau besitzen:
- * 
+ *
  * ```yml
  * if:
  *   prüfung1: ...
@@ -70,23 +70,23 @@ async function handleRequest(req, res, next) {
  *   aktion1: ...
  *   aktion2: ...
  * ```
- * 
+ *
  * Alle drei Bestandteile sind optional. Wenn alle `if`-Prüfungen zutreffen, wird das `then`-Objekt
  * zurückgeliefert, sonst das `else`-Objekt. Fehlt das zurückzugebende Objekt, wird ein leeres
  * Objekt zurückgegeben.
- * 
+ *
  * Folgende Prüfungen sind derzeit im `if`-Zweig erlaubt:
- * 
+ *
  *   * `url` (String oder Liste von Strings): <br>
  *      Prüfung der URL. Wenn diese auf "*" endet, wird nur der Prefix gematcht. Sonst volle Gleichheit.
- * 
+ *
  *   * `method` (String oder Liste von Strings): <br>
  *      Prüfung des HTTP Verbs. Groß-/Kleinschreibung wird ignoriert.
- * 
+ *
  *   * `headers` (Objekt mit HTTP-Headern, Werte sind String oder Liste von Strings): <br>
  *      Prüfung eines oder mehrerer HTTP-Header. Alle Header müssen vorhanden sein und den angegebenen
  *      Wert besitzen. "*" kann für Wildcard- / Prefix-Matching genutzt werden.
- * 
+ *
  * Die zurückgegebenen Aktionen werden hier nicht validiert, sondern müssen hierfür einfach
  * an die nächste Funktion `executeActions()` übergeben werden.
  *
@@ -164,22 +164,22 @@ function matchRule(rule, req) {
 /**
  * Diese Funktion führt die zuvor mit `matchRule()` ermittelten Aktionen aus. Folgende Aktionen
  * sind dabei derzeit erlaubt:
- * 
+ *
  *   * `status-code` (numerisch):
  *      HTTP-Statuscode setzen
- * 
+ *
  *   * `headers` (Objekt):
  *      HTTP-Header setzen
- * 
+ *
  *   * `body` (Irgendetwas):
  *      HTTP-Body setzen (wird ggf. nach JSON umgewandelt)
- * 
+ *
  *   * `forward-to` (String oder Liste mit Strings):
  *      Weiterleitung an Backendsystem, bei Liste mit Load Balancing
- * 
+ *
  *   * `finish` (Boolean):
  *      Regelverarbeitung nach dieser Regel abbrechen
- * 
+ *
  * @param {Object} actions Auszuführende Aktion
  * @param {Express.Request} req HTTP-Anfrage
  * @param {Express.Response} res HTTP-Antwort
@@ -227,8 +227,8 @@ async function executeActions(actions, req, res) {
 /**
  * Weiterleiten der übergebenen HTTP-Anfrage ein einen Backendserver. Im ersten Parameter
  * wird hierfür eine Liste mit Zieladressen übergeben, im zweiten Parameter der durch die
- * Regeln erkannte URL-Prefix, damit dieser vor der Weiterleitung abgeschnitten werden kann. 
- * 
+ * Regeln erkannte URL-Prefix, damit dieser vor der Weiterleitung abgeschnitten werden kann.
+ *
  * @param {Array[string]} forwardTo Liste mit möglichen Zieladressen
  * @param {string} urlPrefix Gematchter URL-Prefix, vor Weiterleitung entfernen
  * @param {Express.Request} req HTTP-Anfrage
@@ -246,18 +246,18 @@ async function forwardRequest(forwardTo, urlPrefix, req, res) {
         let loadBalancerKey   = JSON.stringify(forwardTo);
         let loadBalancerIndex = loadBalancer[loadBalancerKey];
         if (loadBalancerIndex === undefined) loadBalancerIndex = -1;
-    
+
         loadBalancerIndex = (loadBalancerIndex + 1) % forwardTo.length;
         loadBalancer[loadBalancerKey] = loadBalancerIndex;
-    
+
         let urlSuffix = req.originalUrl.slice(urlPrefix.length);
         while (urlSuffix.startsWith("/")) urlSuffix = urlSuffix.slice(1);
-    
+
         let targetUrl = `${forwardTo[loadBalancerIndex]}/${urlSuffix}`;
-    
+
         let logPrefix = Math.floor(Math.random() * 9999);
         logger.info(`[${logPrefix}] Weiterleitung der Anfrage an: ${targetUrl}`);
-    
+
         // Anfrage weiterleiten
         try {
             let statusCode = await new Promise(async (resolve, reject) => {
@@ -266,7 +266,7 @@ async function forwardRequest(forwardTo, urlPrefix, req, res) {
                     forwardRes.pipe(res);
                     resolve(forwardRes.statusCode);
                 });
-            
+
                 forwardReq.on("error", error => {
                     if (error.code === "ECONNREFUSED" || error.code === "ECONNRESET") {
                         // Zielserver ist nicht erreichbar: Nächsten versuchen, falls vorhanden
@@ -275,29 +275,29 @@ async function forwardRequest(forwardTo, urlPrefix, req, res) {
                     } else {
                         logger.error(`[${logPrefix}] Bei der Weiterleitung der Anfrage an ${targetUrl} ist ein Fehler aufgetreten.`);
                     }
-        
+
                     reject(error);
                 });
-        
+
                 for (let headerName of Object.keys(req.headersDistinct)) {
-                    if (headerName === "host") continue;    
+                    if (headerName === "host") continue;
                     forwardReq.setHeader(headerName, req.headersDistinct[headerName]);
                 }
-            
+
                 let forwardedHeaderValue = "";
-            
+
                 if (req.socket.localAddress) {
                     forwardedHeaderValue += `;by=${req.socket.localAddress}:${req.socket.localPort}`;
                     forwardedHeaderValue += `;for=${req.socket.remoteAddress}:${req.socket.remotePort}`;
                 }
-            
+
                 if (req.headers.host) forwardedHeaderValue += `;host=${req.headers.host}`;
                 if (req.protocol) forwardedHeaderValue += `;proto=${req.protocol}`;
                 while (forwardedHeaderValue.startsWith(";")) forwardedHeaderValue = forwardedHeaderValue.slice(1);
-            
+
                 forwardReq.appendHeader("forwarded", forwardedHeaderValue);
-                
-                req.pipe(forwardReq, {end: true});   
+
+                req.pipe(forwardReq, {end: true});
             });
 
             logger.info(`[${logPrefix}] Antwort des fremden Servers: Status ${statusCode}`);

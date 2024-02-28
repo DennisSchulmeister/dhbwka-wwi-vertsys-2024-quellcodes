@@ -2,9 +2,9 @@ import {db}            from "../database.js";
 import {throwNotFound} from "@dschulmeis/naas-common/src/utils.js";
 
 /**
- * Diese Funktion registriert die unten ausprogrammierten Route Handler der
+ * Diese Funktion fügt die unten ausprogrammierten Route Handler der
  * Express Application hinzu.
- * 
+ *
  * @param {Express.Application} app Express Application
  */
 export default function registerRoutes(app) {
@@ -14,7 +14,7 @@ export default function registerRoutes(app) {
 
 /**
  * Abruf einer Liste von Geräten.
- * 
+ *
  * @param {Express.Request} req HTTP-Anfrage
  * @param {Express.Response} res HTTP-Antwort
  */
@@ -31,7 +31,7 @@ function search(req, res) {
 
 /**
  * Abruf eines einzelnen Geräts.
- * 
+ *
  * @param {Express.Request} req HTTP-Anfrage
  * @param {Express.Response} res HTTP-Antwort
  */

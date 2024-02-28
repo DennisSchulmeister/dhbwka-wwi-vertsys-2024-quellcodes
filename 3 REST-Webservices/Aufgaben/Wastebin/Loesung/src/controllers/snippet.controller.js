@@ -4,9 +4,9 @@ import {wrapAsync} from "../utils.js";
 const prefix = "/api/snippet";
 
 /**
- * Diese Funktion registriert die unten ausprogrammierten Route Handler der
+ * Diese Funktion fügt die unten ausprogrammierten Route Handler der
  * Express Application hinzu.
- * 
+ *
  * @param {Express.Application} app Express Application
  */
 export default function registerRoutes(app) {
@@ -23,7 +23,7 @@ export default function registerRoutes(app) {
 
 /**
  * Abruf einer Liste von Codeschnipseln, optional mit Stichwortsuche.
- * 
+ *
  * @param {Express.Request} req HTTP-Anfrage
  * @param {Express.Response} res HTTP-Antwort
  */
@@ -45,7 +45,7 @@ async function search(req, res) {
 
 /**
  * Anlegen eines neuen Codeschnipsels.
- * 
+ *
  * @param {Express.Request} req HTTP-Anfrage
  * @param {Express.Response} res HTTP-Antwort
  */
@@ -63,12 +63,12 @@ async function create(req, res) {
             name:    error.name    || "Error",
             message: error.message || "",
         });
-    }    
+    }
 }
 
 /**
  * Abruf eines einzelnen Codeschnipsels anhand seiner ID.
- * 
+ *
  * @param {Express.Request} req HTTP-Anfrage
  * @param {Express.Response} res HTTP-Antwort
  */
@@ -80,7 +80,7 @@ async function read(req, res) {
         res.send(result);
     } else {
         res.status(404);
-        
+
         res.send({
             error:   "NOT-FOUND",
             message: "Der Codeschnipsel wurde nicht gefunden."
@@ -91,7 +91,7 @@ async function read(req, res) {
 /**
  * Aktualisieren einzelner Felder eines Codeschnipsels oder Überschreiben des
  * gesamten Codeschnipsels.
- * 
+ *
  * @param {Express.Request} req HTTP-Anfrage
  * @param {Express.Response} res HTTP-Antwort
  */
@@ -117,12 +117,12 @@ async function update(req, res) {
             name:    error.name    || "Error",
             message: error.message || "",
         });
-    }    
+    }
 }
 
 /**
  * Löschen eines Codeschnipsels anhand seiner ID.
- * 
+ *
  * @param {Express.Request} req HTTP-Anfrage
  * @param {Express.Response} res HTTP-Antwort
  */
@@ -134,7 +134,7 @@ async function remove(req, res) {
         res.send();
     } else {
         res.status(404);
-        
+
         res.send({
             error:   "NOT-FOUND",
             message: "Der Codeschnipsel wurde nicht gefunden."
