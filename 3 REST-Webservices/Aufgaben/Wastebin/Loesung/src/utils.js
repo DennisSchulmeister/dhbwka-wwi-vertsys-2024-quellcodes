@@ -1,3 +1,11 @@
+import logging from "logging";
+
+/**
+ * Logger zum Ausgeben von Info-Meldungen, Warnungen und Fehlern mit den
+ * Methoden `info()`, `warning()` und `error()`.
+ */
+export const logger = logging.default("main");
+
 /**
  * Diese Funktion kann eine asynchrone Express Request-Handler-Funktion einhüllen, so
  * dass eventuell auftretende Fehler in jedem Fall korrekt an das Express-Framework

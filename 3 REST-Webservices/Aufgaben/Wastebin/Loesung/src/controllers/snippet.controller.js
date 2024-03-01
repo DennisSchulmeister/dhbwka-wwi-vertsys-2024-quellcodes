@@ -1,5 +1,6 @@
 import service     from "../services/snippet.service.js";
 import {wrapAsync} from "../utils.js";
+import {logger}    from "../utils.js";
 
 const prefix = "/api/snippet";
 
@@ -57,6 +58,8 @@ async function create(req, res) {
         res.header("location", `${prefix}/${result.id}`);
         res.send(result);
     } catch (error) {
+        logger.error(error);
+
         res.status(400);
 
         res.send({
@@ -79,6 +82,8 @@ async function read(req, res) {
         res.status(200);
         res.send(result);
     } else {
+        logger.error(error);
+
         res.status(404);
 
         res.send({
@@ -111,6 +116,8 @@ async function update(req, res) {
             });
         }
     } catch (error) {
+        logger.error(error);
+        
         res.status(400);
 
         res.send({

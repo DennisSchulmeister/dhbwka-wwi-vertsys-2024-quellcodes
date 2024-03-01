@@ -1,10 +1,10 @@
 import dotenv        from "dotenv";
 import express       from "express";
 import qs            from "qs";
-import logging       from "logging";
 import path          from "node:path";
 import url           from "node:url";
 
+import {logger}      from "./utils.js";
 import controllers   from "./controllers/index.js";
 
 // Programmname ausgeben
@@ -19,9 +19,6 @@ const config = {
     host: process.env.LISTEN_HOST || "",
     port: process.env.LISTEN_PORT || 9000,
 };
-
-// Logger zum Ausgeben strukturierte Log-Meldungen
-const logger = logging.default("main");
 
 // Webserver starten
 const app = express();

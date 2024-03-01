@@ -38,9 +38,7 @@ export async function create(snippet) {
         content:  `${snippet.content  || ""}`.trim(),
     };
 
-    if (!entry.name) throw new Error("Name fehlt");
-    if (!entry.content) throw new Error("Inhalt fehlt");
-
+    validateSnippet(entry);
     database.db.data.Snippet.push(entry);
     await database.db.write();
 
@@ -74,10 +72,9 @@ export async function update(id, snippet) {
     if (snippet.language) existing.language = `${snippet.language}`.trim();
     if (snippet.content)  existing.content  = `${snippet.content}`.trim();
 
-    if (!existing.name) throw new Error("Name fehlt");
-    if (!existing.content) throw new Error("Inhalt fehlt");
-
+    validateSnippet(existing);
     await database.db.write();
+
     return existing;
 }
 
@@ -94,6 +91,24 @@ export async function remove(id) {
 
     await database.db.write();
     return countBefore - countAfter;
+}
+
+/**
+ * Diese Funktion prüft die Inhalte eines Codeschnipsels. Wenn alles in Ordnung ist,
+ * passiert nichts. Wenn ein Fehler gefunden wird, wirft sie eine Exception mit einer
+ * entsprechenden Fehlermeldung (z.B. "Name fehlt").
+ * 
+ * @param {Object} snippet Zu prüfender Codeschnipsel
+ */
+function validateSnippet(snippet) {
+    if (!snippet.name) throw new Error("Name fehlt");
+    if (!snippet.content) throw new Error("Inhalt fehlt");
+
+    if (!snippet.language) snippet.language = "";
+    snippet.language = snippet.language.toLowerCase();
+    
+    let language = database.db.data.Language.find(entry => entry.language === snippet.language);
+    if (!language) throw new Error(`Unbekannte Programmiersprache: ${snippet.language}`);
 }
 
 export default {search, create, read, update, remove};
