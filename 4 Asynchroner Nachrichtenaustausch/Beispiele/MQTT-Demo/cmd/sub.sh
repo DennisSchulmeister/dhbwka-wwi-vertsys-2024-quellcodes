@@ -1,3 +1,3 @@
 #! /bin/sh
 clear
-sub -config config.cfg -topic "vorlesung/beispiel"
+sub -config config.cfg -topic "$MQTT_TOPIC"

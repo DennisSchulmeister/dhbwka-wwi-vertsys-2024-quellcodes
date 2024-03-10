@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>📨 MQTT-Browserclient</title>
+
+        <link rel="stylesheet" href="style.css" />
+        <script src="https://unpkg.com/mqtt@5.3.6/dist/mqtt.min.js"></script>
+
+        <script>
+            const MQTT_BROKER_URL = "wss://mqtt.zimolong.eu/";
+            const MQTT_USERNAME   = "dhbw";
+            const MQTT_PASSWORD   = "dhbw";
+            const MQTT_TOPIC1     = "vorlesung/beispiel1";
+            const MQTT_TOPIC2     = "$share/group3/vorlesung/beispiel2";
+
+            window.addEventListener("DOMContentLoaded", () => {
+                // Benötigte HTML-Elemente ermitteln
+                const panel_connect     = document.getElementById("panel-connect");
+                const input_broker_url  = panel_connect.querySelector(".broker-url");
+                const input_username    = panel_connect.querySelector(".username");
+                const input_password    = panel_connect.querySelector(".password");
+                const button_connect    = panel_connect.querySelector("button.connect");
+                const div_error_message = panel_connect.querySelector(".error-message");
+
+                const div_messages      = document.getElementById("messages");
+                const panel_messages1   = document.getElementById("panel-messages1");
+                const div_messages1     = panel_messages1.querySelector(".messages");
+                const panel_messages2   = document.getElementById("panel-messages2");
+                const div_messages2     = panel_messages2.querySelector(".messages");
+
+                const h2_topic1         = document.querySelector("h2.topic1");
+                const h2_topic2         = document.querySelector("h2.topic2");
+                const button_disconnect = document.querySelector("button.disconnect");
+
+                // Sounds be Verbindungsaufbau und Empfang einer Nachricht
+                // https://freesound.org/people/Setuniman/sounds/149975/
+                // https://freesound.org/people/5ro4/sounds/611111/
+                const sound_connected    = new Audio("connected.wav");
+                const sound_disconnected = new Audio("disconnected.wav");
+                const sound_new_message  = new Audio("bell.wav");
+
+                // MQTT Client
+                let mqtt_client;
+                let connected = false;
+                let error = "";
+
+                input_broker_url.value = MQTT_BROKER_URL;
+                input_username.value   = MQTT_USERNAME;
+                input_password.value   = MQTT_PASSWORD;
+                h2_topic1.textContent  = MQTT_TOPIC1;
+                h2_topic2.textContent  = MQTT_TOPIC2;
+
+                function show_hide_panels() {
+                    panel_connect.classList.add("hidden");
+                    div_messages.classList.add("hidden");
+
+                    if (!connected) {
+                        panel_connect.classList.remove("hidden");
+                    } else {
+                        div_messages.classList.remove("hidden");
+                    }
+
+                    if (error) {
+                        div_error_message.textContent = error;
+                        div_error_message.classList.remove("hidden");
+                    } else {
+                        div_error_message.textContent = "";
+                        div_error_message.classList.add("hidden");
+                    }
+                }
+
+                function on_message(topic, payload) {
+                    console.log(`Empfange von ${topic}: ${payload}`);
+
+                    sound_new_message.currentTime = 0;
+                    sound_new_message.play();
+
+                    let div_message = document.createElement("div");
+                    let time = (new Date()).toLocaleTimeString("de-DE");
+                    div_message.innerHTML = `<b>[${time}]</b> ${payload}`;
+                    div_message.classList.add("mb");
+
+                    if (topic === MQTT_TOPIC1) {
+                        div_messages1.appendChild(div_message);
+                        div_messages1.scrollTop = div_messages1.offsetHeight;
+                    } else {
+                        div_messages2.appendChild(div_message);
+                        div_messages1.scrollTop = div_messages2.offsetHeight;
+                    }
+                }
+
+                /**
+                 * Verbindung herstellen
+                 */
+                button_connect.addEventListener("click", async () => {
+                    error = "";
+                    connected = false;
+
+                    const broker_url = input_broker_url.value.trim();
+                    const username   = input_username.value.trim();
+                    const password   = input_password.value.trim();
+
+                    if (!broker_url) {
+                        error = "Bitte Broker-URL eingeben!";
+                    }
+
+                    console.log(`Verbindung herstellen zu ${broker_url}`);
+
+                    try {
+                        if (!error) {
+                            mqtt_client = await mqtt.connectAsync(broker_url, {username, password});
+                            connected = true;
+
+                            await mqtt_client.subscribeAsync(MQTT_TOPIC1);
+                            await mqtt_client.subscribeAsync(MQTT_TOPIC2);
+
+                            mqtt_client.on("message", on_message);
+                        }
+                    } catch (err) {
+                        error = err.toString();
+                        connected = false;
+                    }
+
+                    if (connected) {
+                        sound_connected.currentTime = 0;
+                        sound_connected.play();
+                    }
+
+                    show_hide_panels();panel_messages1
+                });
+
+                /**
+                 * Verbindung trennen
+                 */
+                button_disconnect.addEventListener("click", async () => {
+                    console.log("Verbindung trennen");
+
+                    if (mqtt_client) await mqtt_client.endAsync();
+                    connected = false;
+
+                    sound_disconnected.currentTime = 0;
+                    sound_disconnected.play();
+
+                    div_messages1.textContent = "";                    
+                    div_messages2.textContent = "";                    
+
+                    show_hide_panels();
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <!-- Panel: Verbindung herstellen -->
+        <div id="panel-connect" class="panel" style="width: 25em;">
+            <h1>Verbindung herstellen</h1>
+
+            <div class="mb side-by-side">
+                <input class="broker-url flex1" type="url" placeholder="Broker URL">
+            </div>
+            <div class="mb side-by-side">
+                <input class="username flex1" type="text" placeholder="Benutzername">
+                <input class="password flex1" type="password" placeholder="Password">
+            </div>
+            <div class="mb">
+                <button class="connect">Verbinden</button>
+            </div>
+
+            <div class="hidden error-message">Verbindung fehlgeschlagen!</div>
+        </div>
+
+        <div id="messages" class="hidden">
+            <div class="side-by-side mb">
+                <!-- Panel: Ohne Lastverteilung -->
+                <div id="panel-messages1" class="panel flex-column" style="width: 25em; height: 30em; overflow: hidden;">
+                    <h1 class="text-center">Ohne Lastverteilung</h1>
+                    <h2 class="topic1 text-center"></h2>
+                    <div class="messages"></div>
+                </div>
+    
+                <!-- Panel: Mit Lastverteilung -->
+                <div id="panel-messages2" class="panel flex-column" style="width: 25em; height: 30em; overflow: hidden;">
+                    <h1 class="text-center">Mit Lastverteilung</h1>
+                    <h2 class="topic2 text-center"></h2>
+                    <div class="messages"></div>
+                </div>
+            </div>
+    
+            <button class="disconnect">Verbindung trennen</button>
+        </div>
+    </body>
+</html>

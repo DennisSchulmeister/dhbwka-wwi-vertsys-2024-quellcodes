@@ -1,5 +1,7 @@
 #!/bin/sh
 
+export MQTT_TOPIC="vorlesung/beispiel2"
+
 tmux new-session -d -s "pubsub-demo"
 
 tmux split-window -h
