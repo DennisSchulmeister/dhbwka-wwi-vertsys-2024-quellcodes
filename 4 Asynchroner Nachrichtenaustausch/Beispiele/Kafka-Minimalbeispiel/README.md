@@ -22,7 +22,7 @@ Der Nachrichtenaustausch via Kafka setzt einen zentralen Message Broker voraus, 
 alle Programme verbinden können. In der Datei `.env` ist hierfür der für die Vorlesung
 vorgesehene Broker kafka://zimolong.eu:9092 voreingestellt. Leider kann dieser aber nicht
 aus dem DHBW-Netz erreicht werden, da die Firewall den Port blockiert und Kafka (anders als
-MQTT) nicht über HTTP/Websockets angesprochen werden kann. Generell ist bei Kafak alles viel
+MQTT) nicht über HTTP/Websockets angesprochen werden kann. Generell ist bei Kafka alles viel
 umständlicher als bei MQTT. :-)
 
 Wie für den asynchronen Nachrichtenaustausch typisch gibt es keine Beschränkung, wie viele Sender
