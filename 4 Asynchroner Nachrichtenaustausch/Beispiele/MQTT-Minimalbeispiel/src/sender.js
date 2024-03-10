@@ -19,15 +19,18 @@ const quotes = [
 const logger = logging.default("sender");
 dotenv.config();
 
-logger.info(chalk.bold("Knight Rider -- Das Node.js Programm -- Sender"));
+logger.info(chalk.bold("Knight Rider -- Das Node.js Programm -- MQTT-Sender"));
 
 logger.info(`Stelle Verbindung her zu ${process.env.MQTT_BROKER}`);
 
+// Verbindung herstellen
 const mqtt_client = await mqtt.connectAsync(process.env.MQTT_BROKER, {
     username: process.env.MQTT_USERNAME,
     password: process.env.MQTT_PASSWORD,
 });
 
+
+// Nachrichten senden
 while (true) {
     const index = Math.floor(Math.random() * quotes.length);
     const quote = quotes[index];

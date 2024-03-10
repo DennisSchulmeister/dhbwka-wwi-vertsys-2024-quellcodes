@@ -1,0 +1,21 @@
+{
+  "name": "hallo-kafka",
+  "version": "1.0.0",
+  "description": "Minimalbeispiel zum Senden und Empfangen von Nachrichten mit Apache Kafka",
+  "author": "Dennis Schulmeister-Zimolong <dhbw@windows3.de>",
+  "license": "CC-BY-4.0",
+  "type": "module",
+  "scripts": {
+    "sender": "node src/sender.js",
+    "receiver": "node src/receiver.js",
+    "start": "concurrently \"npm run sender\" \"npm run receiver -- 1\" \"npm run receiver -- 2\"",
+    "start-lb": "concurrently \"npm run sender\" \"npm run receiver -- 1 lb\" \"npm run receiver -- 2 lb\""
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "concurrently": "^8.2.2",
+    "dotenv": "^16.4.5",
+    "kafkajs": "^2.2.4",
+    "logging": "^3.3.0"
+  }
+}
