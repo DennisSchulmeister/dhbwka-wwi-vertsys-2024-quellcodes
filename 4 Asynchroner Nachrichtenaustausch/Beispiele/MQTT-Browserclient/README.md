@@ -15,5 +15,5 @@ teil, wobei die auf den Laptops abgespielten Signaltöne ("Bing...", wenn ein La
 Nachricht empfangen hat) sowohl die Lastverteilung als auch den Broadcast an alle Studierenden
 akustisch unterstützen.
 
-Die Webseite kann unter folgende URL direkt von GitHub aufgerufen werden:
-**URL folgt**
+Die Webseite kann unter folgender URL direkt von GitHub aufgerufen werden:
+[Aufruf der Webanwendung](https://dennisschulmeister.github.io/dhbwka-wwi-vertsys-2024-quellcodes/4%20Asynchroner%20Nachrichtenaustausch/Beispiele/MQTT-Browserclient/static/)
