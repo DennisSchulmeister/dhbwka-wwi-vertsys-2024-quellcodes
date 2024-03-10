@@ -31,7 +31,7 @@ Kurzbeschreibung
 
 Dieses Beispiel beinhaltet zwei Shell-Skripte, mit denen die Funktionsweise
 einer einfachen Publish/Subscribe-Kommunikation demonstriert bzw. ausprobiert
-weren kann:
+werden kann:
 
 * `demo-pubsub.sh`: Zeigt ein einfaches Publish/Subribe, bei der jede Nachricht
   an alle zum gegenenen Zeitpunkt aktiven Empfänger geht.
@@ -61,6 +61,10 @@ Unter Fedora Linux kann es mit `sudo dnf install mqttcli` installiert
 werden. Andere Distributionen sollten es ebenfalls beinhalten. Vorsicht:
 Da es mehrere Projekte mit dem Namen MQTT CLI gibt, lässt sich das Projekt
 mit Google schlecht finden. Die Webseite lautet: https://git.sr.ht/~spc/mqttcli
+
+Falls `mqttcli` nicht verfügbar ist, können die Shell-Skripte im `cmd`-Verzeichnis
+angepasst werden, um die Command Line Tools von [mqtt.js](https://www.npmjs.com/package/mqtt#cli)
+zu nutzen.
 
 Start der Beispiele
 -------------------
