@@ -144,6 +144,8 @@ class MyApplication {
      * @param {Object} event Klick-Event
      */
     async onMapClick(event) {
+        if (!this.mqttClient || !this.connected) return;
+        
         this.hintPlaceMarker.classList.add("hidden");
 
         this.lonLat = ol.proj.toLonLat(event.coordinate);
