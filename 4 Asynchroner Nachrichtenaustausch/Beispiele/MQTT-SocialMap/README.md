@@ -3,6 +3,9 @@ MQTT-SocialMap
 
 ![Screenshot](screenshot.png)
 
+Die Webseite kann unter folgender URL direkt von GitHub aufgerufen werden:
+[Aufruf der Webanwendung](https://dennisschulmeister.github.io/dhbwka-wwi-vertsys-2024-quellcodes/4%20Asynchroner%20Nachrichtenaustausch/Beispiele/MQTT-SocialMap/static/)
+
 Dieses Beispiel dient als Einstiegsbeispiel für den asynchronen Nachrichtenaustausch. Indem alle Studierenden
 am Anfang der Vorlesung die Webseite besuchen, erfahren sie direkt die Vorteile gegenüber dem klassischen
 Request/Response-Modell:
