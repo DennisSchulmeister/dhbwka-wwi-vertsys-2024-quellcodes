@@ -3,7 +3,7 @@
 export MQTT_TOPIC="vorlesung/beispiel1"
 export TMUX_S="demo-pubsub"
 
-tmux new-session -d -s $TMUX_S
+tmux new-session -d -s $TMUX_S -e MQTT_TOPIC=$MQTT_TOPIC -e TMUX_S=$TMUX_S
 # -t session:window.pane
 # Ctrl-b q to identify the panes
 

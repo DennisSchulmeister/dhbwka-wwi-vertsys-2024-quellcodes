@@ -106,10 +106,11 @@
                         error = "Bitte Broker-URL eingeben!";
                     }
 
-                    console.log(`Verbindung herstellen zu ${broker_url}`);
-
+                    
                     try {
                         if (!error) {
+                            console.log(`Verbindung herstellen zu ${broker_url}`);
+                            
                             mqtt_client = await mqtt.connectAsync(broker_url, {username, password});
                             connected = true;
 
@@ -128,7 +129,7 @@
                         sound_connected.play();
                     }
 
-                    show_hide_panels();panel_messages1
+                    show_hide_panels();
                 });
 
                 /**

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>🗺️ MQTT-SocialMap</title>
+
+        <!-- OpenLayers -->
+        <link rel="stylesheet" href="https://openlayers.org/en/v6.13.0/css/ol.css" type="text/css">
+        <script src="https://openlayers.org/en/v6.13.0/build/ol.js"></script>
+
+        <!-- MQTT.js -->
+        <script src="https://unpkg.com/mqtt@5.3.6/dist/mqtt.min.js"></script>
+        
+        <!-- Eigener Quellcode -->
+        <link rel="stylesheet" href="style.css">
+        <script src="app.js"></script>
+        <script src="map.js"></script>
+    </head>
+    <body>
+        <!--
+            Karte
+            Eigener Avatar: https://pixabay.com/vectors/avatar-beak-black-cute-emotion-1295429/
+            Fremder Avatar: https://pixabay.com/vectors/cute-face-grin-grinning-icon-1296762/
+        -->
+        <div id="map"></div>
+
+        <!-- Panel für den Verbindungsaufbau -->
+        <div id="window-connect" class="panel" style="width: 25em;">
+            <h1>Verbindung herstellen</h1>
+
+            <div class="mb side-by-side">
+                <input class="broker-url flex1" type="url" placeholder="Broker URL">
+            </div>
+            <div class="mb side-by-side">
+                <input class="username flex1" type="text" placeholder="Benutzername">
+                <input class="password flex1" type="password" placeholder="Password">
+            </div>
+            <div class="mb side-by-side">
+                <input class="realname flex1" type="text" placeholder="Echter Name">
+            </div>
+            <div class="mb">
+                <button id="button-connect">Verbinden</button>
+            </div>
+
+            <div class="hidden error-message">Verbindung fehlgeschlagen!</div>
+        </div>
+
+
+        <!-- User Interface bei bestehender Verbindung -->
+        <div id="window-connected" class="hidden">
+            <div id="panel-connection-status" class="panel">
+                <button id="button-disconnect">Verbinden trennen</button>
+            </div>
+
+            <h1 id="place-marker-hint" class="hint">
+                Auf die Karte klicken, um den Marker zu platzieren ...
+            </h1>
+
+            <div id="panel-status-input" class="panel side-by-side">
+                <input class="status flex1" type="text" placeholder="Hier deinen Status eingeben">
+            </div>
+        </div>
+
+
+
+
+        <!-- <script>
+            const center_point = ol.proj.transform([8.385901, 49.026489], "EPSG:4326", "EPSG:3857");
+
+            // Create a new map instance
+            var map = new ol.Map({
+                // Target element
+                target: 'map',
+                // View configuration
+                view: new ol.View({
+                    center: center_point,
+                    zoom: 15,
+                }),
+                // Add layers
+                layers: [
+                    // OpenStreetMap layer
+                    new ol.layer.Tile({
+                        source: new ol.source.OSM()
+                    })
+                ]
+            });
+
+            // Add a marker layer
+            var markerLayer = new ol.layer.Vector({
+                source: new ol.source.Vector({
+                    features: [new ol.Feature({
+                        geometry: new ol.geom.Point(ol.proj.fromLonLat([YOUR_LONGITUDE, YOUR_LATITUDE])) // Initial marker position
+                    })]
+                })
+            });
+            map.addLayer(markerLayer);
+
+            // Event listener for map click
+            map.on('click', function(event) {
+                var coord = event.coordinate;
+                var lonLat = ol.proj.toLonLat(coord);
+                console.log('Clicked at Lon/Lat: ' + lonLat);
+                
+                // Remove previous marker
+                markerLayer.getSource().clear();
+
+                // Add new marker at clicked location
+                var marker = new ol.Feature({
+                    geometry: new ol.geom.Point(coord)
+                });
+                markerLayer.getSource().addFeature(marker);
+            });
+        </script> -->
+    </body>
+</html>

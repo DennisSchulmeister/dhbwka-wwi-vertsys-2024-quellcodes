@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="63.665" height="63.665" version="1.1" viewBox="0 0 63.665031 63.665031" xmlns="http://www.w3.org/2000/svg">
+ <g transform="translate(7.5687 8.7277)">
+  <circle cx="24.264" cy="23.105" r="31.833" color="#000000" fill="#ffcb00" fill-rule="evenodd"/>
+  <path transform="matrix(-.96593 -.25882 .25882 -.96593 0 0)" d="m-28.725-2.546a5.1823 5.072 0 0 1 -3.841 4.8992 5.1823 5.072 0 0 1 -5.8292 -2.3632" fill="none" stroke="#555753" stroke-width="1.7642"/>
+  <path transform="matrix(-.96593 -.25882 .25882 -.96593 0 0)" d="m-13.815-6.5412a5.1823 5.072 0 0 1 -3.841 4.8992 5.1823 5.072 0 0 1 -5.8292 -2.3632" fill="none" stroke="#555753" stroke-width="1.7642"/>
+  <path d="m-2.3334 19.471c-2.7149 13.349 8.2784 30.285 26.201 30.285 18.076 0 29.116-14.872 25.967-30.176l-52.17-0.10938z" color="#000000" fill="#fff"/>
+  <path d="m24.68 20.325v29.733" fill="none" opacity=".538" stroke="#000" stroke-linecap="square" stroke-width="1.7642px"/>
+  <path d="m10.567 20.219v24.808" fill="none" opacity=".538" stroke="#000" stroke-linecap="square" stroke-width="1.7642px"/>
+  <path d="m38.794 20.346v24.554" fill="none" opacity=".538" stroke="#000" stroke-linecap="square" stroke-width="1.7642px"/>
+  <path d="m-1.8863 18.714c-3.1413 15.563 9.1015 31.91 26.126 31.91 17.649 0 29.377-16.899 25.355-32.021l-51.48 0.11114z" color="#000000" fill="none" stroke="#d29400" stroke-width="1.764"/>
+  <g transform="matrix(.79063 0 0 .79063 9.9188 10.828)" fill="#ffcb00" shape-rendering="auto" stroke="#d29400" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.764">
+   <path d="m35.75 25.875a8.625 8.625 0 0 0 -8.625 8.625 8.625 8.625 0 0 0 0.10938 1.3301 8.625 8.625 0 0 0 -5.2344 7.9199 8.625 8.625 0 0 0 6.6152 8.377 8.625 8.625 0 0 0 2.2148 2.0879 31.833 31.833 0 0 0 22.84 -18.947 8.625 8.625 0 0 0 -8.5449 -7.5176 8.625 8.625 0 0 0 -3.2793 0.6543 8.625 8.625 0 0 0 -6.0957 -2.5293z" color="#000000" color-rendering="auto" image-rendering="auto" solid-color="#000000" style="isolation:auto;mix-blend-mode:normal"/>
+   <path d="m27.047 35.802 8.3085 6.2756" color="#000000" color-rendering="auto" image-rendering="auto" solid-color="#000000" style="isolation:auto;mix-blend-mode:normal"/>
+   <path d="m41.984 28.466 0.26516 10.518" color="#000000" color-rendering="auto" image-rendering="auto" solid-color="#000000" style="isolation:auto;mix-blend-mode:normal"/>
+  </g>
+ </g>
+</svg>
