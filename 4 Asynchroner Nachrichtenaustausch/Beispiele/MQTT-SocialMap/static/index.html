@@ -46,11 +46,10 @@
             <div class="hidden error-message">Verbindung fehlgeschlagen!</div>
         </div>
 
-
         <!-- User Interface bei bestehender Verbindung -->
         <div id="window-connected" class="hidden">
             <div id="panel-connection-status" class="panel">
-                <button id="button-disconnect">Verbinden trennen</button>
+                <button id="button-disconnect">Verbindung trennen</button>
             </div>
 
             <h1 id="place-marker-hint" class="hint">
@@ -61,56 +60,5 @@
                 <input class="status flex1" type="text" placeholder="Hier deinen Status eingeben">
             </div>
         </div>
-
-
-
-
-        <!-- <script>
-            const center_point = ol.proj.transform([8.385901, 49.026489], "EPSG:4326", "EPSG:3857");
-
-            // Create a new map instance
-            var map = new ol.Map({
-                // Target element
-                target: 'map',
-                // View configuration
-                view: new ol.View({
-                    center: center_point,
-                    zoom: 15,
-                }),
-                // Add layers
-                layers: [
-                    // OpenStreetMap layer
-                    new ol.layer.Tile({
-                        source: new ol.source.OSM()
-                    })
-                ]
-            });
-
-            // Add a marker layer
-            var markerLayer = new ol.layer.Vector({
-                source: new ol.source.Vector({
-                    features: [new ol.Feature({
-                        geometry: new ol.geom.Point(ol.proj.fromLonLat([YOUR_LONGITUDE, YOUR_LATITUDE])) // Initial marker position
-                    })]
-                })
-            });
-            map.addLayer(markerLayer);
-
-            // Event listener for map click
-            map.on('click', function(event) {
-                var coord = event.coordinate;
-                var lonLat = ol.proj.toLonLat(coord);
-                console.log('Clicked at Lon/Lat: ' + lonLat);
-                
-                // Remove previous marker
-                markerLayer.getSource().clear();
-
-                // Add new marker at clicked location
-                var marker = new ol.Feature({
-                    geometry: new ol.geom.Point(coord)
-                });
-                markerLayer.getSource().addFeature(marker);
-            });
-        </script> -->
     </body>
 </html>
