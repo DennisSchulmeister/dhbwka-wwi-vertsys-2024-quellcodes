@@ -59,11 +59,12 @@ mqtt_client.on("message", async (topic, payload) => {
 
     try {
         ////////////////////////////////////////////////////////////////////////////////////
-        logger.info(`Empfange von ${chalk.red(topic)}: ${chalk.blue(payload)}`);
+        logger.debug(`Empfange von ${chalk.red(topic)}: ${chalk.blue(payload)}`);
         const message = JSON.parse(payload);
 
         switch (message?.message?.toString()?.toLowerCase()) {
             case "player-status": {
+                print_player_status(message);
                 fly_helicopter(message);
                 break;
             }
@@ -72,6 +73,21 @@ mqtt_client.on("message", async (topic, payload) => {
         logger.error(error);
     }
 });
+
+/**
+ * Hilfsfunktion zur Anzeige der empfangenen Spielerdaten auf der Konsole (als Ersatz für
+ * den Webclient).
+ * 
+ * @param {object} player_status Empfangener Status des Spielers
+ */
+function print_player_status(player_status) {
+    console.log();
+    console.log(`STATUS - playing: ${player_status.playing}, crashed: ${player_status.crashed}, finished: ${player_status.finished}, all_flags: ${player_status.all_flags}`);
+    console.log(`POSITION - lat: ${player_status.position.lat}, lon: ${player_status.position.lon}, alt: ${player_status.position.alt}, rot: ${player_status.position.rot}`);
+    console.log(`SPEED - kmh_f: ${player_status.speed.kmh_f}, kmh_s: ${player_status.speed.kmh_s}, kmh_h: ${player_status.speed.kmh_h}`);
+    console.log(`FLIGHT INPUT - forward: ${player_status.flight_input.forward}, sideward: ${player_status.flight_input.sideward}, height: ${player_status.flight_input.height}, rotation:: ${player_status.flight_input.rotation}, honk: ${player_status.flight_input.honk}`);
+    console.log(`NEXT FLAG - nam: ${player_status.next_flag.data.nam}, DISTANCE - len: ${player_status.next_flag.distance.len}, lat: ${player_status.next_flag.distance.lat}, lon: ${player_status.next_flag.distance.lon}, alt: ${player_status.next_flag.distance.alt}, rot: ${player_status.next_flag.distance.rot}`);
+}
 
 /**
  * Logik zum Fliegen des Hubschraubers. Wertet die empfangenen Spielerdaten aus und versucht,
