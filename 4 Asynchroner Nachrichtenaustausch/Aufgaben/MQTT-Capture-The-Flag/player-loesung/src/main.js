@@ -110,7 +110,7 @@ async function fly_helicopter(player_status) {
     flight_input.forward = Math.max(flight_input.forward, -1);
 
     // Drehung anpassen
-    flight_input.rotation = player_status.next_flag.distance.rot / 360 / 4;
+    flight_input.rotation = player_status.next_flag.distance.rot / 360;
 
     // Höhe anpassen
     if (player_status.next_flag.distance.len <= 100) {

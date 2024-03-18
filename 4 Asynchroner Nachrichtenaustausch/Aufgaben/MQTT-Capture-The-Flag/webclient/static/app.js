@@ -199,7 +199,7 @@ class MyApplication {
      * Rendert auch die Liste aller Spieler neu.
      */
     updatePlayerDisplay(playerId) {
-        // TODO: Liste aller Spieler neurendern
+        // Liste aller Spieler neurendern
         this.playerNames.innerHTML = "";
 
         for (const playerId of Object.keys(this.players)) {
@@ -244,10 +244,12 @@ class MyApplication {
 
         // Karte um den ausgewählten Spieler zentrieren
         if (following) this.map.followPlayer(player);
+        if (!this.followPlayerId) this.map.unfollowPlayer();
 
         // TODO: Details zum ausgewählten Spieler rendern
         if (following) {
         }
+        
     }
 }
 

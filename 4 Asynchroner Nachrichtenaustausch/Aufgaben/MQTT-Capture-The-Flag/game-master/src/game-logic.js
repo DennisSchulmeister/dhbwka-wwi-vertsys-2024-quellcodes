@@ -405,6 +405,8 @@ export function update_player(player_id) {
         // Neue Flugrichtung berechnen
         player.position.rot += player.flight_input.forward * player.flight_input.rotation * player.max_values.deg_s / 2 * time_diff;
 
+        while (player.position.rot > 360) player.position.rot -= 360;
+        while (player.position.rot < 0) player.position.rot += 360;
     }
 
     // Neue Position berechnen

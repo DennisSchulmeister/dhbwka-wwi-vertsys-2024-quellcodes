@@ -1,3 +1,5 @@
+const DEFAULT_ZOOM = 15;
+
 /**
  * Klasse zur Steuerung der Karten-Ansicht.
  */
@@ -18,7 +20,7 @@ class MyMap {
         this.map = new ol.Map({
             target: mapElement,
 
-            view: new ol.View({center: centerPoint, zoom: 15}),
+            view: new ol.View({center: centerPoint, zoom: DEFAULT_ZOOM}),
 
             layers: [
                 new ol.layer.Tile({source: new ol.source.OSM()}),
@@ -118,11 +120,18 @@ class MyMap {
      * @param {boolean} highlight Spielfigur farblich hervorheben
      */
     setPlayerPosition(player, highlight) {
-        const name      = player.name || player.id || "Unbekannter Spieler";
-        const rot_rad   = (player?.position?.rot || 0) * Math.PI / 180;
+        const name    = player.name || player.id || "Unbekannter Spieler";
+        const rot_deg = (player?.position?.rot || 0);
+        const rot_rad = rot_deg * Math.PI / 180;
+        let image_url;
 
-        let image_url = highlight ? "img/player-other.png" : "img/player-self.png";
-        if (player.crashed) image_url = "img/explosion.svg";
+        if (player.crashed) {
+            image_url = "img/explosion.svg";
+        } else if (rot_deg <= 180) {
+            image_url = highlight ? "img/player-other.png" : "img/player-self.png";
+        } else {
+            image_url = highlight ? "img/player-other1.png" : "img/player-self1.png";
+        }
 
         const lonLat = [player?.position?.lon || 0, player?.position?.lat || 0];
         const marker = this.getPlayerMarker(player.id);
@@ -194,6 +203,15 @@ class MyMap {
         const alt = (player?.position?.alt || 0);
         const zoom = linearMap(alt, 0, 500, 15, 5);
         view.setZoom(zoom);
+    }
+
+    /**
+     * Karte auf Standardwerte zurücksetzen, um keinem Spieler mehr zu folgen.
+     */
+    unfollowPlayer() {
+        const view = this.map.getView();
+        view.setRotation(0);
+        view.setZoom(DEFAULT_ZOOM);
     }
 }
 
