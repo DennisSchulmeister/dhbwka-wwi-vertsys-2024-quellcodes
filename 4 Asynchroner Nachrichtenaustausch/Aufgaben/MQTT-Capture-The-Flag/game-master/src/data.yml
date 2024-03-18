@@ -1,0 +1,68 @@
+# Grenzwerte für zufällige Startposition der Spieler
+start_position:
+  from:
+    lat: 49.04899846457798
+    lon: 8.367125605722583
+    alt: 0
+  to:
+    lat: 49.00296965132311
+    lon: 8.450474023081092
+    alt: 0
+
+# Zu erreichende Ziele
+flags:
+  - lat: 49.0288367208213
+    lon: 8.384767980547116
+    alt: 18
+    nam: DHBW Karlsruhe
+    spk: Als erstes fliegen wir zum Startpunkt an der DHBW Karlsruhe.
+  - lat: 49.02079144455076
+    lon: 8.334765969814834
+    alt: 120
+    nam: Energieberg
+    spk: Unser zweite Ziel sind die Windräder auf der Mülldeponie.
+  - lat: 48.96556685335504
+    lon: 8.324268774562459
+    alt: 0
+    nam: Epplesee
+    spk: Als nächstes mischen wir die Badegäste am Epplesee auf.
+  - lat: 48.98326234090422
+    lon: 8.337893096054367
+    alt: 1
+    nam: Golfclub Rheinstetten
+    spk: Die nächste Fahne steht auf dem nahegelegenen Golfplatz bei Loch 1.
+  - lat: 48.99884415715982
+    lon: 8.374120767515357
+    alt: 42
+    nam: Günther-Klotz Anlage
+    spk: Weiter geht's zum Mount Klotz.
+  - lat: 48.9992550030061
+    lon: 8.400711073175557
+    alt: 1
+    nam: Zoologischer Stadtgarten
+    spk: Von hier aus fliegen wir weiter zum Zoo.
+  - lat: 48.99746261364858
+    lon: 8.484992310853515
+    alt: 300
+    nam: Turmberg
+    spk: "Nächste Station: Turmberg"
+  - lat: 49.0269180289784
+    lon: 8.444390228957387
+    alt: 25
+    nam: Fächerbad
+    spk: Wir planschen etwas im Fächerbad.
+  - lat: 49.02162325636188
+    lon: 8.413018773786101
+    alt: 2
+    nam: Wildpark Stadion
+    spk: Heute ist Heimspiel im Wildpark. Auf zum Stadion!
+  - lat: 49.014030966902276
+    lon: 8.40443590291749
+    alt: 25
+    nam: Karlsruher Schloss
+    spk: Unser letztes Ziel ist das Karlsruher Schloss.
+  - lat: 49.0288367208213
+    lon: 8.384767980547116
+    alt: 18
+    nam: DHBW Karlsruhe
+    spk: Mission erledigt! Du musst zur Dualen Hochschule zurück.

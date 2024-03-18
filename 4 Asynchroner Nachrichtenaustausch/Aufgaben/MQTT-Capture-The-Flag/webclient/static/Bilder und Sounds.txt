@@ -1,0 +1,21 @@
+Bilder
+======
+
+Hubschrauber: https://pixabay.com/vectors/helicopter-aviation-flight-fly-160474/
+Flagge: https://pixabay.com/vectors/flagpole-flag-pole-blue-waving-33718/
+Explosion: https://pixabay.com/vectors/explosion-pow-detonation-bomb-boom-153710/
+
+Sounds
+======
+
+Hubschrauber: https://freesound.org/people/lorenzosu/sounds/49483/
+Hupe: https://freesound.org/people/AmishRob/sounds/423990/
+Explosion: https://freesound.org/people/PNMCarrieRailfan/sounds/682062/
+Trompete bei Anmeldung: https://freesound.org/people/joepayne/sounds/413201/
+Fahne 1: https://freesound.org/people/joshuaempyre/sounds/404024/
+Fahne 2: https://freesound.org/people/SilverIllusionist/sounds/462250/
+Fanfare bei Spielstart: https://freesound.org/people/Sheyvan/sounds/470083/
+Fanfare bei Spielende: https://freesound.org/people/humanoide9000/sounds/466133/
+Wasserkanone: https://freesound.org/people/jalastram/sounds/362477/
+Maschinengewehr: https://freesound.org/people/hz37/sounds/581770/
+Torpedo: https://freesound.org/people/Carlfnf/sounds/684542/

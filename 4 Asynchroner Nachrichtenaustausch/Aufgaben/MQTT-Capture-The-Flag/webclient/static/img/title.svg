@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="242.55792mm"
+   height="57.062698mm"
+   viewBox="0 0 242.55792 57.062698"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   sodipodi:docname="title.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#cccccc"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="1"
+     inkscape:pagecheckerboard="false"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.5946522"
+     inkscape:cx="328.7636"
+     inkscape:cy="325.40029"
+     inkscape:window-width="1920"
+     inkscape:window-height="1059"
+     inkscape:window-x="0"
+     inkscape:window-y="21"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient1097">
+      <stop
+         style="stop-color:#d90023;stop-opacity:1;"
+         offset="0"
+         id="stop1093" />
+      <stop
+         style="stop-color:#880002;stop-opacity:1;"
+         offset="0.99954474"
+         id="stop1095" />
+    </linearGradient>
+    <rect
+       x="118.05345"
+       y="210.07768"
+       width="528.19507"
+       height="36.358917"
+       id="rect236" />
+    <filter
+       style="color-interpolation-filters:sRGB"
+       inkscape:label="Fire"
+       id="filter436"
+       x="-0.051977641"
+       y="-0.81385332"
+       width="1.1067822"
+       height="2.6006503"
+       inkscape:menu="Protrusions"
+       inkscape:menu-tooltip="Edges of object are on fire">
+      <feFlood
+         flood-opacity="0.498039"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood426" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite428" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="3"
+         result="blur"
+         id="feGaussianBlur430" />
+      <feOffset
+         dx="6"
+         dy="6"
+         result="offset"
+         id="feOffset432" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="fbSourceGraphic"
+         id="feComposite434" />
+      <feColorMatrix
+         result="fbSourceGraphicAlpha"
+         in="fbSourceGraphic"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"
+         id="feColorMatrix488" />
+      <feMorphology
+         id="feMorphology490"
+         result="result1"
+         radius="2.4"
+         operator="dilate"
+         in="fbSourceGraphic" />
+      <feTurbulence
+         id="feTurbulence492"
+         baseFrequency="0.09 0.028"
+         numOctaves="1" />
+      <feColorMatrix
+         id="feColorMatrix494"
+         result="result2"
+         values="2 0 0 0 0 0 2 0 0 0 0 0 0 0 0 0 0 0 1 0" />
+      <feDisplacementMap
+         in2="result2"
+         id="feDisplacementMap496"
+         result="result4"
+         scale="10.31941"
+         yChannelSelector="G"
+         xChannelSelector="R"
+         in="result1" />
+      <feFlood
+         id="feFlood498"
+         result="result3"
+         flood-opacity="1"
+         flood-color="rgb(255,159,54)" />
+      <feMorphology
+         id="feMorphology500"
+         radius="3.8"
+         result="result7"
+         in="result4" />
+      <feGaussianBlur
+         id="feGaussianBlur502"
+         result="result7"
+         in="result7"
+         stdDeviation="2.4" />
+      <feComposite
+         in2="result4"
+         id="feComposite504"
+         result="result5"
+         in="result3"
+         operator="in" />
+      <feComposite
+         in2="result7"
+         id="feComposite506"
+         operator="out" />
+      <feOffset
+         id="feOffset508"
+         result="result6"
+         dy="-7"
+         dx="-4.5" />
+      <feGaussianBlur
+         id="feGaussianBlur510"
+         result="result7"
+         stdDeviation="4.8" />
+      <feComposite
+         in2="result6"
+         id="feComposite512"
+         in="fbSourceGraphic"
+         result="result8" />
+      <feComposite
+         in2="result7"
+         id="feComposite514" />
+    </filter>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1097"
+       id="linearGradient1099"
+       x1="108.89519"
+       y1="198.58304"
+       x2="716.01349"
+       y2="261.26077"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.99976817,0.0164058,-0.02825807,0.99976817,6.4158816,-6.3205959)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1097"
+       id="linearGradient1574"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.99976817,0.0164058,-0.02825807,0.99976817,56.86534,64.143227)"
+       x1="108.89519"
+       y1="198.58304"
+       x2="716.01349"
+       y2="261.26077" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-21.559707,-37.573115)">
+    <text
+       xml:space="preserve"
+       transform="matrix(0.41112238,-0.00885405,0.01162022,0.53956478,-19.454534,-51.24301)"
+       id="text234"
+       style="font-size:53.3333px;line-height:34.6154px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';text-decoration:none;text-decoration-line:none;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect236);display:inline;fill:url(#linearGradient1574);fill-opacity:1;stroke:none;stroke-width:0.561635px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;filter:url(#filter436);stop-color:#000000"><tspan
+         x="118.05273"
+         y="242.09272"
+         id="tspan1626"><tspan
+           style="font-family:'Slipstream LET';-inkscape-font-specification:'Slipstream LET'"
+           id="tspan1624">Capture the Flag</tspan></tspan></text>
+  </g>
+</svg>
