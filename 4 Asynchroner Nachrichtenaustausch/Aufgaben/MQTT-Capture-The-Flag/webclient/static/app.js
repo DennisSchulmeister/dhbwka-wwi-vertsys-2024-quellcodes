@@ -1,7 +1,11 @@
 const MQTT_BROKER_URL = "wss://mqtt.zimolong.eu/";
 const MQTT_USERNAME   = "dhbw";
 const MQTT_PASSWORD   = "dhbw";
-const MQTT_TOPIC      = "vorlesung/landkarte";
+const MQTT_CLIENT_ID  = "client-" + (Math.random() + 1).toString(36).substring(2);
+
+const MQTT_TOPIC_FROM_CLIENT = `vorlesung/catch-the-flag/client/${MQTT_CLIENT_ID}`;
+const MQTT_TOPIC_TO_CLIENT   = `vorlesung/catch-the-flag/game-master/client/${MQTT_CLIENT_ID}`;
+const MQTT_TOPIC_TO_PLAYERS  = "vorlesung/catch-the-flag/game-master/player/#";
 
 /**
  * Hauptklasse unser kleinen Anwendung.
@@ -13,25 +17,21 @@ class MyApplication {
     constructor() {
         // Karte
         this.map = new MyMap("#map");
-        this.map.on("click", this.onMapClick.bind(this));
 
         // MQTT-Broker
         this.mqttClient = undefined;
         this.connected  = false;
         this.error      = "";
-        this.realname   = "";
-        this.lonLat     = [];
-        this.status     = "";
-
-        this.otherAvatars = {};
-        this.removeStaleAvatars();
+        
+        this.players = {};
+        this.followPlayerId = "";
+        this.removeStalePlayers();
 
         // UI-Status: Verbindung herstellen
         this.windowConnect   = document.getElementById("window-connect");
         this.inputBrokerUrl  = this.windowConnect.querySelector(".broker-url");
         this.inputUsername   = this.windowConnect.querySelector(".username");
         this.inputPassword   = this.windowConnect.querySelector(".password");
-        this.inputRealname   = this.windowConnect.querySelector(".realname");
         this.divErrorMessage = this.windowConnect.querySelector(".error-message");
 
         this.inputBrokerUrl.value = MQTT_BROKER_URL;
@@ -43,13 +43,11 @@ class MyApplication {
         
         // UI-Status: Verbunden mit Server
         this.windowConnected = document.getElementById("window-connected");
-        this.hintPlaceMarker = document.getElementById("place-marker-hint");
-
-        this.inputStatus     = document.querySelector("#panel-status-input .status");
-        this.inputStatus.addEventListener("keyup", this.onStatusInput.bind(this));
 
         this.buttonDisconnect = document.getElementById("button-disconnect");
         this.buttonDisconnect.addEventListener("click", this.disconnect.bind(this));
+
+        this.playerNames = document.querySelector("#player-names");
     }
 
     /**
@@ -59,12 +57,9 @@ class MyApplication {
         const brokerUrl = this.inputBrokerUrl.value.trim();
         const username  = this.inputUsername.value.trim();
         const password  = this.inputPassword.value.trim();
-        const realname  = this.inputRealname.value.trim();
 
         if (!brokerUrl) {
             this.error = "Bitte Broker-URL eingeben!";
-        } else if (!realname) {
-            this.error = "Bitte echten Namen eingeben!";
         }
 
         try {
@@ -73,12 +68,19 @@ class MyApplication {
 
                 this.mqttClient = await mqtt.connectAsync(brokerUrl, {username, password});
                 this.connected = true;
-                this.realname  = realname;
 
-                await this.mqttClient.subscribeAsync(MQTT_TOPIC);
+                // Topics abonnieren
+                console.log(`Abonniere Topic: ${MQTT_TOPIC_TO_CLIENT}`);
+                await this.mqttClient.subscribeAsync(MQTT_TOPIC_TO_CLIENT);
+
+                console.log(`Abonniere Topic: ${MQTT_TOPIC_TO_PLAYERS}`);
+                await this.mqttClient.subscribeAsync(MQTT_TOPIC_TO_PLAYERS);
+
                 this.mqttClient.on("message", this.onMqttMessage.bind(this));
 
-                await this.broadcastStatus();
+
+                // Standort der Flaggen anfordern
+                await this.sendMqttMessage({request: "get-flag-locations"});
             }
         } catch (err) {
             this.error = err.toString();
@@ -95,23 +97,13 @@ class MyApplication {
         console.log("Verbindung trennen");
 
         if (this.mqttClient) {
-            await this.sendMqttMessage({
-                realname:   this.realname,
-                disconnect: true,
-            });
-
             await this.mqttClient.endAsync();
         }
 
-        this.mqttClient   = null;
-        this.connected    = false;
-        this.realname     = "";
-        this.lonLat       = [];
-        this.status       = "";
-        this.otherAvatars = {};
-
-        this.inputStatus.value = "";
-        this.hintPlaceMarker.classList.remove("hidden");
+        this.mqttClient     = null;
+        this.connected      = false;
+        this.players        = {};
+        this.followPlayerId = "";
 
         this.map.reset();
         this.switchVisibleElements();
@@ -140,55 +132,6 @@ class MyApplication {
     }
 
     /**
-     * Klick auf die Karte.
-     * @param {Object} event Klick-Event
-     */
-    async onMapClick(event) {
-        if (!this.mqttClient || !this.connected) return;
-        
-        this.hintPlaceMarker.classList.add("hidden");
-
-        this.lonLat = ol.proj.toLonLat(event.coordinate);
-        this.map.setOwnPosition(this.realname, this.lonLat);
-        this.map.setOwnStatus(this.status);
-
-        await this.sendMqttMessage({
-            realname: this.realname,
-            lonLat:   this.lonLat,
-        });
-    }
-
-    /**
-     * Eigenen Status aktualisieren
-     */
-    async onStatusInput() {
-        this.status = this.inputStatus.value.trim();
-        this.map.setOwnStatus(this.status);
-
-        await this.sendMqttMessage({
-            realname: this.realname,
-            status:   this.status,
-        });
-    }
-
-    /**
-     * Regelmäßig eigenen Status senden, damit neue Teilnehmer ihn bekommen.
-     */
-    async broadcastStatus() {
-        if (!this.mqttClient || !this.connected) return;
-
-        if (this.lonLat.length) {
-            await this.sendMqttMessage({
-                realname: this.realname,
-                lonLat:   this.lonLat,
-                status:   this.status,
-            });
-        }
-
-        window.setTimeout(this.broadcastStatus.bind(this), 1000);
-    }
-
-    /**
      * Hilfsfunktion zum Senden einer Nachricht
      * @param {Object} message Inhalt der Nachricht
      */
@@ -196,7 +139,7 @@ class MyApplication {
         const json = JSON.stringify(message);
         // console.debug(`Sende an ${MQTT_TOPIC}: ${json}`);
 
-        await this.mqttClient.publishAsync(MQTT_TOPIC, json);
+        await this.mqttClient.publishAsync(MQTT_TOPIC_FROM_CLIENT, json);
     }
 
     /**
@@ -206,43 +149,105 @@ class MyApplication {
      * @param {string} payload Inhalt der Nachricht
      */
     async onMqttMessage(topic, payload) {
-        // console.debug(`Empfange von ${topic}: ${payload}`);
+        ///////////////////////////////////
+        //console.debug(`Empfange von ${topic}: ${payload}`);
         
         const message = JSON.parse(payload);
-        if (!message.realname || message.realname === this.realname) return;
 
-        if (message.lonLat) {
-            this.map.setOtherPosition(message.realname, message.lonLat);
-        }
+        switch (message?.message?.toString()?.toLowerCase()) {
+            case "flag-locations": {
+                for (const flagId in message?.flags || []) {
+                    const flag = message.flags[flagId];
+                    this.map.setFlagPosition(flagId, flag);
+                }
 
-        if (message.status !== undefined) {
-            this.map.setOtherStatus(message.realname, message.status);
-        }
+                break;
+            }
+            case "player-status": {
+                if (message.id) {
+                    this.players[message.id] = message;
+                    this.updatePlayerDisplay(message.id);
+                }
 
-        if (message.disconnect) {
-            this.map.removeOther(message.realname);
-        }
-
-        this.otherAvatars[message.realname] = {
-            lastSeen: new Date(),
+                break;
+            }
         }
     }
 
     /**
-     * Fremde Avatare entfernen, wenn sie mehr als 5 Sekunden inaktiv waren.
+     * Fremde Spieler entfernen, wenn sie mehr als 30 Sekunden inaktiv waren.
      */
-    removeStaleAvatars() {
-        const now = new Date();
+    removeStalePlayers() {
+        const now = new Date().valueOf();
 
-        for (let realname of Object.keys(this.otherAvatars)) {
-            const lastSeen = this.otherAvatars[realname].lastSeen || null;
+        for (const playerId of Object.keys(this.players)) {
+            const player = this.players[playerId];
+            const lastSeen = player.last_seen || null;
 
-            if (!lastSeen || (now - lastSeen) > 5000) {
-                this.map.removeOther(realname);
+            if (!lastSeen || (now - lastSeen) > 30000) {
+                delete this.players[playerId];
+                this.map.removePlayer(playerId);
             }
         }
 
-        window.setTimeout(this.removeStaleAvatars.bind(this), 5000);
+        window.setTimeout(this.removeStalePlayers.bind(this), 5000);
+    }
+
+    /**
+     * Angezeigte Daten zu einem Spieler aktualisieren. Ändert seine Position auf der Karten und
+     * blendet seine Details ein, falls der Spieler aus aktuell verfolgter Spieler ausgewählt wurde.
+     * Rendert auch die Liste aller Spieler neu.
+     */
+    updatePlayerDisplay(playerId) {
+        // TODO: Liste aller Spieler neurendern
+        this.playerNames.innerHTML = "";
+
+        for (const playerId of Object.keys(this.players)) {
+            const player = this.players[playerId];
+
+            const divElement = document.createElement("div");
+            this.playerNames.appendChild(divElement);
+
+            divElement.innerHTML = player.name || player.id || "Unbekannter Spieler";
+            divElement.classList.add("clickable");
+
+            if (player.id === this.followPlayerId) {
+                divElement.classList.add("active");
+            }
+
+            divElement.addEventListener("click", () => {
+                if (player.id === this.followPlayerId) {
+                    console.log("Folge keinem Spieler mehr");
+
+                    this.followPlayerId = "";
+                    divElement.classList.remove("active");
+                } else {
+                    console.log(`Folge dem Spieler ${player.name} mit Id ${player.id}`);
+
+                    this.followPlayerId = player.id;
+                    divElement.classList.add("active");
+                }
+            });
+        }
+
+        // Spielfiguren auf der Karte platzieren
+        const player = this.players[playerId];
+        if (!player) return;
+
+        const following = player.id === this.followPlayerId;
+
+        if (player.left_game) {
+            this.map.removePlayer(player.id);
+        } else {
+            this.map.setPlayerPosition(player, following);
+        }
+
+        // Karte um den ausgewählten Spieler zentrieren
+        if (following) this.map.followPlayer(player);
+
+        // TODO: Details zum ausgewählten Spieler rendern
+        if (following) {
+        }
     }
 }
 

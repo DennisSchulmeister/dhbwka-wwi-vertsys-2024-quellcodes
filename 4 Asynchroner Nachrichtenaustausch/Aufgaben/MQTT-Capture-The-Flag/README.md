@@ -154,7 +154,7 @@ Wert des `message`-Attributs.
     "captured_flags": [                         // Namen der bereits erreichten Flaggen (Strings)
         "DHBW Karlsruhe",
     ],
-    "nearest_players": [                        // In Radar-Reichweite befindliche Spieler
+    "nearest_players": [{                       // In Radar-Reichweite befindliche Spieler
         "id":  "Dennis2-ybc4qv734t",            //  - Spieler ID
         "nam": "Dennis2",                       //  - Spieler Name
         "len": 2407.4567382933756,              //  - Entfernung in Metern
@@ -162,17 +162,13 @@ Wert des `message`-Attributs.
         "lon": 0.008473129073928831,            //  - Längenunterschied in Grad
         "alt": 18,                              //  - Höhenunterschied in Metern
         "rot": 22.04392043356938                //  - Kompasswinkeldifferenz in Grad (0 = in Flugrichtung)
-    ],
+    }],
     "radar_sight_distance": 5000,               // Radarreichweite in Metern
     "weapon_amo": {                             // Waffen-Munition für Angriffe auf andere Spieler
         "water_gun": 10000,                     //  - Wasserwerfer (geringer Schaden)
         "machine_gun": 5000,                    //  - Maschinengewehr (mittlerer Schaden)
         "torpedo": 5                            //  - Torpedo (großer Schaden)
     }
-}
-``````json
-{
-    "message": "leave"
 }
 ```
 

@@ -403,7 +403,7 @@ export function update_player(player_id) {
         player.speed.kmh_h = clamp(player.speed.kmh_h, -player.max_values.kmh_h, player.max_values.kmh_h);
     
         // Neue Flugrichtung berechnen
-        player.position.rot += player.flight_input.forward * player.flight_input.rotation * player.max_values.deg_s * time_diff;
+        player.position.rot += player.flight_input.forward * player.flight_input.rotation * player.max_values.deg_s / 2 * time_diff;
 
     }
 

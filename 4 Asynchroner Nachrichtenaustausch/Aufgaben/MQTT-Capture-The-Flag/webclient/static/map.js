@@ -45,53 +45,122 @@ class MyMap {
     }
 
     /**
-     * Eigenes Marker-Objekt ermitteln, falls es bereits auf der Karte existiert.
+     * Marker-Objekt eines Spielers ermitteln, falls es existiert.
+     *
+     * @param {string} playerId ID des Spielers
      * @returns Marker-Objekt oder `undefined`
      */
-    getOwnMarker() {
-        let marker = this.markerLayer.getSource().getFeatureById("SELF");
+    getPlayerMarker(playerId) {
+        let marker = this.markerLayer.getSource().getFeatureById(`PLAYER: ${playerId}`);
         return marker;
     }
 
     /**
-     * Marker-Objekt eines fremden Avatars ermitteln, falls es bereits auf der Karte existiert.
+     * Marker-Objekt einer Flagge ermitteln, falls es existiert.
      * 
-     * @param {string} realname Realname des Avatars
+     * @param {number} flagId ID der Flagge
      * @returns Marker-Objekt oder `undefined`
      */
-    getOtherMarker(realname) {
-        let marker = this.markerLayer.getSource().getFeatureById(`OTHER: ${realname}`);
+    getFlagMarker(flagId) {
+        let marker = this.markerLayer.getSource().getFeatureById(`FLAG: ${flagId}`);
         return marker;
     }
 
     /**
-     * Eigene Position ändern.
-     * 
-     * @param {string} realname Eigener Realname
-     * @param {number[]} lonLat Longitude und Latitude
+     * Spieler von der Karte entfernen.
+     * @param {string} playerId ID des Spielers
      */
-    setOwnPosition(realname, lonLat) {
-        const marker = this.getOwnMarker();
+    removePlayer(playerId) {
+        const marker = this.getPlayerMarker(playerId);
+        if (marker === null) return;
+
+        this.markerLayer.getSource().removeFeature(marker);
+    }
+
+    /**
+     * Position einer Flagge setzen/ändern.
+     * 
+     * @param {number} flagId ID der Flagge
+     * @param {object} position Longitude und Latitude
+     */
+    setFlagPosition(flagId, position) {
+        const lonLat = [position.lon, position.lat];
+        const marker = this.getFlagMarker(flagId);
+        const point  = new ol.geom.Point(ol.proj.transform(lonLat, "EPSG:4326", "EPSG:3857"));
+
+        if (marker !== null) {
+            marker.setGeometry(point);
+            marker.changed();
+        } else {
+            const marker = new ol.Feature({geometry: point});
+
+            marker.setStyle([
+                new ol.style.Style({
+                    image: new ol.style.Icon({
+                        opacity: 1,
+                        src: "img/flag.png",
+                        scale: 0.1,
+                    }),
+                }),
+            ]);
+
+            marker.setId(`FLAG: ${flagId}`);
+            this.markerLayer.getSource().addFeature(marker);
+
+            marker.changed();
+        }
+    }
+
+    /**
+     * Position eines Spielers setzen/ändern
+     *
+     * @param {object} player Spielerdaten vom Game-Master
+     * @param {boolean} highlight Spielfigur farblich hervorheben
+     */
+    setPlayerPosition(player, highlight) {
+        const name      = player.name || player.id || "Unbekannter Spieler";
+        const rot_rad   = (player?.position?.rot || 0) * Math.PI / 180;
+
+        let image_url = highlight ? "img/player-other.png" : "img/player-self.png";
+        if (player.crashed) image_url = "img/explosion.svg";
+
+        const lonLat = [player?.position?.lon || 0, player?.position?.lat || 0];
+        const marker = this.getPlayerMarker(player.id);
         const point  = new ol.geom.Point(ol.proj.transform(lonLat, "EPSG:4326", "EPSG:3857"));
     
         if (marker !== null) {
             marker.setGeometry(point);
             marker.changed();
+
+            marker.getStyle()[0].getText().setText(name);
+            marker.getStyle()[0].setImage(new ol.style.Icon({
+                // anchor: [0.5, 1.2],
+                // anchorXUnits: "fraction",
+                // anchorYUnits: "fraction",
+                opacity: 1,
+                src: image_url,
+                scale: 0.1,
+                rotation: rot_rad,
+                rotateWithView: true,
+            }));
         } else {
             const marker = new ol.Feature({geometry: point});
 
             marker.setStyle([
+                // Drehung
                 new ol.style.Style({
                     image: new ol.style.Icon({
-                        anchor: [0.5, 1.2],
-                        anchorXUnits: "fraction",
-                        anchorYUnits: "fraction",
+                        // anchor: [0.5, 1.2],
+                        // anchorXUnits: "fraction",
+                        // anchorYUnits: "fraction",
                         opacity: 1,
-                        src: "avatar-self.svg",
+                        src: image_url,
                         scale: 0.1,
+                        rotation: rot_rad,
+                        rotateWithView: true,
                     }),
                     text: new ol.style.Text({
-                        text: realname,
+                        text: name,
                         font: 'bold 20px "Open Sans", "Arial Unicode MS", "sans-serif"',
                         fill: new ol.style.Fill({
                             color: "black"
@@ -101,119 +170,34 @@ class MyMap {
                         })
                     }),
                 }),
-
-                new ol.style.Style({
-                    text: new ol.style.Text({
-                        offsetY: 22,
-                        text: "",
-                        font: '16px "Open Sans", "Arial Unicode MS", "sans-serif"',
-                        fill: new ol.style.Fill({
-                            color: "black"
-                        }),
-                        stroke: new ol.style.Stroke({
-                            color: 'white', width: 1
-                        })
-                    }),
-                }),
             ]);
 
-            marker.setId("SELF");
-            this.markerLayer.getSource().addFeature(marker);
-        }
-    }
-    
-
-    /**
-     * Position eines fremden Avatars ändern.
-     * 
-     * @param {string} realname Realname des Avatars
-     * @param {number[]} lonLat Longitude und Latitude
-     */
-    setOtherPosition(realname, lonLat) {
-        const marker = this.getOtherMarker(realname);
-        const point = new ol.geom.Point(ol.proj.transform(lonLat, "EPSG:4326", "EPSG:3857"));
-        
-        if (marker !== null) {
-            marker.setGeometry(point);
-            marker.changed();
-        } else {
-            const marker = new ol.Feature({geometry: point});
-
-            marker.setStyle([
-                new ol.style.Style({
-                    image: new ol.style.Icon({
-                        anchor: [0.5, 1.2],
-                        anchorXUnits: "fraction",
-                        anchorYUnits: "fraction",
-                        opacity: 1,
-                        src: "avatar-other.svg",
-                        scale: 0.8,
-                    }),
-                    text: new ol.style.Text({
-                        text: realname,
-                        font: 'bold 20px "Open Sans", "Arial Unicode MS", "sans-serif"',
-                        fill: new ol.style.Fill({
-                            color: "black"
-                        }),
-                        stroke: new ol.style.Stroke({
-                            color: 'white', width: 2
-                        })
-                    }),
-                }),
-
-                new ol.style.Style({
-                    text: new ol.style.Text({
-                        offsetY: 22,
-                        text: "",
-                        font: '16px "Open Sans", "Arial Unicode MS", "sans-serif"',
-                        fill: new ol.style.Fill({
-                            color: "black"
-                        }),
-                        stroke: new ol.style.Stroke({
-                            color: 'white', width: 1
-                        })
-                    }),
-                }),
-            ]);
-            marker.setId(`OTHER: ${realname}`);
+            marker.setId(`PLAYER: ${player.id}`);
             this.markerLayer.getSource().addFeature(marker);
         }
     }
 
     /**
-     * Eigenen Statustext aktualisieren.
-     * @param {string} status Statustext
+     * Kartenmittelpunkt, Rotation und Zoomlevel setzen, um den übergebenen Spieler zu verfolgen.
+     * @param {object} player Spielerdaten vom Game-Master
      */
-    setOwnStatus(status) {
-        const marker = this.getOwnMarker();
-        if (marker === null) return;
+    followPlayer(player) {
+        const view = this.map.getView();
 
-        marker.getStyle()[1].getText().setText(status);
-        marker.changed();
+        const lonLat = [player?.position?.lon || 0, player?.position?.lat || 0];
+        const centerPoint = ol.proj.transform(lonLat, "EPSG:4326", "EPSG:3857");
+        view.setCenter(centerPoint);
+
+        const rot_rad = (player?.position?.rot || 0) * Math.PI / 180;
+        view.setRotation(rot_rad);
+
+        const alt = (player?.position?.alt || 0);
+        const zoom = linearMap(alt, 0, 500, 15, 5);
+        view.setZoom(zoom);
     }
+}
 
-    /**
-     * Statustext eines fremden Avatars aktualisieren.
-     * 
-     * @param {string} realname Realname des Avatars
-     * @param {string} status Statustext
-     */
-    setOtherStatus(realname, status) {
-        const marker = this.getOtherMarker(realname);
-        if (marker === null) return;
 
-        marker.getStyle()[1].getText().setText(status);
-        marker.changed();
-    }
-
-    /**
-     * Fremdem Avatar entfernen.
-     * @param {string} realname Realname des Avatars
-     */
-    removeOther(realname) {
-        const marker = this.getOtherMarker(realname);
-        if (marker === null) return;
-
-        this.markerLayer.getSource().removeFeature(marker);
-    }
+function linearMap(x, xMin, xMax, yMin, yMax) {
+    return (x - xMin) * ((yMax - yMin) / (xMax - xMin)) + yMin;
 }

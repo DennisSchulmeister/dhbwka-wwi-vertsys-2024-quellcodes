@@ -1,0 +1,150 @@
+Beispiele.json
+
+Empfange von vorlesung/catch-the-flag/game-master/client/client-2pckspqo8v: {
+    "message": "flag-locations",
+    "flags": [
+        {
+            "lat": 49.0288367208213,
+            "lon": 8.384767980547116,
+            "alt": 18,
+            "nam": "DHBW Karlsruhe",
+            "spk": "Als erstes fliegen wir zum Startpunkt an der DHBW Karlsruhe."
+        },
+        {
+            "lat": 49.02079144455076,
+            "lon": 8.334765969814834,
+            "alt": 120,
+            "nam": "Energieberg",
+            "spk": "Unser zweite Ziel sind die Windräder auf der Mülldeponie."
+        },
+        {
+            "lat": 48.96556685335504,
+            "lon": 8.324268774562459,
+            "alt": 0,
+            "nam": "Epplesee",
+            "spk": "Als nächstes mischen wir die Badegäste am Epplesee auf."
+        },
+        {
+            "lat": 48.98326234090422,
+            "lon": 8.337893096054367,
+            "alt": 1,
+            "nam": "Golfclub Rheinstetten",
+            "spk": "Die nächste Fahne steht auf dem nahegelegenen Golfplatz bei Loch 1."
+        },
+        {
+            "lat": 48.99884415715982,
+            "lon": 8.374120767515357,
+            "alt": 42,
+            "nam": "Günther-Klotz Anlage",
+            "spk": "Weiter geht's zum Mount Klotz."
+        },
+        {
+            "lat": 48.9992550030061,
+            "lon": 8.400711073175557,
+            "alt": 1,
+            "nam": "Zoologischer Stadtgarten",
+            "spk": "Von hier aus fliegen wir weiter zum Zoo."
+        },
+        {
+            "lat": 48.99746261364858,
+            "lon": 8.484992310853515,
+            "alt": 300,
+            "nam": "Turmberg",
+            "spk": "Nächste Station: Turmberg"
+        },
+        {
+            "lat": 49.0269180289784,
+            "lon": 8.444390228957387,
+            "alt": 25,
+            "nam": "Fächerbad",
+            "spk": "Wir planschen etwas im Fächerbad."
+        },
+        {
+            "lat": 49.02162325636188,
+            "lon": 8.413018773786101,
+            "alt": 2,
+            "nam": "Wildpark Stadion",
+            "spk": "Heute ist Heimspiel im Wildpark. Auf zum Stadion!"
+        },
+        {
+            "lat": 49.014030966902276,
+            "lon": 8.40443590291749,
+            "alt": 25,
+            "nam": "Karlsruher Schloss",
+            "spk": "Unser letztes Ziel ist das Karlsruher Schloss."
+        },
+        {
+            "lat": 49.0288367208213,
+            "lon": 8.384767980547116,
+            "alt": 18,
+            "nam": "DHBW Karlsruhe",
+            "spk": "Mission erledigt! Du musst zur Dualen Hochschule zurück."
+        }
+    ]
+} app.js:149:17
+Empfange von vorlesung/catch-the-flag/game-master/player/Dennis-jix941i7u7: {
+    "message": "player-status",
+    "id": "Dennis-jix941i7u7",
+    "name": "Dennis",
+    "playing": true,
+    "crashed": false,
+    "finished": false,
+    "all_flags": false,
+    "left_game": false,
+    "timestamp": 1710754810809,
+    "last_seen": 1710754809833,
+    "start_time": 0,
+    "end_time": 0,
+    "health": 100,
+    "position": {
+        "lat": 49.02242401323514,
+        "lon": 8.349161027779148,
+        "alt": 0.006578407201449199,
+        "rot": -2885.3128038143773
+    },
+    "speed": {
+        "kmh_f": 3.272103483732974,
+        "kmh_s": 0,
+        "kmh_h": 3.272103483732974
+    },
+    "max_values": {
+        "kmh_f": 50,
+        "kmh_s": 20,
+        "kmh_h": 5,
+        "alt": 500,
+        "acc_s": 1.1,
+        "deg_s": 5
+    },
+    "flight_input": {
+        "forward": 1,
+        "sideward": 0,
+        "height": 0.4,
+        "rotation": 1,
+        "honk": false
+    },
+    "next_flag": {
+        "index": 0,
+        "data": {
+            "lat": 49.0288367208213,
+            "lon": 8.384767980547116,
+            "alt": 18,
+            "nam": "DHBW Karlsruhe",
+            "spk": "Als erstes fliegen wir zum Startpunkt an der DHBW Karlsruhe."
+        },
+        "distance": {
+            "len": 2692.348332808909,
+            "lat": 0.006412707586164856,
+            "lon": 0.035606952767967215,
+            "alt": 17.99342159279855,
+            "rot": 2965.1034434612166
+        }
+    },
+    "captured_flags": [],
+    "nearest_players": [],
+    "radar_sight_distance": 5000,
+    "weapon_amo": {
+        "water_gun": 10000,
+        "machine_gun": 5000,
+        "torpedo": 5
+    }
+}

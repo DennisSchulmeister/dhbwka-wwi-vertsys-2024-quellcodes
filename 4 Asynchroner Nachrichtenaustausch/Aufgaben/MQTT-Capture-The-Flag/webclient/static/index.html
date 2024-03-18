@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>🗺️ MQTT-SocialMap</title>
+        <title>🗺️ MQTT: Capture-the-Flag</title>
 
         <!-- OpenLayers -->
         <link rel="stylesheet" href="https://openlayers.org/en/v6.13.0/css/ol.css" type="text/css">
@@ -18,11 +18,6 @@
         <script src="map.js"></script>
     </head>
     <body>
-        <!--
-            Karte
-            Eigener Avatar: https://pixabay.com/vectors/avatar-beak-black-cute-emotion-1295429/
-            Fremder Avatar: https://pixabay.com/vectors/cute-face-grin-grinning-icon-1296762/
-        -->
         <div id="map"></div>
 
         <!-- Panel für den Verbindungsaufbau -->
@@ -35,9 +30,6 @@
             <div class="mb side-by-side">
                 <input class="username flex1" type="text" placeholder="Benutzername">
                 <input class="password flex1" type="password" placeholder="Password">
-            </div>
-            <div class="mb side-by-side">
-                <input class="realname flex1" type="text" placeholder="Echter Name">
             </div>
             <div class="mb">
                 <button id="button-connect">Verbinden</button>
@@ -52,13 +44,22 @@
                 <button id="button-disconnect">Verbindung trennen</button>
             </div>
 
-            <h1 id="place-marker-hint" class="hint">
-                Auf die Karte klicken, um den Marker zu platzieren ...
-            </h1>
+            <!-- Liste der Spieler -->
+            <div id="panel-player-details" class="panel">
+                <h3>Aktive Spieler</h3>
 
-            <div id="panel-status-input" class="panel side-by-side">
-                <input class="status flex1" type="text" placeholder="Hier deinen Status eingeben">
+                <div id="player-names" class="side-by-side" style="flex-wrap: wrap;">
+                    <!--
+                    <div class="clickable active">Test1</div>
+                    <div class="clickable">Test2</div>
+                    <div class="clickable">Test3</div>
+                    -->
+                </div>
             </div>
+
+            <!-- TODO: Status des ausgewählten Spielers -->
+
+            <!-- TODO: Leadership-Board -->
         </div>
     </body>
 </html>
