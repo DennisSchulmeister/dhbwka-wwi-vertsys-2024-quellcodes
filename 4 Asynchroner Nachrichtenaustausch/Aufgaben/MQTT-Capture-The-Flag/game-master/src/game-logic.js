@@ -500,6 +500,17 @@ export function update_player(player_id) {
         distance.rot = calc_angle_from_player(player.position, other_player.position);
 
         player.nearest_players.push(distance);
+
+        // Kollisionsprüfung
+        if (Math.abs(distance.len) <= 10 && Math.abs(distance.alt) <= 10) {
+            player.playing = false;
+            player.crashed = true;
+            player.health  = 0;
+
+            other_player.playing = false;
+            other_player.crashed = true;
+            other_player.health  = 0;
+        }
     }
 
     player.nearest_players.sort((a, b) => {
