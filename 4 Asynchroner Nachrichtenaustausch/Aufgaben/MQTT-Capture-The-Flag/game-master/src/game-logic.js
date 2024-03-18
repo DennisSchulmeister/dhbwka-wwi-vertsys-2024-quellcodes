@@ -336,7 +336,7 @@ export function update_player(player_id) {
     // Neue Geschwindigkeit und Flugrichtung berechnen
     if (player.playing) {
         // Neue Geschwindigkeit berechnen
-        const min_kmh = 3.6;
+        const min_kmh = 0.1;
     
         const target_speed = {
             kmh_f: (player.max_values.kmh_f * player.flight_input.forward),
@@ -350,54 +350,61 @@ export function update_player(player_id) {
             kmh_h: target_speed.kmh_h - player.speed.kmh_h,
         };
     
+        // TODO: Führt zu häufigen Richtungswechseln!?
         if (delta_speed.kmh_f > 0) {
-            if (player.speed.kmh_f >= -min_kmh) {
-                player.speed.kmh_f = Math.max(min_kmh, player.speed.kmh_f);
+            if (Math.abs(player.speed.kmh_f) < min_kmh) player.speed.kmh_f = min_kmh;
+
+            if (player.speed.kmh_f >= 0) {
                 player.speed.kmh_f *= Math.pow(player.max_values.acc_s, time_diff);
             } else {
                 player.speed.kmh_f /= Math.pow(player.max_values.acc_s, time_diff);
             }
         } else if (delta_speed.kmh_f < 0) {
-            if (player.speed.kmh_f >= min_kmh) {
+            if (Math.abs(player.speed.kmh_f) < min_kmh) player.speed.kmh_f = -min_kmh;
+
+            if (player.speed.kmh_f >= 0) {
                 player.speed.kmh_f /= Math.pow(player.max_values.acc_s, time_diff);
             } else {
-                player.speed.kmh_f = Math.min(-min_kmh, player.speed.kmh_f);
                 player.speed.kmh_f *= Math.pow(player.max_values.acc_s, time_diff);
             }
         }
     
         if (delta_speed.kmh_s > 0) {
-            if (player.speed.kmh_s >= -min_kmh) {
-                player.speed.kmh_s = Math.max(min_kmh, player.speed.kmh_s);
+            if (Math.abs(player.speed.kmh_s) < min_kmh) player.speed.kmh_s = min_kmh;
+
+            if (player.speed.kmh_s >= 0) {
                 player.speed.kmh_s *= Math.pow(player.max_values.acc_s, time_diff);
             } else {
                 player.speed.kmh_s /= Math.pow(player.max_values.acc_s, time_diff);
             }
         } else if (delta_speed.kmh_s < 0) {
-            if (player.speed.kmh_s >= min_kmh) {
+            if (Math.abs(player.speed.kmh_s) < min_kmh) player.speed.kmh_s = -min_kmh;
+
+            if (player.speed.kmh_s >= 0) {
                 player.speed.kmh_s /= Math.pow(player.max_values.acc_s, time_diff);
             } else {
-                player.speed.kmh_s = Math.min(-min_kmh, player.speed.kmh_s);
                 player.speed.kmh_s *= Math.pow(player.max_values.acc_s, time_diff);
             }
         }
     
         if (delta_speed.kmh_h > 0) {
-            if (player.speed.kmh_h >= -min_kmh) {
-                player.speed.kmh_h = Math.max(min_kmh, player.speed.kmh_h);
+            if (Math.abs(player.speed.kmh_h) < min_kmh) player.speed.kmh_h = min_kmh;
+
+            if (player.speed.kmh_h >= 0) {
                 player.speed.kmh_h *= Math.pow(player.max_values.acc_s, time_diff);
             } else {
                 player.speed.kmh_h /= Math.pow(player.max_values.acc_s, time_diff);
             }
         } else if (delta_speed.kmh_h < 0) {
-            if (player.speed.kmh_h >= min_kmh) {
+            if (Math.abs(player.speed.kmh_h) < min_kmh) player.speed.kmh_h = -min_kmh;
+
+            if (player.speed.kmh_h >= 0) {
                 player.speed.kmh_h /= Math.pow(player.max_values.acc_s, time_diff);
             } else {
-                player.speed.kmh_h = Math.min(-min_kmh, player.speed.kmh_h);
                 player.speed.kmh_h *= Math.pow(player.max_values.acc_s, time_diff);
             }
         }
-    
+
         player.speed.kmh_f = clamp(player.speed.kmh_f, -player.max_values.kmh_f, player.max_values.kmh_f);
         player.speed.kmh_s = clamp(player.speed.kmh_s, -player.max_values.kmh_s, player.max_values.kmh_s);
         player.speed.kmh_h = clamp(player.speed.kmh_h, -player.max_values.kmh_h, player.max_values.kmh_h);
