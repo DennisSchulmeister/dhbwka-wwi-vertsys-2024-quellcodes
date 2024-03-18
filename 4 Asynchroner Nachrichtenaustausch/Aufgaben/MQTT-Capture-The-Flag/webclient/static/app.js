@@ -47,7 +47,8 @@ class MyApplication {
         this.buttonDisconnect = document.getElementById("button-disconnect");
         this.buttonDisconnect.addEventListener("click", this.disconnect.bind(this));
 
-        this.playerNames = document.querySelector("#player-names");
+        this.playerNames   = document.querySelector("#player-names");
+        this.playerDetails = document.querySelector("#player-details");
     }
 
     /**
@@ -128,6 +129,12 @@ class MyApplication {
         } else {
             this.divErrorMessage.textContent = "";
             this.divErrorMessage.classList.add("hidden");
+        }
+
+        if (!this.followPlayerId) {
+            this.playerDetails.classList.add("hidden");
+        } else {
+            this.playerDetails.classList.remove("hidden");
         }
     }
 
@@ -227,6 +234,8 @@ class MyApplication {
                     this.followPlayerId = player.id;
                     divElement.classList.add("active");
                 }
+
+                this.switchVisibleElements();
             });
         }
 
@@ -246,10 +255,37 @@ class MyApplication {
         if (following) this.map.followPlayer(player);
         if (!this.followPlayerId) this.map.unfollowPlayer();
 
-        // TODO: Details zum ausgewählten Spieler rendern
+        // Details zum ausgewählten Spieler rendern
         if (following) {
+            this.displayDetailValue(player?.health, ".health");
+            this.displayDetailValue(player?.position?.lon, ".lon");
+            this.displayDetailValue(player?.position?.lat, ".lat");
+            this.displayDetailValue(player?.position?.alt, ".alt");
+            this.displayDetailValue(player?.position?.rot, ".rot");
+            this.displayDetailValue(player?.speed?.kmh_f, ".kmh_f");
+            this.displayDetailValue(player?.speed?.kmh_s, ".kmh_s");
+            this.displayDetailValue(player?.speed?.kmh_h, ".kmh_h");
+            this.displayDetailValue(player?.flight_input?.forward, ".forward");
+            this.displayDetailValue(player?.flight_input?.sideward, ".sideward");
+            this.displayDetailValue(player?.flight_input?.height, ".height");
+            this.displayDetailValue(player?.flight_input?.rotation, ".rotation");
+            this.displayDetailValue(player?.flight_input?.honk, ".honk");
+            this.displayDetailValue(player?.next_flag?.data?.nam, ".next_flag_nam");
+            this.displayDetailValue(player?.next_flag?.distance?.len, ".next_flag_d_len");
+            this.displayDetailValue(player?.next_flag?.distance?.alt, ".next_flag_d_alt");
+            this.displayDetailValue(player?.next_flag?.distance?.rot, ".next_flag_d_rot");
         }
-        
+    }
+
+    /**
+     * Detailwert zu Spieler anzeigen
+     * @param {any} value Anzuzeigender Wert
+     * @param {string} selector CSS-Selektor im #player-details
+     */
+    displayDetailValue(value, selector) {
+        let span = this.playerDetails.querySelector(selector);
+        if (!span) return
+        span.textContent = value ? value.toString() : "";
     }
 }
 

@@ -44,10 +44,10 @@
                 <button id="button-disconnect">Verbindung trennen</button>
             </div>
 
-            <!-- Liste der Spieler -->
             <div id="panel-player-details" class="panel">
                 <h3>Aktive Spieler</h3>
-
+                
+                <!-- Liste der Spieler -->
                 <div id="player-names" class="side-by-side" style="flex-wrap: wrap;">
                     <!--
                     <div class="clickable active">Test1</div>
@@ -55,9 +55,81 @@
                     <div class="clickable">Test3</div>
                     -->
                 </div>
-            </div>
 
-            <!-- TODO: Status des ausgewählten Spielers -->
+                <!-- Status des ausgewählten Spielers -->
+                <div id="player-details" class="hidden" style="overflow: scroll;">
+                    <div id="player-details-health">
+                        <h4>Energie</h4>
+                        <div>
+                            <b>Energie:</b> <span class="health"></span> %
+                        </div>
+                    </div>
+
+                    <div id="player-details-position">
+                        <h4>Position</h4>
+                        <div>
+                            <b>Lon:</b> <span class="lon"></span> °
+                        </div>
+                        <div>
+                            <b>Lot:</b> <span class="lat"></span> °
+                        </div>
+                        <div>
+                            <b>Alt:</b> <span class="alt"></span> °
+                        </div>
+                        <div>
+                            <b>Rot:</b> <span class="rot"></span> °
+                        </div>
+                    </div>
+
+                    <div id="player-details-speed">
+                        <h4>Geschwindigkeit</h4>
+                        <div>
+                            <b>km/h_f:</b> <span class="kmh_f"></span>
+                        </div>
+                        <div>
+                            <b>km/h_s:</b> <span class="kmh_s"></span>
+                        </div>
+                        <div>
+                            <b>km/h_h:</b> <span class="kmh_h"></span>
+                        </div>
+                    </div>
+
+                    <div id="player-details-flight-control">
+                        <h4>Flugsteuerung</h4>
+                        <div>
+                            <b>forward:</b> <span class="forward"></span>
+                        </div>
+                        <div>
+                            <b>sideward:</b> <span class="sideward"></span>
+                        </div>
+                        <div>
+                            <b>height:</b> <span class="height"></span>
+                        </div>
+                        <div>
+                            <b>rotation:</b> <span class="rotation"></span>
+                        </div>
+                        <div>
+                            <b>honk:</b> <span class="honk"></span>
+                        </div>
+                    </div>
+
+                    <div id="player-details-next-flag">
+                        <h4>Nächste Flagge</h4>
+                        <div>
+                            <span class="next_flag_nam"></span>
+                        </div>
+                        <div>
+                            <b>Δ len:</b> <span class="next_flag_d_len"></span> km
+                        </div>
+                        <div>
+                            <b>Δ alt:</b> <span class="next_flag_d_alt"></span> m
+                        </div>
+                        <div>
+                            <b>Δ rot:</b> <span class="next_flag_d_rot"></span> °
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- TODO: Leadership-Board -->
         </div>

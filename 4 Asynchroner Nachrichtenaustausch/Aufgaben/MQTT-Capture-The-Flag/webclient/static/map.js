@@ -27,6 +27,8 @@ class MyMap {
                 this.markerLayer,
             ]
         });
+
+        this.following = false;
     }
 
     /**
@@ -197,21 +199,27 @@ class MyMap {
         const centerPoint = ol.proj.transform(lonLat, "EPSG:4326", "EPSG:3857");
         view.setCenter(centerPoint);
 
-        const rot_rad = (player?.position?.rot || 0) * Math.PI / 180;
-        view.setRotation(rot_rad);
+        // const rot_rad = (player?.position?.rot || 0) * Math.PI / 180;
+        // view.setRotation(rot_rad);
 
         const alt = (player?.position?.alt || 0);
         const zoom = linearMap(alt, 0, 500, 15, 5);
         view.setZoom(zoom);
+
+        this.following = true;
     }
 
     /**
      * Karte auf Standardwerte zurücksetzen, um keinem Spieler mehr zu folgen.
      */
     unfollowPlayer() {
+        if (!this.following) return;
+
         const view = this.map.getView();
-        view.setRotation(0);
+        // view.setRotation(0);
         view.setZoom(DEFAULT_ZOOM);
+
+        this.following = false;
     }
 }
 
