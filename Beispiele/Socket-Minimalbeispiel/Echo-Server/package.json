@@ -1,0 +1,18 @@
+{
+  "name": "echo-server",
+  "version": "1.0.0",
+  "description": "Socket-Minimalbeispiel: Echo-Server",
+  "author": "Dennis Schulmeister-Zimolong",
+  "license": "CC-BY-4.0",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DennisSchulmeister/dhbwka-wwi-vertsys-2024-quellcodes"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3"
+  },
+  "scripts": {
+    "start": "node src/main.js"
+  }
+}

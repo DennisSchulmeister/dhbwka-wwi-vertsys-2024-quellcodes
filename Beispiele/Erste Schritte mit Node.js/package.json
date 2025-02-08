@@ -1,0 +1,19 @@
+{
+  "name": "@dschulmeis/nodejs-tutorial",
+  "version": "1.0.0",
+  "description": "Erste Schritte mit Node.js",
+  "author": "Dennis Schulmeister-Zimolong <dhbw@windows3.de>",
+  "license": "CC-BY-4.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DennisSchulmeister/dhbwka-wwi-vertsys-2024-quellcodes"
+  },
+  "type": "module",
+  "scripts": {
+    "start": "node src/main.js",
+    "debug": "node --inspect-brk src/main.js"
+  },
+  "bin": {
+    "hello-nodejs": "src/main.js"
+  }
+}

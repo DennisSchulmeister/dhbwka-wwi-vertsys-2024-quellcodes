@@ -1,0 +1,22 @@
+{
+    "name": "@dschulmeis/naas",
+    "version": "1.0.0",
+    "description": "Notebook-as-a-Service",
+    "author": "Dennis Schulmeister-Zimolong <dhbw@windows3.de>",
+    "license": "CC-BY-4.0",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DennisSchulmeister/dhbwka-wwi-vertsys-2024-quellcodes"
+    },
+    "type": "module",
+    "workspaces": [
+        "common"
+    ],
+    "scripts": {
+        "install": "concurrently -n frontend,api-gateway,catalogue-backend,order-backend \"cd frontend && npm i\" \"cd api-gateway && npm i\" \"cd catalogue-backend && npm i\" \"cd order-backend && npm i\"",
+        "start": "concurrently -n frontend,api-gateway,catalogue-backend,order-backend \"cd frontend && npm start\" \"cd api-gateway && npm start\" \"cd catalogue-backend && npm start\" \"cd order-backend && npm start\""
+    },
+    "devDependencies": {
+        "concurrently": "^8.2.2"
+    }
+}

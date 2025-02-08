@@ -15,7 +15,7 @@ Copyright
 Sämtliche Quellcodes sind lizenziert unter
 [_Creative Commons Namensnennung 4.0 International_](http://creativecommons.org/licenses/by/4.0/)
 
-© 2024 Dennis Schulmeister-Zimolong, Prof. Dr. Michael Decker <br/>
+© 2024 Dennis Schulmeister-Zimolong <br/>
 
 E-Mail: [dhbw@windows3.de](mailto:dhbw@windows3.de) <br/>
 Webseite: https://www.wpvs.de

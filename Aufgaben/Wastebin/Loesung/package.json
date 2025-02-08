@@ -1,0 +1,27 @@
+{
+  "name": "@dschulmeis/wastebin",
+  "version": "1.0.0",
+  "description": "Aufgabe zu REST-Webservices: Wastebin",
+  "author": "Dennis Schulmeister-Zimolong <dhbw@windows3.de>",
+  "license": "CC-BY-4.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DennisSchulmeister/dhbwka-wwi-vertsys-2024-quellcodes"
+  },
+  "type": "module",
+  "scripts": {
+    "start": "node src/main.js",
+    "watch": "nodemon --ignore db.json src/main.js",
+    "debug": "node --inspect-brk src/main.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.4",
+    "express": "^4.18.2",
+    "logging": "^3.3.0",
+    "lowdb": "^7.0.1",
+    "qs": "^6.11.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
+}
