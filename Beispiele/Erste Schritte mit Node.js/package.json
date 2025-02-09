@@ -15,5 +15,8 @@
   },
   "bin": {
     "hello-nodejs": "src/main.js"
+  },
+  "dependencies": {
+    "prettyoutput": "^1.2.0"
   }
 }
