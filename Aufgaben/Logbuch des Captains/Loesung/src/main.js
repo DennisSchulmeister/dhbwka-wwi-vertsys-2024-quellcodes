@@ -1,16 +1,15 @@
-/**
- * Unsere allerersten Schritte mit dem Express Framework. Das Beispiel zeigt die
- * allgemeine Struktur einer Express-Anwendung mit dem `app`-Objekt, Middleware
- * und Request Handler Funktionen.
- */
+import {db}           from "./database.js";
+import {calcStarDate} from "./utils.js";
 
-import dotenv  from "dotenv";
-import express from "express";
-import logging from "logging";
+import dotenv         from "dotenv";
+import express        from "express";
+import logging        from "logging";
+import path           from "node:path";
+import url            from "node:url";
 
 // Programmname ausgeben
-console.log("Erste Schritte mit Express");
-console.log("==========================");
+console.log("Logbuch des Captains");
+console.log("====================");
 console.log();
 
 /**
@@ -55,33 +54,48 @@ app.use((req, res, next) => {
 });
 
 /**
- * Request Handler Funkion für GET-Anfragen an die URL "/". Man nennt dies auch
- * den "Endpunkt GET /". Über den Query-Parameter `?name=…` kann ein Name übergeben
- * werden, der begrüßt werden soll.
+ * Statische Dateien aus dem static-Verzeichnis abrufbar machen, da dieses eine kleine
+ * Single Page App als Benutzeroberfläche beinhaltet.
  */
-app.get("/", (req, res) => {
-    res.status(200);
+const sourceDir = path.dirname(url.fileURLToPath(import.meta.url));
+const staticDir = path.join(sourceDir, "..", "static");
 
-    if (req.query.name) {
-        res.send(`Hallo ${req.query.name}`);
+app.use(express.static(staticDir));
+app.use(express.json());
+
+/**
+ * HTTP-Endpunkt zum Abrufen aller vorhandenen Logbuch-Einträge
+ */
+app.get("/api/logbook", async (req, res) => {
+    res.status(200);
+    res.send(db.data.LogEntries);
+});
+
+/**
+ * HTTP-Endpunkt zum Anlegen eines neuen Logbuch-Eintrags
+ */
+app.post("/api/logbook", async (req, res) => {
+    if (!req.body?.text) {
+        // Statuscodes siehe https://http.dog/
+        res.status(400);
+        res.send({error: "Bitte Text eingeben!"});
     } else {
-        res.send(`Hallo! Sage mir deinen Namen durch einen Aufruf von ${req.url}?name=… oder /hello/…`);
+        // Neuen Eintrag in die Datenbank schreiben
+        const newEntry = {
+            starDate: calcStarDate(new Date()),
+            text: req.body.text,
+        };
+
+        db.data.LogEntries.push(newEntry);
+        await db.write();
+
+        res.status(201);
+        res.send(newEntry);
     }
 });
 
 /**
- * Request Handler mit benanntem URL-Parameter. Der zu grüßende Name wird hier als
- * Teil des URL-Pfads übergeben, wodurch die URL sehr viel schöner aussieht.
- * (Echten Webentwicklern ist so etwas wichtig 🙂)
- */
-app.get("/hello/:name", (req, res) => {
-    res.status(200);
-    res.send(`Hallo ${req.params.name}`);
-});
-
-/**
- * Webserver starten. Die Callback-Funktion wird aufgefufen, sobald der Webserver
- * bereit ist, Anfragen zu bearbeiten.
+ * Webserver starten
  */
 app.listen(config.port, config.host, () => {
     logger.info(`Server lauscht auf ${config.host}:${config.port}`);
