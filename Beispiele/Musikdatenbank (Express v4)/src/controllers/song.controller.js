@@ -1,5 +1,6 @@
 import service         from "../services/song.service.js";
 import {throwNotFound} from "../utils.js";
+import {wrapAsync}     from "../utils.js";
 
 const prefix = "/song";
 
@@ -11,14 +12,14 @@ const prefix = "/song";
  */
 export default function registerRoutes(app) {
     // Ganze Collection
-    app.get(prefix, search);
-    app.post(prefix, create);
+    app.get(prefix, wrapAsync(search));
+    app.post(prefix, wrapAsync(create));
 
     // Einzelne Ressource
-    app.get(`${prefix}/:id`, read);
-    app.put(`${prefix}/:id`, update);
-    app.patch(`${prefix}/:id`, update);
-    app.delete(`${prefix}/:id`, remove);
+    app.get(`${prefix}/:id`, wrapAsync(read));
+    app.put(`${prefix}/:id`, wrapAsync(update));
+    app.patch(`${prefix}/:id`, wrapAsync(update));
+    app.delete(`${prefix}/:id`, wrapAsync(remove));
 };
 
 /**

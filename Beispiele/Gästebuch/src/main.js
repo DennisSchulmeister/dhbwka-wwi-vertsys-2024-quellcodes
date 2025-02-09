@@ -1,8 +1,19 @@
-import dotenv        from "dotenv";
-import express       from "express";
-import logging       from "logging";
-import path          from "node:path";
-import url           from "node:url";
+/**
+ * Minimales Beispiel für eine Single Page App mit einem Webservice-Backend.
+ * Diese Datei implementiert einen einfachen Webserver mit dem Express-Framework,
+ * der sowohl das Frontend (die Single Page App) als auch den Webservice für
+ * den Zugriff auf eine simulierte Datenbank bereitstellt.
+ * 
+ * Das Beispiel ist nicht sehr groß. Deshalb befindet sich der gesamte Quellcode
+ * in einer skript-artigen Datei. Das Beispielprogramm "Musikdatenbank" zeigt,
+ * wie eine größere Anwendung sauber strukturiert werden kann.
+ */
+
+import dotenv  from "dotenv";
+import express from "express";
+import logging from "logging";
+import path    from "node:path";
+import url     from "node:url";
 
 // Programmname ausgeben
 console.log("Gästebuch");

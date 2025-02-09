@@ -22,6 +22,16 @@ entwickelt und der Quellcode dabei sauber strukturiert werden kann:
 1. Strukturierung des Quellcodes in mehrere Dateien mit klarar Aufgabenteilung
 1. Dokumentation des Webservices mit einer OpenAPI-Beschreibung
 
+<p style="color: darkred">
+Diese Version verwendet die (noch) aktuelle Version 4 von Express, die leider nicht
+gut mit asynchronen Handler-Funktionen umgehen kann. Da wir für die Kommunikation mit
+der Datenbank aber auf asynchrone Funktionsaufrufe angewiesen sind (die direkte Arbeit
+mit den `Promise`-Objekten würde den Quellcode drastisch verkomplizieren), werden die
+Request Handler-Funktionen hier durch eine selbstgeschriebene Wrapper-Funktion mit
+dem Namen `wrapAsync()` eingehüllt. Davon abgesehen ist der Quellcode 100% identisch
+mit der Version für Express 5.
+</p>
+
 Es handelt sich dabei um eine kleine Musikdatenbank mit folgendem Datenmodell:
 
 ![Datenmodell des Webservices](datenmodell.png)

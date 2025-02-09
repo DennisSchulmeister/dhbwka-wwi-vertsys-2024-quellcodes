@@ -1,6 +1,5 @@
 import service         from "../services/playlist.service.js";
 import {throwNotFound} from "../utils.js";
-import {wrapAsync}     from "../utils.js";
 
 const prefix = "/playlist";
 
@@ -12,14 +11,14 @@ const prefix = "/playlist";
  */
 export default function registerRoutes(app) {
     // Ganze Collection
-    app.get(prefix, wrapAsync(search));
-    app.post(prefix, wrapAsync(create));
+    app.get(prefix, search);
+    app.post(prefix, create);
 
     // Einzelne Ressource
-    app.get(`${prefix}/:id`, wrapAsync(read));
-    app.put(`${prefix}/:id`, wrapAsync(update));
-    app.patch(`${prefix}/:id`, wrapAsync(update));
-    app.delete(`${prefix}/:id`, wrapAsync(remove));
+    app.get(`${prefix}/:id`, read);
+    app.put(`${prefix}/:id`, update);
+    app.patch(`${prefix}/:id`, update);
+    app.delete(`${prefix}/:id`, remove);
 };
 
 /**
