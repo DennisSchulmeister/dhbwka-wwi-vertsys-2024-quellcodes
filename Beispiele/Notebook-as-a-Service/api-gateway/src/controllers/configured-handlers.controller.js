@@ -1,7 +1,6 @@
 import {copyConfig}              from "../config.js";
 import {resolveConfigReferences} from "../config.js";
 
-import {wrapAsync}               from "@dschulmeis/naas-common/src/utils.js";
 import {logger}                  from "@dschulmeis/naas-common/src/utils.js";
 import YAML                      from "yaml";
 import http                      from "node:http";
@@ -16,7 +15,7 @@ let loadBalancer = {};
  * @param {Express.Application} app Express Application
  */
 export default function registerRoutes(app) {
-    app.all("/*", wrapAsync(handleRequest));
+    app.all("/*path", handleRequest);
 };
 
 /**

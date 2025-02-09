@@ -10,7 +10,7 @@
     "url": "https://github.com/DennisSchulmeister/dhbwka-wwi-vertsys-2024-quellcodes"
   },
   "dependencies": {
-    "dotenv": "^16.0.3"
+    "dotenv": "^16.4.7"
   },
   "scripts": {
     "start": "node src/main.js"

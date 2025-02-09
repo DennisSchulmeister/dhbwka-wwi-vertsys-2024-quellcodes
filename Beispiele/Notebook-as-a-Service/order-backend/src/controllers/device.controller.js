@@ -1,5 +1,4 @@
 import * as deviceService from "../services/device.service.js";
-import {wrapAsync}        from "@dschulmeis/naas-common/src/utils.js";
 import {throwError}       from "@dschulmeis/naas-common/src/utils.js";
 
 /**
@@ -9,7 +8,7 @@ import {throwError}       from "@dschulmeis/naas-common/src/utils.js";
  * @param {Express.Application} app Express Application
  */
 export default function registerRoutes(app) {
-    app.get("/device/exists/:id",    wrapAsync(checkExists));
+    app.get("/device/exists/:id",    checkExists);
     app.get("/device/available/:id", deviceAvailable);
 };
 

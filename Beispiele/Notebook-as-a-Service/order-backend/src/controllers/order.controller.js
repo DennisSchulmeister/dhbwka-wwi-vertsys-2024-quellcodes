@@ -1,7 +1,6 @@
 import {db}                   from "../database.js";
 import {validateAndSaveOrder} from "../services/order.service.js";
 import {throwNotFound}        from "@dschulmeis/naas-common/src/utils.js";
-import {wrapAsync}            from "@dschulmeis/naas-common/src/utils.js";
 
 /**
  * Diese Funktion fügt die unten ausprogrammierten Route Handler der
@@ -12,7 +11,7 @@ import {wrapAsync}            from "@dschulmeis/naas-common/src/utils.js";
 export default function registerRoutes(app) {
     app.get("/order", search);
     app.get("/order/:id", find);
-    app.post("/order", wrapAsync(createOrder));
+    app.post("/order", createOrder);
 };
 
 /**

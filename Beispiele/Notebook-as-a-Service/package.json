@@ -17,6 +17,6 @@
         "start": "concurrently -n frontend,api-gateway,catalogue-backend,order-backend \"cd frontend && npm start\" \"cd api-gateway && npm start\" \"cd catalogue-backend && npm start\" \"cd order-backend && npm start\""
     },
     "devDependencies": {
-        "concurrently": "^8.2.2"
+        "concurrently": "^9.1.2"
     }
 }
