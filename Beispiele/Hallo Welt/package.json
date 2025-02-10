@@ -1,0 +1,19 @@
+{
+  "name": "@dschulmeis/hallo-welt",
+  "version": "1.0.0",
+  "description": "Hallo Welt für Node.js",
+  "author": "Dennis Schulmeister-Zimolong &lt;dhbw@windows3.de&gt;",
+  "license": "CC-BY-4.0",
+
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DennisSchulmeister/dhbwka-wwi-vertsys-2024-quellcodes.git"
+  },
+
+  "type": "module",
+
+  "scripts": {
+      "start": "node src/main.js",
+      "git-auto-commit": "git add . && git commit -m 'Code-Änderungen' && git push"
+  }
+}
