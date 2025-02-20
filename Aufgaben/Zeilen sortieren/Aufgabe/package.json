@@ -1,0 +1,15 @@
+{
+  "name": "@dschulmeis/zeilen-sortieren",
+  "version": "1.0.0",
+  "description": "Aufgabe zu Node.js: Textzeilen sortieren",
+  "author": "Dennis Schulmeister-Zimolong <dhbw@windows3.de>",
+  "license": "CC-BY-4.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DennisSchulmeister/dhbwka-wwi-vertsys-2024-quellcodes"
+  },
+  "type": "module",
+  "scripts": {
+    "start": "node src/main.js"
+  }
+}
