@@ -9,7 +9,9 @@ import express from "express";
 import logging from "logging";
 import process from "node:process";
 
-// Programmname ausgeben
+/**
+ * Programmname ausgeben
+ */
 console.log("Erste Schritte mit Express");
 console.log("==========================");
 console.log();
@@ -33,7 +35,7 @@ const config = {
 const logger = logging.default("main");
 
 /**
- * Zentrales App-Objekt der Express-Anwendung. Dies ist der eigentlichen Webserver.
+ * Zentrales App-Objekt der Express-Anwendung. Dies ist der eigentliche Webserver.
  * Weiter unten registrieren wir verschiedene Handler Funktionen, die es uns ermöglichen,
  * die eingehenden HTTP-Anfragen zu beantworten.
  */
