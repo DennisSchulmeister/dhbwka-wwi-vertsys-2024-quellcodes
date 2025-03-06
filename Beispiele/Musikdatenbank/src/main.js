@@ -3,6 +3,7 @@ import express       from "express";
 import qs            from "qs";
 import path          from "node:path";
 import url           from "node:url";
+import process       from "node:process";
 
 import {logRequest}  from "./middleware.js";
 import {handleError} from "./middleware.js";
@@ -41,6 +42,18 @@ for (let controller of controllers || []) {
 
 app.use(handleError(logger));
 
-app.listen(config.port, config.host, () => {
+const server = app.listen(config.port, config.host, () => {
     logger.info(`Server lauscht auf ${config.host}:${config.port}`);
+});
+
+// Graceful Shutdown: Aktive Requests zu Ende bearbeiten, aber keine neuen Requests
+// mehr akzeptieren, wenn der Server beendet werden soll.
+process.on("SIGTERM", () => {
+    console.log("SIGTERM empfangen. Beende Server.");
+    server.close();
+});
+
+process.on("SIGINT", () => {
+    console.log("\nSIGINT empfangen. Beende Server.");
+    server.close();
 });
