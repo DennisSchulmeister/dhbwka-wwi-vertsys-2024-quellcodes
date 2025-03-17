@@ -1,0 +1,99 @@
+html, body {
+    font-family: sans-serif;
+    font-size: 14pt;
+    height: 100%;
+
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    /* https://pixabay.com/illustrations/star-trek-star-trek-enterprise-7737321/ */
+    background-image: url(bg.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: stretch;
+
+    gap: 1em;
+    padding: 1em;
+    box-sizing: border-box;
+
+    /* backdrop-filter: blur(5px); */
+}
+
+.container {
+    background: rgba(0,0,0,0.8);
+    box-shadow: 1px 1px 2px rgba(0,0,0, 0.8);
+    border-radius: 0.5em;
+    padding: 1em;
+    color: rgb(200, 200, 200);
+}
+
+.log-entries {
+    flex: 1;
+    overflow: scroll;
+    scrollbar-width: none;
+}
+
+h1 {
+    color: rgb(190, 10, 10);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.75);
+    margin: 0;
+}
+
+h1 > span {
+    color: rgb(249, 166, 11);
+    font-style: italic;
+}
+
+input[type="text"] {
+    display: block;
+    width: 100%;
+    font-size: 105%;
+    box-sizing: border-box;
+    margin-bottom: 0.5em;
+
+    border: none;
+    background: none;
+    outline: none;
+    color: white;
+}
+
+button {
+    border: none;
+    outline: none;
+    background: rgb(4, 72, 149);
+    color: white;
+    padding: 0.75em;
+    border-radius: 0.5em;
+}
+
+button:hover {
+    background: rgb(7, 103, 213);
+    cursor: pointer;
+}
+
+ul {
+    list-style: none;
+    margin: 1em 0 0 0;
+    padding: 0;
+    font-size: 90%;
+}
+
+li {
+    margin: 0 0 0.75em 0;
+    padding: 0;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+    margin: 0 0 0.75em 0;
+}
