@@ -14,7 +14,7 @@ Jeder Microservice einer verteilten Anwendung (sofern diese Microservices nutzt)
 typischerweise seine eigene Datenbank, die zusammen mit dem Microservice deployed wird.
 Dadurch werden ungewollte Abhängigkeiten zwischen den Microservices vermieden, wodurch
 diese möglichst unabhängig voneinander entwickelt und betrieben werden können. Jedoch ist
-es für ein Vorlesungsbeispiel ein wenig Aufwändig, gleich ein richtiges Datenbank-Management-System
+es für ein Vorlesungsbeispiel ein wenig aufwändig, gleich ein richtiges Datenbank-Management-System
 aufsetzen zu müssen. Mit Docker ginge das zwar vergleichsweise einfach. Aber gerade unter
 Windows ist auch Docker nicht einfach zu installieren.
 
