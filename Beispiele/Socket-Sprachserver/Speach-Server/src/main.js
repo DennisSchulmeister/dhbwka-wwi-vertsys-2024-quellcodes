@@ -32,12 +32,14 @@ const LISTEN_PORT = parseInt(process.env.SAY_LISTEN_PORT) || 7000;
 let speach = new Speach();
 
 // Socket-Server starten
+// Aus Kompatibilität mit Windows-Telnet senden wir \r\n als Zeilenende, anstatt nur \n
 let server = net.createServer(socket => {
     // Verbindung mit neuem Client hergestellt
     log(socket, "Client connected");
 
     socket.setEncoding("utf-8");
     socket.setNoDelay();
+    socket.write("CONNECTED! You need to say HELLO to me now.\r\n");
 
     socket.on("error", err => log(socket, err));
     socket.on("close", () => log(socket, "Client disconnected"));
@@ -45,6 +47,9 @@ let server = net.createServer(socket => {
     let lineBuffer = "";
 
     function handleLine(line) {
+        line = line.replaceAll("\r", "");
+        line = line.replaceAll("\n", "");
+
         let cmd = line.split(" ")[0];
         let val = line.split(" ").slice(1).join(" ");
 
@@ -53,8 +58,8 @@ let server = net.createServer(socket => {
                 // Begrüßung durch Client
                 log(socket, "Send greeting");
 
-                socket.write("HELLO\n");
-                socket.write("COMMANDS:  SAY: some words,  GET_STATUS,  GET_QUEUE,  BYE\n");
+                socket.write("HELLO\r\n");
+                socket.write("COMMANDS:  SAY: some words,  GET_STATUS,  GET_QUEUE,  BYE\r\n");
                 break;
 
             case "SAY:":
@@ -62,7 +67,7 @@ let server = net.createServer(socket => {
                 log(socket, `Say: ${val}`);
 
                 speach.say(val);
-                socket.write("CONFIRM\n");
+                socket.write("CONFIRM\r\n");
             
                 break;
 
@@ -71,7 +76,7 @@ let server = net.createServer(socket => {
                 log(socket, "Get server status");
 
                 let status = speach.speaking ? "speaking" : "waiting";
-                socket.write(`SERVER_STATUS: ${status}\n`);
+                socket.write(`SERVER_STATUS: ${status}\r\n`);
                 break;
 
             case "GET_QUEUE":
@@ -79,10 +84,10 @@ let server = net.createServer(socket => {
                 log(socket, "Get queue");
 
                 for (let text of speach.queue) {
-                    socket.write(`QUEUE: ${text}\n`);
+                    socket.write(`QUEUE: ${text}\r\n`);
                 }
 
-                socket.write("QUEUE_END\n");
+                socket.write("QUEUE_END\r\n");
                 break;
 
             case "BYE":
@@ -96,7 +101,7 @@ let server = net.createServer(socket => {
             default:
                 // Unbekanntes Kommando
                 log(socket, "Unknown command", cmd);
-                socket.write("?!?\n");
+                socket.write("?!?\r\n");
                 break;
         }
     }
@@ -104,7 +109,7 @@ let server = net.createServer(socket => {
     socket.on("data", data => {
         // ACHTUNG: Je nach Client kann es vorkommen, dass wir ganze Zeile geschickt bekommen oder
         // nur einzelne Zeichen. Deshalb werden die empfangenen Daten hier so lange gepuffert, bis
-        // ein Zeilenende empfangen wurde. Denn insbesondere telnet und Windows sendet standardmäßig
+        // ein Zeilenende empfangen wurde. Denn insbesondere telnet unter Windows sendet standardmäßig
         // jeden Tastendruck einzeln und wartet nicht darauf, dass ENTER gedrückt wird.
         lineBuffer += data;
 

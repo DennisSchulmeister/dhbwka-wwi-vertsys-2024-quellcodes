@@ -1,9 +1,10 @@
 Socketprogrammierung mit Node.js
 ================================
 
- 1. [Kurzbeschreibung](#kurzbeschreibung)
- 1. [Start der beiden Anwendungen](#start-der-beiden-anwendungen)
- 1. [Ausführen mit Docker](#ausführen-mit-docker)
+1. [Kurzbeschreibung](#kurzbeschreibung)
+1. [Start der beiden Anwendungen](#start-der-beiden-anwendungen)
+1. [Testen mit Telnet oder Netcat](#testen-mit-telnet-oder-netcat)
+1. [Ausführen mit Docker](#ausführen-mit-docker)
 
 Kurzbeschreibung
 ----------------
@@ -35,6 +36,7 @@ Folgende Konversationen sind dabei vorgesehen:
 __Begrüßung:__
 
 ```text
+> CONNECTED! You need to say HELLO to me now
 < HELLO
 > HELLO
 > COMMANDS: ...
@@ -92,6 +94,33 @@ npm install
 
 Anschließend kann im jeweiligen Verzeichnis `npm start` ausgeführt werden, um das eigentliche
 Programm zu starten.
+
+Testen mit Telnet oder Netcat
+-----------------------------
+
+Dieses Beispiel eignet sich hervorragend dazu, um die TCP/IP-Kommunikation zwischen Client und
+Server mit Telnet oder Netcat direkt zu beobachten. Unter Linux und Mac kann man sich hierzu mit
+folgendem Befehl direkt mit dem Server verbinden:
+
+```sh
+nc localhost 7000
+```
+
+Aufgrund der Voreinstellungen des Servers funktioniert das auch über das Netzwerk von einem anderen
+Rechner aus. Unter Windows kann man stattdessen Telnet verwenden, zu dessen Protokol der Server
+einigermaßen kompatibel ist:
+
+```sh
+telnet localhost 7000
+```
+
+Seit Windows 10 wird Telnet aber nicht mehr standardmäßig vorinstalliert. Man muss es erst über das GUI
+oder mit folgendem Konsolenbefehl installieren. Die Konsole muss hierfür mit Administratorrechten geöffnet
+werden:
+
+```sh
+dism /online /Enable-Feature /FeatureName:TelnetClient
+```
 
 Ausführen mit Docker
 --------------------
