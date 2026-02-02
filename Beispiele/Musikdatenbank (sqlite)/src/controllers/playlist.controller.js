@@ -1,8 +1,7 @@
-import service         from "../services/song.service.js";
+import service         from "../services/playlist.service.js";
 import {throwNotFound} from "../utils.js";
-import {wrapAsync}     from "../utils.js";
 
-const prefix = "/song";
+const prefix = "/playlist";
 
 /**
  * Diese Funktion fügt die unten ausprogrammierten Route Handler der
@@ -12,18 +11,18 @@ const prefix = "/song";
  */
 export default function registerRoutes(app) {
     // Ganze Collection
-    app.get(prefix, wrapAsync(search));
-    app.post(prefix, wrapAsync(create));
+    app.get(prefix, search);
+    app.post(prefix, create);
 
     // Einzelne Ressource
-    app.get(`${prefix}/:id`, wrapAsync(read));
-    app.put(`${prefix}/:id`, wrapAsync(update));
-    app.patch(`${prefix}/:id`, wrapAsync(update));
-    app.delete(`${prefix}/:id`, wrapAsync(remove));
+    app.get(`${prefix}/:id`, read);
+    app.put(`${prefix}/:id`, update);
+    app.patch(`${prefix}/:id`, update);
+    app.delete(`${prefix}/:id`, remove);
 };
 
 /**
- * Abruf einer Liste von Songs, optional mit Stichwortsuche.
+ * Abruf einer Liste von Playlists, optional mit Stichwortsuche.
  *
  * @param {Express.Request} req HTTP-Anfrage
  * @param {Express.Response} res HTTP-Antwort
@@ -36,7 +35,7 @@ async function search(req, res) {
 }
 
 /**
- * Anlegen eines neuen Songs.
+ * Anlegen einer neuen Playlist.
  *
  * @param {Express.Request} req HTTP-Anfrage
  * @param {Express.Response} res HTTP-Antwort
@@ -50,7 +49,7 @@ async function create(req, res) {
 }
 
 /**
- * Abruf eines einzelnen Songs anhand seiner ID.
+ * Abruf einer einzelnen Playlist anhand ihrer ID.
  *
  * @param {Express.Request} req HTTP-Anfrage
  * @param {Express.Response} res HTTP-Antwort
@@ -67,7 +66,8 @@ async function read(req, res) {
 }
 
 /**
- * Aktualisieren einzelner Felder eines Songs oder Überschreiben des gesamten Songs.
+ * Aktualisieren einzelner Felder einer Playlist oder Überschreiben der
+ * gesamten Playlist.
  *
  * @param {Express.Request} req HTTP-Anfrage
  * @param {Express.Response} res HTTP-Antwort
@@ -84,7 +84,7 @@ async function update(req, res) {
 }
 
 /**
- * Löschen eines Songs anhand seiner ID.
+ * Löschen einer Playlist anhand ihrer ID.
  *
  * @param {Express.Request} req HTTP-Anfrage
  * @param {Express.Response} res HTTP-Antwort

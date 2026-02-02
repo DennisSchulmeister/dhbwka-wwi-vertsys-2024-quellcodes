@@ -194,7 +194,7 @@
                     }
                 },
                 "summary": "Song ändern",
-                "description": "Überschreibt einen vorhandenen Song auf dem Server. Bis auf die ID können alle Felder geändert werden. Der Versuch, die ID zu ändern, wird vom Server stillschweigend ignoriert."
+                "description": "Überschreibt einen vorhandenen Song auf dem Server."
             },
             "delete": {
                 "tags": [
@@ -257,7 +257,7 @@
                     }
                 },
                 "summary": "Song bearbeiten",
-                "description": "Ändert einzelne Felder eines vorhandenen Songs. Zulässig sind alle Felder bis auf die ID, da diese nachträglich nicht mehr verändert werden darf."
+                "description": "Ändert einzelne Felder eines vorhandenen Songs."
             }
         },
         "/playlist": {
@@ -437,7 +437,7 @@
                     }
                 },
                 "summary": "Playlist ändern",
-                "description": "Überschreibt eine vorhandene Playlist auf dem Server. Bis auf die ID können alle Felder geändert werden. Der Versuch, die ID zu ändern, wird vom Server stillschweigend ignoriert."
+                "description": "Überschreibt eine vorhandene Playlist auf dem Server."
             },
             "delete": {
                 "tags": [
@@ -500,7 +500,7 @@
                     }
                 },
                 "summary": "Playlist bearbeiten",
-                "description": "Ändert einzelne Felder einer vorhandenen Playlist. Zulässig sind alle Felder bis auf die ID, da diese nachträglich nicht mehr verändert werden darf."
+                "description": "Ändert einzelne Felder einer vorhandenen Playlist."
             }
         }
     },

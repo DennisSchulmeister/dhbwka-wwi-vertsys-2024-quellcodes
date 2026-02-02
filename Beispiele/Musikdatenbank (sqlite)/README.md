@@ -1,5 +1,5 @@
-Musikdatenbank
-==============
+Musikdatenbank (SQLite)
+=======================
 
 1. [Kurzbeschreibung](#kurzbeschreibung)
 1. [Start des Servers](#start-des-servers)
@@ -12,6 +12,8 @@ Musikdatenbank
 
 Kurzbeschreibung
 ----------------
+
+**Version mit [better-sqlite3](https://www.npmjs.com/package/better-sqlite3). (Speichert alle Daten in einer lokalen SQLIte-Datenbank)**
 
 Dieses Beispiel zeigt, wie mit [Node.js](https://nodejs.org/) und dem
 [Express-Framework](http://expressjs.com/) ein einfacher REST-Webservice
@@ -59,8 +61,7 @@ Aufgabenstellung
 ----------------
 
 Testen Sie den Webservice über die eingebaute Webanwendung oder mit einem Testwerkzeug
-wie [HTTPie](https://httpie.io/) oder dem [Talend API Tester](https://chromewebstore.google.com/detail/talend-api-tester-free-ed/aejoelaoggembcahagimdiliamlcdmfm).
-Führen Sie folgende Aktionen aus:
+wie [HTTPie](https://httpie.io/). Führen Sie folgende Aktionen aus:
 
 1. Rufen Sie eine Liste aller Songs ab.
 

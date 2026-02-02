@@ -1,14 +1,15 @@
-import dotenv        from "dotenv";
-import express       from "express";
-import qs            from "qs";
-import path          from "node:path";
-import url           from "node:url";
-import process       from "node:process";
+import dotenv          from "dotenv";
+import express         from "express";
+import qs              from "qs";
+import path            from "node:path";
+import url             from "node:url";
+import process         from "node:process";
 
-import {logRequest}  from "./middleware.js";
-import {handleError} from "./middleware.js";
-import {logger}      from "./utils.js";
-import controllers   from "./controllers/index.js";
+import {db}            from "./database.js";
+import {logRequest}    from "./middleware.js";
+import {handleError}   from "./middleware.js";
+import {logger}        from "./utils.js";
+import controllers     from "./controllers/index.js";
 
 // Programmname ausgeben
 console.log("Musikdatenbank");
@@ -48,12 +49,12 @@ const server = app.listen(config.port, config.host, () => {
 
 // Graceful Shutdown: Aktive Requests zu Ende bearbeiten, aber keine neuen Requests
 // mehr akzeptieren, wenn der Server beendet werden soll.
-process.on("SIGTERM", () => {
-    console.log("SIGTERM empfangen. Beende Server.");
+process.on("exit", () => {
+    console.log("Beende Server.");
     server.close();
+    db.close();
 });
 
-process.on("SIGINT", () => {
-    console.log("\nSIGINT empfangen. Beende Server.");
-    server.close();
-});
+process.on("SIGHUP",  () => process.exit(128 + 1));
+process.on("SIGINT",  () => process.exit(128 + 2));
+process.on("SIGTERM", () => process.exit(128 + 15));

@@ -1,5 +1,5 @@
-Musikdatenbank
-==============
+Musikdatenbank (lowdb)
+======================
 
 1. [Kurzbeschreibung](#kurzbeschreibung)
 1. [Start des Servers](#start-des-servers)
@@ -13,6 +13,8 @@ Musikdatenbank
 Kurzbeschreibung
 ----------------
 
+**Version mit [lowdb](https://www.npmjs.com/package/lowdb) "Datenbank" (speichert alle Daten in einer JSON-Datei)**
+
 Dieses Beispiel zeigt, wie mit [Node.js](https://nodejs.org/) und dem
 [Express-Framework](http://expressjs.com/) ein einfacher REST-Webservice
 entwickelt und der Quellcode dabei sauber strukturiert werden kann:
@@ -21,16 +23,6 @@ entwickelt und der Quellcode dabei sauber strukturiert werden kann:
 1. Anbindung einer Datenbank zur dauerhaften Speicherung der Daten
 1. Strukturierung des Quellcodes in mehrere Dateien mit klarar Aufgabenteilung
 1. Dokumentation des Webservices mit einer OpenAPI-Beschreibung
-
-<p style="color: darkred">
-Diese Version verwendet die (noch) aktuelle Version 4 von Express, die leider nicht
-gut mit asynchronen Handler-Funktionen umgehen kann. Da wir für die Kommunikation mit
-der Datenbank aber auf asynchrone Funktionsaufrufe angewiesen sind (die direkte Arbeit
-mit den `Promise`-Objekten würde den Quellcode drastisch verkomplizieren), werden die
-Request Handler-Funktionen hier durch eine selbstgeschriebene Wrapper-Funktion mit
-dem Namen `wrapAsync()` eingehüllt. Davon abgesehen ist der Quellcode 100% identisch
-mit der Version für Express 5.
-</p>
 
 Es handelt sich dabei um eine kleine Musikdatenbank mit folgendem Datenmodell:
 
@@ -69,8 +61,7 @@ Aufgabenstellung
 ----------------
 
 Testen Sie den Webservice über die eingebaute Webanwendung oder mit einem Testwerkzeug
-wie [HTTPie](https://httpie.io/) oder dem [Talend API Tester](https://chromewebstore.google.com/detail/talend-api-tester-free-ed/aejoelaoggembcahagimdiliamlcdmfm).
-Führen Sie folgende Aktionen aus:
+wie [HTTPie](https://httpie.io/). Führen Sie folgende Aktionen aus:
 
 1. Rufen Sie eine Liste aller Songs ab.
 

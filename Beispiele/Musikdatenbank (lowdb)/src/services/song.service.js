@@ -24,7 +24,7 @@ export async function search(query) {
 }
 
 /**
- * Anlegen eines neuen Song.
+ * Anlegen eines neuen Songs.
  * 
  * @param {Object} song Zu speichernde Daten
  * @returns {Promise<Object>} Gespeicherte Daten
