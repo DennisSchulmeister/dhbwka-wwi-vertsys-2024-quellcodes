@@ -6,3 +6,6 @@
 
 # LowDB
 db.json
+
+# SQLite
+*.sqlite
