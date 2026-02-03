@@ -46,8 +46,10 @@ let socket = net.createConnection({host: LISTEN_IP, port: LISTEN_PORT}, async ()
     console.log("Waiting for server greeting.");
 
     // Begrüßungen austauschen
-    socket.write("HELLO\n");
     let response = await once(dataReceived, "data");
+
+    socket.write("HELLO\n");
+    response = await once(dataReceived, "data");
 
     if (!response[0].startsWith("HELLO")) {
         console.error("Unexpected server response:", response);
