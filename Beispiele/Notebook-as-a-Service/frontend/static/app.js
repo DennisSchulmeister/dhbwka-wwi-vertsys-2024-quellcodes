@@ -10,13 +10,13 @@ window.addEventListener("load", async () => {
     let gatewayURL = await response.text();
 
     let urls = {
-        catalogue:       "api/catalogue",
-        device:          "api/catalogue/device",
-        deviceClass:     "api/catalogue/device-class",
-        order:           "api/order",
-        deviceExists:    "api/order/device/exists",
-        deviceAvailable: "api/order/device/available",
-        deviceOrder:     "api/order/order"
+        catalogue:       "/api/catalogue",
+        device:          "/api/catalogue/device",
+        deviceClass:     "/api/catalogue/device-class",
+        order:           "/api/order",
+        deviceExists:    "/api/order/device/exists",
+        deviceAvailable: "/api/order/device/available",
+        deviceOrder:     "/api/order/order"
     };
 
     // Neuladen der Seite bei Klick auf einen der Submit-Buttons unterbinden
