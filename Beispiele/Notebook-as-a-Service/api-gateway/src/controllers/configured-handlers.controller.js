@@ -260,7 +260,7 @@ async function forwardRequest(forwardTo, urlPrefix, req, res) {
         // Anfrage weiterleiten
         try {
             let statusCode = await new Promise(async (resolve, reject) => {
-                let forwardReq = http.request(targetUrl, {method: req.method, joinDuplicateHeaders: true}, forwardRes => {
+                let forwardReq = http.request(new URL(targetUrl), {method: req.method, joinDuplicateHeaders: true}, forwardRes => {
                     res.writeHead(forwardRes.statusCode, forwardRes.headersDistinct);
                     forwardRes.pipe(res);
                     resolve(forwardRes.statusCode);
