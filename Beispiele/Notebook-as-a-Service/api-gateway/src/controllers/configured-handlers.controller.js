@@ -4,6 +4,7 @@ import {resolveConfigReferences} from "../config.js";
 import {logger}                  from "@dschulmeis/naas-common/src/utils.js";
 import YAML                      from "yaml";
 import http                      from "node:http";
+import https                     from "node:https";
 
 // Zuletzt verwendeter Index beim Load Balancing
 let loadBalancer = {};
@@ -260,7 +261,9 @@ async function forwardRequest(forwardTo, urlPrefix, req, res) {
         // Anfrage weiterleiten
         try {
             let statusCode = await new Promise(async (resolve, reject) => {
-                let forwardReq = http.request(new URL(targetUrl), {method: req.method, joinDuplicateHeaders: true}, forwardRes => {
+                let _http = targetUrl.toLowerCase().startsWith("https:") ? https : http;
+                
+                let forwardReq = _http.request(new URL(targetUrl), {method: req.method, joinDuplicateHeaders: true}, forwardRes => {
                     res.writeHead(forwardRes.statusCode, forwardRes.headersDistinct);
                     forwardRes.pipe(res);
                     resolve(forwardRes.statusCode);
