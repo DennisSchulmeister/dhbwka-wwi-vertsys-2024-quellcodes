@@ -111,6 +111,8 @@ export async function readConfigFile(configFileName) {
  * 
  * Bei Fehlern, eine Referenz aufzulösen, wird eine Exception geworfen.
  * 
+ * Zusätzlich werden hier `$(XYZ)` Verweise auf Umgebungsvariablen aufgelöst.
+ * 
  * @param {Object} source Quellobjekt, auf das sich die Referenzen verweisen
  * @param {string} name Name des Quellobjekts in der Konfiguration, z.B. "config" oder "request"
  * @param {Any} config Zu bearbeitende Konfiguration (Achtung: Kopie verwenden!)
@@ -122,10 +124,14 @@ export function resolveConfigReferences(source, name, config, defaultValue) {
 
     if (typeof config === "string" || config instanceof String) {
         config = config.trim();
-        let prefix = `\$\{${name}.`;
 
-        if (config.startsWith(prefix) && config.endsWith("}")) {
-            let path   = config.slice(prefix.length, config.length - 1);
+        let ref_prefix  = `\$\{${name}.`;
+        let ref_postfix = "}";
+        let env_prefix  = "$(";
+        let env_postfix = ")";
+
+        if (config.startsWith(ref_prefix) && config.endsWith(ref_postfix)) {
+            let path   = config.slice(ref_prefix.length, config.length - ref_postfix.length);
             let target = source;
 
             for (let pathItem of path.split(".")) {
@@ -142,6 +148,14 @@ export function resolveConfigReferences(source, name, config, defaultValue) {
             }
 
             config = JSON.parse(JSON.stringify(target));
+        } else if (config.startsWith(env_prefix) && config.endsWith(env_postfix)) {
+            let name = config.slice(env_prefix.length, config.length - env_postfix.length);
+            config   = process.env[name] || defaultValue;
+            redo     = true;
+
+            if (config === undefined) {
+                throw new Error(`Fehler in der Konfigurationsdatei: Umgebungsvariable '${name}' kann nicht aufgelöst werden.`);
+            }
         }
     } else if (Array.isArray(config)) {
         for (let i in config) {

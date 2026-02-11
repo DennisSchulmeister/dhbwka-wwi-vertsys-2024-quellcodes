@@ -12,7 +12,8 @@
 variables:
   allowed_origins:
     # Adresse des Frontend-Servers für die CORS-Prüfungen unten
-    - http://localhost:8000
+    # Aus der Umgebungsvariable FRONTEND_URL zum Beispiel im .env-File
+    - $(FRONTEND_URL)
 
 rules:
   #-----------------------------------------------------------------------------------------------
@@ -76,11 +77,11 @@ rules:
       method: [GET, POST, PUT, PATCH, DELETE]
     then:
       # Load Balancing: Liste der Zielserver
-      # Hier später statt localhost die IP-Adresse eines anderen Rechners eintragen, auf dem der Service läuft
+      # In der .env-Datei später statt localhost die IP-Adresse eines anderen Rechners eintragen, auf dem der Service läuft
       forward-to: 
-        - http://localhost:8020
-        #- http://localhost:8021
-        #- http://localhost:8022
+        - $(CATALOGUE_URL1)
+        #- $(CATALOGUE_URL2)
+        #- $(CATALOGUE_URL3)
       
       # Nachfolgende Regeln ignorieren
       finish: true
@@ -89,8 +90,8 @@ rules:
       url: /api/order/*
       method: [GET, POST, PUT, PATCH, DELETE]
     then:
-      # Hier später statt localhost die IP-Adresse eines anderen Rechners eintragen, auf dem der Service läuft
-      forward-to: [http://localhost:8030]
+      # In der .env-Datei später statt localhost die IP-Adresse eines anderen Rechners eintragen, auf dem der Service läuft
+      forward-to: [$(ORDER_URL)]
       finish: true
 
   #-----------------------------------------------------------------------------------------------
