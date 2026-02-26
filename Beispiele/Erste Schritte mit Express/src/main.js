@@ -90,16 +90,16 @@ const server = app.listen(config.port, config.host, () => {
     logger.info(`Server lauscht auf ${config.host}:${config.port}`);
 });
 
-/** 
+/**
  * Graceful Shutdown: Aktive Requests zu Ende bearbeiten, aber keine neuen Requests
  * mehr akzeptieren, wenn der Server beendet werden soll.
  */
-process.on("SIGTERM", () => {
-    console.log("SIGTERM empfangen. Beende Server.");
+process.on("exit", () => {
+    console.log("Beende Server.");
     server.close();
+    db.close();
 });
 
-process.on("SIGINT", () => {
-    console.log("\nSIGINT empfangen. Beende Server.");
-    server.close();
-});
+process.on("SIGHUP",  () => process.exit(128 + 1));
+process.on("SIGINT",  () => process.exit(128 + 2));
+process.on("SIGTERM", () => process.exit(128 + 15));

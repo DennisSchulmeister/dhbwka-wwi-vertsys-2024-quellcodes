@@ -80,8 +80,8 @@ rules:
       # In der .env-Datei später statt localhost die IP-Adresse eines anderen Rechners eintragen, auf dem der Service läuft
       forward-to: 
         - $(CATALOGUE_URL1)
-        #- $(CATALOGUE_URL2)
-        #- $(CATALOGUE_URL3)
+        - $(CATALOGUE_URL2)
+        - $(CATALOGUE_URL3)
       
       # Nachfolgende Regeln ignorieren
       finish: true
