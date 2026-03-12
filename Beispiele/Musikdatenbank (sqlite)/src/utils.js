@@ -4,7 +4,7 @@ import logging from "logging";
  * Logger zum Ausgeben von Info-Meldungen, Warnungen und Fehlern mit den
  * Methoden `info()`, `warning()` und `error()`.
  */
-export const logger = logging.default("main");
+export const logger = logging("main");
 
 /**
  * Hilfsfunktion zum Werfen eines Fehlers, der in der `main.js` als Fehlerobjekt

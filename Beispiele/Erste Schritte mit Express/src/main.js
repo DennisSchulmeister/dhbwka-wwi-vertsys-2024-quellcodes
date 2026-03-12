@@ -32,7 +32,7 @@ const config = {
 /**
  * Hilfsobjekt für formatierte Log-Ausgaben
  */
-const logger = logging.default("main");
+const logger = logging("main");
 
 /**
  * Zentrales App-Objekt der Express-Anwendung. Dies ist der eigentliche Webserver.

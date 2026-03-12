@@ -12,9 +12,9 @@
     "debug": "node --inspect-brk src/main.js -s"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9"
+    "nodemon": "^3.1.14"
   },
   "dependencies": {
-    "yaml": "^2.7.0"
+    "yaml": "^2.8.2"
   }
 }
