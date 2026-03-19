@@ -1,0 +1,20 @@
+{
+  "name": "@dhbw-vertsys/beispiel-frontend",
+  "version": "1.0.0",
+  "description": "Microservices mit UI (Vorlage): Frontend",
+  "author": "Dennis Schulmeister-Zimolong <dhbw@windows3.de>",
+  "license": "CC-BY-4.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DennisSchulmeister/dhbwka-wwi-vertsys-2024-quellcodes"
+  },
+  "type": "module",
+  "scripts": {
+    "start": "node src/main.js",
+    "watch": "nodemon --ignore db.json src/main.js",
+    "debug": "node --inspect-brk src/main.js"
+  },
+  "dependencies": {
+    "http-proxy-middleware": "^3.0.5"
+  }
+}

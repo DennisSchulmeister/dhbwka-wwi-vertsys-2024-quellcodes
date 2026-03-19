@@ -20,7 +20,7 @@ console.log();
  * Konfigurationsvariablen einlesen. Streng genommen gehört dies nicht zu Express.
  * Um das Deployment in einer Cloud-Umgebung zu vereinfachen, ist es heute aber
  * für Server-Anwendungen üblich, Konfigurationswerte aus den Umgebungsvariablen
- * des Betriebssystems zu bezeiehen. Vgl. https://www.12factor.net/
+ * des Betriebssystems zu beziehen. Vgl. https://www.12factor.net/
  */
 dotenv.config();
 
@@ -44,7 +44,7 @@ const app = express();
 /**
  * `app.use()`: Registrieren einer Middleware-Funktion. Middleware-Funktionen werden
  * für alle HTTP-Anfragen aufgerufen, unabhängig von der HTTP-Methode oder URL, um
- * die Anfrage vorzuverarbeiten oder die Antwort zu filtern, bevor sie an den Client
+ * die Anfrage vor zu verarbeiten oder die Antwort zu filtern, bevor sie an den Client
  * geschickt wird.
  */
 app.use((req, res, next) => {
@@ -83,7 +83,7 @@ app.get("/hello/:name", (req, res) => {
 });
 
 /**
- * Webserver starten. Die Callback-Funktion wird aufgefufen, sobald der Webserver
+ * Webserver starten. Die Callback-Funktion wird aufgerufen, sobald der Webserver
  * bereit ist, Anfragen zu bearbeiten.
  */
 const server = app.listen(config.port, config.host, () => {

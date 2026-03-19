@@ -1,0 +1,14 @@
+{
+  "name": "@dhbw-vertsys/beispiel-common",
+  "version": "1.0.0",
+  "description": "Microservices mit UI (Vorlage): Geteilter Quellcode",
+  "author": "Dennis Schulmeister-Zimolong <dhbw@windows3.de>",
+  "license": "CC-BY-4.0",
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "logging": "^4.2.0",
+    "qs": "^6.15.0"
+  }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "@dhbw-vertsys/beispiel",
+    "version": "1.0.0",
+    "description": "Microservices mit UI (Vorlage)",
+    "author": "Dennis Schulmeister-Zimolong <dhbw@windows3.de>",
+    "license": "CC-BY-4.0",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DennisSchulmeister/dhbwka-wwi-vertsys-2024-quellcodes"
+    },
+    "type": "module",
+    "workspaces": [
+        "common"
+    ],
+    "scripts": {
+        "install": "concurrently -n frontend,microservic-1,microservice-2 \"cd frontend && npm i\" \"cd microservice1 && npm i\" \"cd microservice2 && npm i\"",
+        "start": "concurrently -n frontend,microservice-1,microservice-2 \"cd frontend && npm start\" \"cd microservice1 && npm start\" \"cd microservice2 && npm start\"",
+        "watch": "concurrently -n frontend,microservice-1,microservice-2 \"cd frontend && npm run watch\" \"cd microservice1 && npm run watch\" \"cd microservice2 && npm run watch\""
+    },
+    "devDependencies": {
+        "concurrently": "^9.2.1",
+        "nodemon": "^3.1.14"
+    }
+}

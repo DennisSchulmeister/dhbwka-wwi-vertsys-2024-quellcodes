@@ -1,7 +1,7 @@
 import {createHttpTerminator} from "http-terminator";
 
 /**
- * Dieses Funktion sorgt dafür, dass der Webservier sauber heruntergefahren werden kann,
+ * Dieses Funktion sorgt dafür, dass der Webserver sauber heruntergefahren werden kann,
  * wenn ihm das SIGTERM oder SIGINT-Signal vom Betriebssystem geschickt wird. Diese werden
  * häufig in folgenden Fällen gesendet:
  * 
