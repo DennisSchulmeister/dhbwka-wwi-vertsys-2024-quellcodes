@@ -12,8 +12,8 @@ import process       from "node:process";
 import controllers   from "./controllers/index.js";
 
 // Programmname ausgeben
-console.log("Frontend");
-console.log("=========");
+console.log("Microservice 1");
+console.log("==============");
 console.log();
 
 // Konfigurationsdatei .env mit zusätzlichen Umgebungsvariablen einlesen.
@@ -21,7 +21,10 @@ dotenv.config();
 
 const config = {
     host: process.env.LISTEN_HOST || "",
-    port: process.env.LISTEN_PORT || 8888,
+    port: process.env.LISTEN_PORT || 9000,
+    url: {
+        frontend: process.env.URL_FRONTEND || "http://localhost:8888",
+    }
 };
 
 // Express Webserver konfigurieren

@@ -1,0 +1,66 @@
+# ==============================================
+# Docker Compose File zum Starten aller Services
+# ==============================================
+services:
+  frontend:
+    container_name: frontend
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    environment:
+      LISTEN_HOST: 0.0.0.0
+      LISTEN_PORT: "8888"
+      URL_MICROSERVICE1: http://microservice1:9000
+      URL_MICROSERVICE2: http://microservice2:9001
+    ports:
+      - "8888:8888"
+    depends_on:
+      - microservice1
+      - microservice2
+    restart: unless-stopped
+    networks:
+      - appnet
+
+  microservice1:
+    container_name: microservice1
+    build:
+      context: .
+      dockerfile: microservice1/Dockerfile
+    environment:
+      LISTEN_HOST: 0.0.0.0
+      LISTEN_PORT: "9000"
+      MQTT_BROKER: wss://mqtt.zimolong.eu
+      MQTT_USERNAME: dhbw
+      MQTT_PASSWORD: dhbw
+      URL_FRONTEND: http://frontend:8888
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./microservice1/db.sqlite:/app/db.sqlite
+    restart: unless-stopped
+    networks:
+      - appnet
+
+  microservice2:
+    container_name: microservice2
+    build:
+      context: .
+      dockerfile: microservice2/Dockerfile
+    environment:
+      LISTEN_HOST: 0.0.0.0
+      LISTEN_PORT: "9001"
+      MQTT_BROKER: wss://mqtt.zimolong.eu
+      MQTT_USERNAME: dhbw
+      MQTT_PASSWORD: dhbw
+      URL_FRONTEND: http://frontend:8888
+    ports:
+      - "9001:9001"
+    volumes:
+      - ./microservice2/db.sqlite:/app/db.sqlite
+    restart: unless-stopped
+    networks:
+      - appnet
+
+networks:
+  appnet:
+    driver: bridge

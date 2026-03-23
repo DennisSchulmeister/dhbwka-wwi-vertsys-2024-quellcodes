@@ -22,6 +22,9 @@ dotenv.config();
 const config = {
     host: process.env.LISTEN_HOST || "",
     port: process.env.LISTEN_PORT || 9001,
+    url: {
+        frontend: process.env.URL_FRONTEND || "http://localhost:8888",
+    }
 };
 
 // Express Webserver konfigurieren

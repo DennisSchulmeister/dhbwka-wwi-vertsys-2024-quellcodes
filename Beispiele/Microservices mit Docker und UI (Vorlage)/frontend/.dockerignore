@@ -1,0 +1,8 @@
+# Änderung (GitHub Copilot): Docker-Build-Kontext bereinigt, damit keine lokalen Laufzeitdaten/Secrets in das Image gelangen.
+# Grund: Anfrage, weder SQLite-Datei noch .env in den Container zu kopieren.
+# Prompt: "Kopiere weder die sqlite-Datenbank noch das .env File in den Container."
+
+.env
+db.sqlite
+node_modules
+npm-debug.log

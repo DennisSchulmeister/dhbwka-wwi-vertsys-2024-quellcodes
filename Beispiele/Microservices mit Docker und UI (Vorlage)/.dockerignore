@@ -1,0 +1,8 @@
+.env
+**/.env
+db.sqlite
+**/db.sqlite
+node_modules
+**/node_modules
+npm-debug.log
+**/npm-debug.log

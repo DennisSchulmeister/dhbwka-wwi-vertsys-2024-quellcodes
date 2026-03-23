@@ -8,10 +8,11 @@ Inhaltsverzeichnis
 - [Los geht's!](#los-gehts)
 - [Projektstruktur (Monorepo)](#projektstruktur-monorepo)
 - [Teilprojekte: Schema & wichtigste Dateien](#teilprojekte-schema--wichtigste-dateien)
+- [Konfiguration via `.env`](#konfiguration-via-env)
 - [Proxy-Regeln (Frontend → Microservices)](#proxy-regeln-frontend--microservices)
 - [Verwendung der Vorlage](#verwendung-der-vorlage)
 - [Wichtige NPM-Kommandos](#wichtige-npm-kommandos)
-- [Konfiguration via `.env`](#konfiguration-via-env)
+- [Docker & Docker Compose](#docker--docker-compose)
 - [Hinweise & typische Stolpersteine](#hinweise--typische-stolpersteine)
 
 Kurzüberblick
@@ -156,6 +157,21 @@ Beispiel-Endpoint (in beiden Microservices):
 * **MPA**: zusätzliche Express-Routen im Frontend ergänzen (weitere Controller unter `frontend/src/controllers/`).
 * **Hybrid**: Mischung aus statischen Dateien + serverseitigen Endpunkten. (Auch „Backend for Frontend” genannt).
 
+Konfiguration via `.env`
+------------------------
+
+Alle Express-Apps laden beim Start eine optionale `.env` im jeweiligen Projektordner.
+Unterstützt werden insbesondere:
+
+- `LISTEN_HOST` (Standard: leer, d.h. „alle Interfaces“)
+- `LISTEN_PORT` (Standard: 9000/9001/8888 – je nach Teilprojekt)
+
+Beispiel für `frontend/.env`:
+
+```env
+LISTEN_PORT=8888
+```
+
 Proxy-Regeln (Frontend → Microservices)
 ---------------------------------------
 
@@ -219,20 +235,265 @@ Im jeweiligen Unterordner:
 - `npm run watch` – startet mit Auto-Restart
 - `npm run debug` – startet mit Node-Debugger (`--inspect-brk`)
 
-Konfiguration via `.env`
-------------------------
+Docker & Docker Compose
+-----------------------
 
-Alle Express-Apps laden beim Start eine optionale `.env` im jeweiligen Projektordner.
-Unterstützt werden insbesondere:
+Wenn Sie das Projekt nicht direkt mit Node.js auf dem Rechner starten wollen, können Sie stattdessen
+**Docker** verwenden. Dann läuft jedes Teilprojekt in einem eigenen Container.
 
-- `LISTEN_HOST` (Standard: leer, d.h. „alle Interfaces“)
-- `LISTEN_PORT` (Standard: 9000/9001/8888 – je nach Teilprojekt)
+Kurz gesagt:
 
-Beispiel für `frontend/.env`:
+* Ein **Dockerfile** beschreibt, **wie ein Image gebaut wird**.
+* Ein **Docker-Image** ist eine Art Bauplan bzw. Vorlage für einen Container.
+* Ein **Container** ist die laufende Instanz dieses Images.
+* **Docker Compose** beschreibt, **welche Container zusammen gehören** und wie sie gemeinsam gestartet werden.
 
-```env
-LISTEN_PORT=8888
+### Welche Dateien wofür da sind
+
+In dieser Vorlage gibt es folgende Docker-Dateien:
+
+* `docker-compose.yml`
+	- startet das Gesamtsystem mit `frontend`, `microservice1` und `microservice2`
+	- setzt die Umgebungsvariablen für die Container
+	- veröffentlicht die Ports `8888`, `9000` und `9001`
+	- verbindet die Container über ein gemeinsames Docker-Netzwerk
+	- bindet die SQLite-Dateien der beiden Microservices vom Host ein, damit die Daten persistent bleiben
+
+* `frontend/Dockerfile`
+	- baut das Image für das Frontend
+	- verwendet den Projekt-Root als Build-Kontext, damit das gemeinsame NPM-Workspace-Paket `common/` im Container verfügbar ist
+
+* `microservice1/Dockerfile`
+* `microservice2/Dockerfile`
+	- bauen die Images für die beiden Microservices
+	- berücksichtigen ebenfalls das gemeinsame Workspace-Paket `common/`
+
+Wichtig in dieser Vorlage:
+
+* Das Projekt ist ein kleines **Monorepo** mit gemeinsamem Paket `common/`.
+* Deshalb werden die Images nicht nur aus dem jeweiligen Unterordner gebaut, sondern aus dem **Projekt-Root**.
+* So funktioniert das NPM-Workspace-Paket auch im Container korrekt.
+
+### Voraussetzungen
+
+Sie benötigen:
+
+* Docker
+* Docker Compose
+
+Prüfen können Sie das mit:
+
+```bash
+docker --version
+docker compose version
 ```
+
+### Images bauen
+
+Wenn Sie nur die Images bauen möchten, ohne die Container zu starten:
+
+```bash
+docker compose build
+```
+
+Das ist sinnvoll, wenn Sie prüfen wollen, ob alle Dockerfiles korrekt sind.
+
+Wenn Sie nach einer Änderung sicher neu bauen möchten:
+
+```bash
+docker compose build --no-cache
+```
+
+### Container starten
+
+Das Gesamtsystem starten Sie im Projektverzeichnis mit:
+
+```bash
+docker compose up
+```
+
+Dann sehen Sie die Log-Ausgaben direkt im Terminal.
+
+Falls die Images vorher noch nicht gebaut wurden oder neu gebaut werden sollen:
+
+```bash
+docker compose up --build
+```
+
+Wenn die Container im Hintergrund laufen sollen:
+
+```bash
+docker compose up -d
+```
+
+Danach erreichen Sie die Anwendungen unter:
+
+* Frontend: http://localhost:8888/
+* Microservice 1: http://localhost:9000/api/hello
+* Microservice 2: http://localhost:9001/api/hello
+
+### Laufende Container anzeigen
+
+Die Container dieses Projekts zeigen Sie mit Compose an:
+
+```bash
+docker compose ps
+```
+
+Allgemein alle laufenden Container auf dem Rechner sehen Sie mit:
+
+```bash
+docker container ls
+```
+
+Auch hilfreich:
+
+```bash
+docker container ls -a
+```
+
+Damit sehen Sie auch bereits beendete Container.
+
+### Logs ansehen
+
+Die Log-Ausgaben aller Services:
+
+```bash
+docker compose logs
+```
+
+Fortlaufende Logs live anzeigen:
+
+```bash
+docker compose logs -f
+```
+
+Nur einen bestimmten Service beobachten, zum Beispiel das Frontend:
+
+```bash
+docker compose logs -f frontend
+```
+
+### Container stoppen und wieder starten
+
+Alle Container stoppen, aber nicht löschen:
+
+```bash
+docker compose stop
+```
+
+Später wieder starten:
+
+```bash
+docker compose start
+```
+
+Das ist praktisch, wenn Sie nur kurz pausieren wollen.
+
+### Container sauber herunterfahren und entfernen
+
+Wenn Sie die Anwendung komplett beenden und die erzeugten Container sowie das Netzwerk entfernen möchten:
+
+```bash
+docker compose down
+```
+
+Danach sind die Container beendet und entfernt. Die Images bleiben aber erhalten und können beim nächsten Start wiederverwendet werden.
+
+### Aufräumen
+
+Nicht mehr benötigte Images dieses Projekts zusätzlich entfernen:
+
+```bash
+docker compose down --rmi local
+```
+
+Nicht mehr verwendete Docker-Ressourcen systemweit aufräumen:
+
+```bash
+docker system prune
+```
+
+Mit zusätzlicher Entfernung ungenutzter Images:
+
+```bash
+docker system prune -a
+```
+
+Vorsicht: Diese beiden Befehle beziehen sich nicht nur auf dieses Projekt, sondern auf Docker insgesamt.
+
+### Persistente SQLite-Datenbanken
+
+Die beiden Microservices verwenden eingebundene SQLite-Dateien:
+
+* `microservice1/db.sqlite`
+* `microservice2/db.sqlite`
+
+Das bedeutet:
+
+* Die Daten liegen **nicht nur im Container**, sondern auch im Projektverzeichnis auf Ihrem Rechner.
+* Wenn Sie `docker compose down` ausführen, bleiben diese Dateien erhalten.
+* Ihre Daten sind also beim nächsten Start weiterhin vorhanden.
+
+Wenn Sie die Daten wirklich zurücksetzen möchten, müssen Sie die Dateien bewusst löschen oder ersetzen.
+
+### In einen laufenden Container hineinschauen
+
+Manchmal möchte man in einem Container nachsehen, ob Dateien vorhanden sind oder ein Prozess läuft.
+Das geht zum Beispiel so:
+
+```bash
+docker compose exec frontend sh
+```
+
+Oder für einen Microservice:
+
+```bash
+docker compose exec microservice1 sh
+```
+
+Damit öffnen Sie eine Shell im laufenden Container.
+
+### Typische Arbeitsabläufe
+
+**Alles frisch bauen und starten:**
+
+```bash
+docker compose up --build
+```
+
+**Im Hintergrund starten:**
+
+```bash
+docker compose up -d
+```
+
+**Status prüfen:**
+
+```bash
+docker compose ps
+```
+
+**Logs live verfolgen:**
+
+```bash
+docker compose logs -f
+```
+
+**Alles wieder stoppen und aufräumen:**
+
+```bash
+docker compose down
+```
+
+### Wann Docker sinnvoll ist
+
+Docker ist in dieser Vorlage vor allem dann hilfreich, wenn Sie:
+
+* das Projekt ohne lokale Node.js-Installation ausführen wollen
+* eine reproduzierbare Laufzeitumgebung brauchen
+* das Verhalten mehrerer Services gemeinsam testen möchten
+* später eine ähnliche Struktur für Deployment oder CI/CD verwenden wollen
 
 Hinweise & typische Stolpersteine
 ---------------------------------

@@ -12,8 +12,8 @@ import process       from "node:process";
 import controllers   from "./controllers/index.js";
 
 // Programmname ausgeben
-console.log("Microservice 1");
-console.log("==============");
+console.log("Frontend");
+console.log("=========");
 console.log();
 
 // Konfigurationsdatei .env mit zusätzlichen Umgebungsvariablen einlesen.
@@ -21,7 +21,11 @@ dotenv.config();
 
 const config = {
     host: process.env.LISTEN_HOST || "",
-    port: process.env.LISTEN_PORT || 9000,
+    port: process.env.LISTEN_PORT || 8888,
+    url: {
+        microservice1: process.env.URL_MICROSERVICE1 || "http://localhost:9000",
+        microservice2: process.env.URL_MICROSERVICE2 || "http://localhost:9001",
+    }
 };
 
 // Express Webserver konfigurieren
@@ -38,7 +42,7 @@ app.use(express.static(staticDir));
 app.use(express.json());
 
 for (let controller of controllers || []) {
-    controller(app);
+    controller(app, config);
 }
 
 app.use(handleError(logger));
