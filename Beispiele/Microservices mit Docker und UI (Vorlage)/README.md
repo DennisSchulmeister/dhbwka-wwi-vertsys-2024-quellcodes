@@ -15,6 +15,8 @@ Inhaltsverzeichnis
 - [Docker & Docker Compose](#docker--docker-compose)
 - [Hinweise & typische Stolpersteine](#hinweise--typische-stolpersteine)
 
+![Screenshot](screenshot.png)
+
 Kurzüberblick
 -------------
 
